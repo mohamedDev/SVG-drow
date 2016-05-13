@@ -1,0 +1,53 @@
+svg {
+    margin: 30px;
+}
+
+text {
+    font-size: 10px;
+}
+
+.x-bar text {
+    text-anchor: middle;
+    transform: translateY(-5px);
+}
+
+.y-bar text {
+    text-anchor: end;
+    transform: translateX(-5px);
+    baseline-shift: -0.5ex;
+}
+
+line {
+    stroke-width: 1;
+    stroke: #999;
+    stroke-opacity: 0.5;
+}
+
+body {
+    font-family: sans-serif;
+    font-weight: normal;
+}
+
+.rect {
+    fill: transparent;
+    stroke: black;
+    stroke-width: 1;
+}
+
+.graf-stroke {
+    fill: transparent;
+    stroke: rgba(0, 59, 155, 0.85);
+    stroke-width: 1px;
+}
+
+.graf-fill {
+    fill: #ff6700;
+}
+
+.translate {
+    transform: translate(25px, 25px);
+}
+
+path {
+    fill: transparent;
+}
