@@ -1,5 +1,24 @@
-svg {
-    margin: 30px;
+* {
+    box-sizing: border-box;
+}
+
+
+
+body {
+    font-family: sans-serif;
+    font-weight: normal;
+}
+
+.aside-menu {
+    width: 210px;
+    float: left;
+    position: relative;
+    height: 100%;
+    padding: 5px;
+}
+
+.simulation {
+    margin: 0;
 }
 
 text {
@@ -23,11 +42,6 @@ line {
     stroke-opacity: 0.5;
 }
 
-body {
-    font-family: sans-serif;
-    font-weight: normal;
-}
-
 .rect {
     fill: transparent;
     stroke: black;
@@ -35,7 +49,7 @@ body {
 }
 
 .graf-stroke {
-    fill: transparent;
+
     stroke: rgba(0, 59, 155, 0.85);
     stroke-width: 1px;
 }
@@ -50,4 +64,55 @@ body {
 
 path {
     fill: transparent;
+}
+
+.list-geos,
+.list-types {
+    display: block;
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid #000;
+}
+
+.menu a {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: grey;
+    border-bottom: 1px solid #fff;
+}
+
+.menu a img {
+    max-width: 100%;
+}
+
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+}
+.text-pattern {
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px ;
+}
+
+input[type="range"] {
+    position: relative;
+    margin-bottom: 20px;
+}
+input[type="range"]:after,
+input[type="range"]:before {
+    position: absolute;
+    top: 1.5em;
+    color: #aaa;
+}
+input[type="range"]:before {
+    left:0em;
+    content: attr(min);
+}
+input[type="range"]:after {
+    right: 0em;
+    content: attr(max);
 }
