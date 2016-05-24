@@ -9,11 +9,15 @@
 
 <aside class="aside-menu">
 
-    <label>Arc deg</label><br>
-    <input class="arcdeg" type="range" value="0" max="150" min="-150" step="10"/><br>
+    <div class="deg-arc">
+        <label>Arc deg</label><br>
+        <input class="arcdeg" type="range" value="0" max="150" min="-150" step="10"/>
+    </div>
 
-    <label>URL d'image depuis internet :</label>
-    <input class="text-pattern" type="text" value=""/>
+    <div class="form-patterns">
+        <label>URL d'image depuis internet :</label>
+        <input class="text-pattern" type="text" value=""/>
+    </div>
 
     <nav class="menu">
         <a href="http://simuleo-bo-v3.sifast.fr/uploads/media/couleurSVG/0001/10/a98fbccc213a15fc33284d05e44946f30f21006a.svg">
@@ -33,11 +37,12 @@
     </nav>
 </aside>
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"
-     xml:lang="fr" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" smiling="fake" class="simulation" id="draggable-element">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="700"
+     xml:lang="fr" viewBox="0 0 700 700" preserveAspectRatio="xMidYMid meet" smiling="fake" class="simulation"
+     id="draggable-element">
     <defs xmlns="http://www.w3.org/2000/svg">
         <filter id="dropshadow" height="130%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1"></feGaussianBlur>
             <feOffset dx="1" dy="1" result="offsetblur"/>
             <feMerge>
                 <feMergeNode/>
@@ -144,21 +149,13 @@
         </g>
         <g class="drowforme" id="drowforme">
             <path class="form2" clip-path="url('#clip1')" stroke="gray" stroke-width="20" d=""/>
-            <path class="form1" filter="url(#dropshadow)" stroke="gray" stroke-width="20" d=""/>
+
             <clipPath id="clip1">
                 <path class="form1" d="" stroke-width="20"/>
             </clipPath>
-            <!--<path
-                d="
-                 M cx cy
-                 m -r, 0
-                 a r,r 0 1,0 (r * 2),0
-                 a r,r 0 1,0 -(r * 2),0
-                "
-            />-->
         </g>
 
-        <g class="transform-points" id="transform-points" >
+        <g class="transform-points" id="transform-points">
 
         </g>
     </g>
@@ -167,6 +164,7 @@
 <script type="text/javascript" src="assets/javascript/libs/jquery/v2.1.1/jquery.js"></script>
 <script type="text/javascript" src="assets/javascript/modules/points.js"></script>
 <script type="text/javascript" src="assets/javascript/modules/drowForme.js"></script>
+<script type="text/javascript" src="assets/javascript/modules/main.js"></script>
 
 </body>
 </html>

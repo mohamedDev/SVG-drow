@@ -23,6 +23,7 @@
     var forms = {
         geometrique: {
             insert: " ",
+            cercle: [points.c, "arcD", points.g,"arcD", points.k, "arcG" ,points.o , "arcG"],
             rect: [points.a, points.e, points.i, points.m],
             triangleIarcDarcG: [points.c, "arcD", points.i, points.m, "arcG"],
             poliG: [points.b, points.c, points.k, points.l, points.n, points.p],

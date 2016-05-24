@@ -1,198 +1,100 @@
-	
-var path = "";
+(function ($) {
+    "use strict";
 
-var qdeg = 0;
+    var myForms = {
+        path: "",
+        coefficientArc: 0,
+        state : "active",
+        name : "",
 
+        getActiveForm: function () {
+            return this.state;
+        },
 
-drowTransformPoint = function () {
+        drowPoint: function (forme) {
 
-	$("#transform-points").children("rect").remove();
+            var i = 0;
 
-	var t = $('.list-geos').val();
-	var points = window.forms.geometrique[t];
+            $("#transform-points").children("rect").remove();
 
-	for (var i = 0; i < points.length; i++) {
+            for (i; i < forme.length; i++) {
 
-		if (points[i] !== "arcD" && points[i] !== "arcG") {
-			var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                if (forme[i] !== "arcD" && forme[i] !== "arcG") {
 
-			rect.setAttributeNS(null, "x", (points[i].x - 10));
-			rect.setAttributeNS(null, "y", (points[i].y - 10));
-			rect.setAttributeNS(null, "width", 20);
-			rect.setAttributeNS(null, "height", 20);
-			rect.setAttributeNS(null, "stroke-width", 2);
-			rect.setAttributeNS(null, "stroke", "blue");
-			rect.setAttributeNS(null, "fill", "transparent");
-			rect.setAttributeNS(null, "id", i);
+                    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    rect.setAttributeNS(null, "x", (forme[i].x - 15));
+                    rect.setAttributeNS(null, "y", (forme[i].y - 15));
+                    rect.setAttributeNS(null, "width", 30);
+                    rect.setAttributeNS(null, "height", 30);
+                    rect.setAttributeNS(null, "stroke-width", 2);
+                    rect.setAttributeNS(null, "stroke", "blue");
+                    rect.setAttributeNS(null, "fill", "transparent");
+                    rect.setAttributeNS(null, "data-id", i);
+                    document.getElementById("transform-points").appendChild(rect);
+                }
+            }
+        },
 
-			document.getElementById("transform-points").appendChild(rect);
-		}
-	}
+        drow: function (forme) {
 
-}
+            var coif = this.coefficientArc,
+                i = 1,
+                dx,
+                dy;
 
-var drowForms = function (forme) {
+            var degArc = parseInt($('input[type=range]').val());
 
-	qdeg = parseInt($('input[type=range]').val());
+            this.path = "M" + forme[0].x + "," + forme[0].y;
 
-	path = "M" + forme[0].x + "," + forme[0].y;
-	var coif = 0;
+            for (i; i < forme.length; i++) {
 
-	drowTransformPoint();
+                if (forme[i] === "arcD" || forme[i] === "arcG") {
+                    if ((i + 1) === forme.length) {
+                        coif = ( forme[0].x - forme[i - 1].x ) / ( forme[0].y - forme[i - 1].y );
+                        dx = ((forme[0].x - forme[i - 1].x ) / 2) + forme[i - 1].x;
+                        dy = ((forme[0].y - forme[i - 1].y ) / 2) + forme[i - 1].y;
 
-	for (i = 1; i < forme.length; i++) {
+                    } else {
+                        coif = ( forme[i + 1].x - forme[i - 1].x ) / ( forme[i + 1].y - forme[i - 1].y );
+                        dx = ((forme[i + 1].x - forme[i - 1].x ) / 2) + forme[i - 1].x;
+                        dy = ((forme[i + 1].y - forme[i - 1].y ) / 2) + forme[i - 1].y;
+                    }
+                    if (forme[i] === "arcD") {
+                        this.path += " Q" + (dx + degArc) + "," + (dy - (coif * degArc )) + " ";
+                    }
+                    if (forme[i] === "arcG") {
+                        this.path += " Q" + (dx - degArc) + "," + (dy + (coif * degArc )) + " ";
+                    }
+                    i++;
+                }
 
-		if (forme[i] === "arcD" || forme[i] === "arcG") {
+                if (forme[i - 1] !== "arcD" && forme[i - 1] !== "arcG") {
+                    this.path += " L";
+                }
 
-			if ((i + 1) === forme.length) {
-				coif = ( forme[0].x - forme[i - 1].x ) / ( forme[0].y - forme[i - 1].y );
-				dx = ((forme[0].x - forme[i - 1].x ) / 2) + forme[i - 1].x;
-				dy = ((forme[0].y - forme[i - 1].y ) / 2) + forme[i - 1].y;
-			} else {
-				coif = ( forme[i + 1].x - forme[i - 1].x ) / ( forme[i + 1].y - forme[i - 1].y );
-				dx = ((forme[i + 1].x - forme[i - 1].x ) / 2) + forme[i - 1].x;
-				dy = ((forme[i + 1].y - forme[i - 1].y ) / 2) + forme[i - 1].y;
-			}
-			if (forme[i] === "arcD") {
-				path += " Q" + (dx + qdeg) + "," + (dy - (coif * qdeg )) + " ";
-			}
-			if (forme[i] === "arcG") {
-				path += " Q" + (dx - qdeg) + "," + (dy + (coif * qdeg )) + " ";
-			}
-			i++;
-		}
+                if (i === forme.length) {
+                    this.path += forme[0].x + "," + forme[0].y;
+                } else {
+                    this.path += forme[i].x + "," + forme[i].y;
+                }
+            }
 
-		if (forme[i - 1] !== "arcD" && forme[i - 1] !== "arcG") {
-			path += " L";
-		}
+            this.path += " z";
+            this.name = forme;
 
-		if (i === forme.length) {
-			path += forme[0].x + "," + forme[0].y;
-		} else {
-			path += forme[i].x + "," + forme[i].y;
-		}
-	}
+            var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttributeNS(null, "d", this.path);
+            path.setAttributeNS(null, "filter", "url(#dropshadow)");
+            path.setAttributeNS(null, "stroke-width", 20);
+            path.setAttributeNS(null, "class", this.name);
+            path.setAttributeNS(null, "stroke", "gray");
+            document.getElementById("clip1").appendChild(path);
+            document.getElementById("drowforme").appendChild(path);
 
-	path += " z";
-}
+            this.drowPoint(forme);
+        }
+    }
 
+    window.myForms = myForms;
 
-
-
-$(document).ready(function () {
-
-	var optionstypes = "";
-
-	for (item in forms.type2) {
-		optionstypes += "<option value=\"" + item + "\">" + item + "</option>";
-	}
-	var listType = $("<select class=\"list-types\"></select>")
-	$(".aside-menu").prepend(listType);
-	$('.list-types').append(optionstypes);
-
-	$('.list-types').change(function () {
-		t = $(this).val();
-		drowForms(window.forms.type2[t]);
-		$('.form2').attr('d', path);
-	});
-
-
-	var optionsgeos = "";
-	for (item in forms.geometrique) {
-		optionsgeos += "<option value=\"" + item + "\">" + item + "</option>";
-	}
-	var listGeos = $("<select class=\"list-geos\"></select>")
-	$(".aside-menu").prepend(listGeos)
-	$('.list-geos').append(optionsgeos);
-
-	$('.list-geos').change(function () {
-		t = $(this).val();
-		drowForms(window.forms.geometrique[t]);
-		$('.form1').attr('d', path);
-
-	});
-
-
-	$("body").on('click', '.menu a', function (e) {
-		e.preventDefault();
-
-		var url = $(this).attr('href');
-		var width = $(this).children('img').width();
-		var height = $(this).children('img').height();
-
-		var patternsource = document.getElementById('pattern1');
-
-		patternsource.attributes["width"].value = width;
-		patternsource.attributes["height"].value = height;
-
-		var imagespattern = patternsource.children[0].attributes;
-		imagespattern["width"].value = width;
-		imagespattern["height"].value = height;
-		imagespattern["xlink:href"].value = url;
-
-		$('.form1').attr('stroke', 'url(#pattern1)');
-		$('.form2').attr('stroke', 'url(#pattern1)');
-
-	});
-
-
-	$('.text-pattern').on('change', function () {
-
-		var url = $(this).val();
-		var p = $("<a href=\"" + url + "\"><img src=\"" + url + "\"></a>");
-
-		$('.menu').append(p);
-		var url = $(this).val("");
-	});
-
-
-	$('.arcdeg').on('input', function () {
-
-		var t = $('.list-geos').val();
-		drowForms(window.forms.geometrique[t]);
-		$('.form1').attr('d', path);
-	});
-
-	var idCurrentPoint = -1,
-		dragelemX = 0,
-		dragelemY = 0;
-
-	$("body").on("mousedown", "#draggable-element", function (evt) {
-		evt = evt || window.event;
-		
-		console.log(evt);
-		
-		dragelemX = $(this).offset().left;
-		dragelemY = $(this).offset().top;
-		
-		if(evt.target.nodeName === "rect") {
-			idCurrentPoint = evt.target.attributes["id"].value;
-		}
-	});
-
-
-	$("body").on("mousemove", "#draggable-element", function (evt) {
-		evt = evt || window.event;
-
-		if (idCurrentPoint !== -1 ) {
-			var offsetX = (evt.pageX - dragelemX),
-				offsetY = (evt.pageY - dragelemY),
-				t = $('.list-geos').val();
-				
-			window.forms.geometrique[t][idCurrentPoint].x = (offsetX - 25);
-			window.forms.geometrique[t][idCurrentPoint].y = (offsetY - 25);
-
-			drowForms(window.forms.geometrique[t]);
-
-		}
-	});
-
-	$("body").on("mouseup","#draggable-element", function () {
-
-		idCurrentPoint = -1;
-		var t = $('.list-geos').val();
-		$('.form1').attr('d', path);
-
-	});
-
-});
+}(jQuery));
