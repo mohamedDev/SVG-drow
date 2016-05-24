@@ -41,19 +41,10 @@
      xml:lang="fr" viewBox="0 0 700 700" preserveAspectRatio="xMidYMid meet" smiling="fake" class="simulation"
      id="draggable-element">
     <defs xmlns="http://www.w3.org/2000/svg">
-        <filter id="dropshadow" height="130%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="1"></feGaussianBlur>
-            <feOffset dx="1" dy="1" result="offsetblur"/>
-            <feMerge>
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-        </filter>
         <pattern id="pattern1" patternUnits="userSpaceOnUse" width="500" height="500">
             <image xmlns:xlink="http://www.w3.org/1999/xlink"
                    xlink:href="http://mywork.com.vn/data/images/logo/32d6e57e8949.jpg" width="500" height="500"></image>
         </pattern>
-
     </defs>
     <g class="translate">
         <g class="canvas">
@@ -147,12 +138,8 @@
                 <line x1="0" y1="1000" x2="1000" y2="1000"/>
             </g>
         </g>
-        <g class="drowforme" id="drowforme">
-            <path class="form2" clip-path="url('#clip1')" stroke="gray" stroke-width="20" d=""/>
-
-            <clipPath id="clip1">
-                <path class="form1" d="" stroke-width="20"/>
-            </clipPath>
+        <g id="drowforme">
+		
         </g>
 
         <g class="transform-points" id="transform-points">

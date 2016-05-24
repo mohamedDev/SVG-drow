@@ -10,10 +10,12 @@ $(document).ready(function () {
     $('.list-types').append(optionstypes);
 
     $('.list-types').change(function () {
-        objet = $(this).val();
-        objet = window.forms.ype2[objet]
+        var objectTxt = $(this).val(),
+			object = window.forms.type2[objectTxt];
+			
         listforms.push( Object.create(window.myForms));
-        listforms[0].drow(objet);
+		listforms[0].init(object, objectTxt)
+        listforms[0].drow();
     });
 
 
@@ -26,11 +28,13 @@ $(document).ready(function () {
     $('.list-geos').append(optionsgeos);
 
     listforms = [];
-    $('.list-geos').change(function () {
-        objet = $(this).val();
-        objet = window.forms.geometrique[objet]
+    $('.list-geos').change(function () {		
+		var objectTxt = $(this).val(),
+			object = window.forms.geometrique[objectTxt];
+			
         listforms.push( Object.create(window.myForms));
-        listforms[0].drow(objet);
+		listforms[0].init(object, objectTxt)
+        listforms[0].drow();
     });
 
 
