@@ -5,17 +5,19 @@ $(document).ready(function () {
     for (item in forms.type2) {
         optionstypes += "<option value=\"" + item + "\">" + item + "</option>";
     }
+
     var listType = $("<select class=\"list-types\"></select>")
     $(".aside-menu").prepend(listType);
     $('.list-types').append(optionstypes);
 
     $('.list-types').change(function () {
         var objectTxt = $(this).val(),
-			object = window.forms.type2[objectTxt];
-			
-        listforms.push( Object.create(window.myForms));
-		listforms[0].init(object, objectTxt)
+            object = window.forms.type2[objectTxt];
+
+        listforms.push(Object.create(window.myForms));
+        listforms[0].init(object, objectTxt)
         listforms[0].drow();
+        window.order++;
     });
 
 
@@ -23,62 +25,66 @@ $(document).ready(function () {
     for (item in forms.geometrique) {
         optionsgeos += "<option value=\"" + item + "\">" + item + "</option>";
     }
+
     var listGeos = $("<select class=\"list-geos\"></select>")
     $(".aside-menu").prepend(listGeos)
     $('.list-geos').append(optionsgeos);
 
     listforms = [];
-    $('.list-geos').change(function () {		
-		var objectTxt = $(this).val(),
-			object = window.forms.geometrique[objectTxt];
-			
-        listforms.push( Object.create(window.myForms));
-		listforms[0].init(object, objectTxt)
-        listforms[0].drow();
+    $('.list-geos').change(function () {
+        var objectTxt = $(this).val(),
+            object = window.forms.geometrique[objectTxt];
+
+        listforms[window.order] = Object.create(window.myForms);
+        listforms[window.order].init(object, objectTxt)
+        listforms[window.order].drow();
+        window.order++;
     });
 
 
-    $("body").on('click', '.menu a', function (e) {
-        e.preventDefault();
+    /*$("body").on('click', '.menu a', function (e) {
+     e.preventDefault();
 
-        var url = $(this).attr('href');
-        var width = $(this).children('img').width();
-        var height = $(this).children('img').height();
+     var url = $(this).attr('href');
+     var width = $(this).children('img').width();
+     var height = $(this).children('img').height();
 
-        var patternsource = document.getElementById('pattern1');
+     var patternsource = document.getElementById('pattern1');
 
-        patternsource.attributes["width"].value = width;
-        patternsource.attributes["height"].value = height;
+     patternsource.attributes["width"].value = width;
+     patternsource.attributes["height"].value = height;
 
-        var imagespattern = patternsource.children[0].attributes;
-        imagespattern["width"].value = width;
-        imagespattern["height"].value = height;
-        imagespattern["xlink:href"].value = url;
+     var imagespattern = patternsource.children[0].attributes;
+     imagespattern["width"].value = width;
+     imagespattern["height"].value = height;
+     imagespattern["xlink:href"].value = url;
 
-        $('.form1').attr('stroke', 'url(#pattern1)');
-        $('.form2').attr('stroke', 'url(#pattern1)');
+     $('.form1').attr('stroke', 'url(#pattern1)');
+     $('.form2').attr('stroke', 'url(#pattern1)');
 
-    });
+     });
 
 
-    $('.text-pattern').on('change', function () {
+     $('.text-pattern').on('change', function () {
 
-        var url = $(this).val();
-        var p = $("<a href=\"" + url + "\"><img src=\"" + url + "\"></a>");
+     var url = $(this).val();
+     var p = $("<a href=\"" + url + "\"><img src=\"" + url + "\"></a>");
 
-        $('.menu').append(p);
-        var url = $(this).val("");
-    });
+     $('.menu').append(p);
+     var url = $(this).val("");
+     });*/
 
 
     $('.arcdeg').on('input', function () {
 
-        var t = $('.list-geos').val();
-        drowForms(window.forms.geometrique[t]);
-        $('.form1').attr('d', path);
+        for (let i = 0; i < listforms.length; i++) {
+            listforms[i].update();
+        }
+
     });
 
-    var idCurrentPoint = -1,
+    var currentelem = -1,
+        idCurrentPoint = -1,
         dragelemX = 0,
         dragelemY = 0;
 
@@ -88,9 +94,15 @@ $(document).ready(function () {
         dragelemX = $(this).offset().left;
         dragelemY = $(this).offset().top;
 
+        console.log(dragelemX + " " + dragelemY);
+
+
         if (evt.target.nodeName === "rect") {
-            idCurrentPoint = evt.target.attributes["id"].value;
+            currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
+            idCurrentPoint = evt.target.attributes["data-id"].value;
+            console.log(currentelem + " " + idCurrentPoint);
         }
+
     });
 
 
@@ -99,70 +111,74 @@ $(document).ready(function () {
 
         if (idCurrentPoint !== -1) {
             var offsetX = (evt.pageX - dragelemX),
-                offsetY = (evt.pageY - dragelemY),
-                t = $('.list-geos').val();
+                offsetY = (evt.pageY - dragelemY);
 
-            window.forms.geometrique[t][idCurrentPoint].x = (offsetX - 25);
-            window.forms.geometrique[t][idCurrentPoint].y = (offsetY - 25);
 
-            drowForms(window.forms.geometrique[t]);
-            $('.form1').attr('d', path);
+            listforms[currentelem].points[idCurrentPoint].x = (offsetX - 25);
+            listforms[currentelem].points[idCurrentPoint].y = (offsetY - 25);
+
+            listforms[currentelem].update();
+            listforms[currentelem].updatePoint(idCurrentPoint);
         }
     });
 
     $("body").on("mouseup", "#draggable-element", function () {
+        currentelem = -1;
         idCurrentPoint = -1;
-        var t = $('.list-geos').val();
+        dragelemX = 0;
+        dragelemY = 0;
     });
 
 });
 
-window.addEventListener('load', function(){ // on page load
 
-    var idCurrentPoint = -1;
+/*
+ window.addEventListener('load', function(){ // on page load
 
-    document.getElementById("draggable-element").addEventListener('touchstart', function(evt){
+ var idCurrentPoint = -1;
 
-        evt = evt || window.event;
+ document.getElementById("draggable-element").addEventListener('touchstart', function(evt){
 
-        console.log(evt);
+ evt = evt || window.event;
 
-        dragelemX = $(this).offset().left;
-        dragelemY = $(this).offset().top;
+ console.log(evt);
 
-        console.log(dragelemX + "//" + dragelemY);
+ dragelemX = $(this).offset().left;
+ dragelemY = $(this).offset().top;
 
-        if (evt.target.nodeName === "rect") {
-            idCurrentPoint = evt.target.attributes["data-id"].value;
-        }
+ console.log(dragelemX + "//" + dragelemY);
 
-    }, false)
+ if (evt.target.nodeName === "rect") {
+ idCurrentPoint = evt.target.attributes["data-id"].value;
+ }
 
-
-    document.getElementById("draggable-element").addEventListener('touchmove', function(evt){
-
-        evt = evt || window.event;
-
-        if (idCurrentPoint !== -1) {
-
-            var offsetX = (evt.changedTouches[0].pageX - dragelemX),
-                offsetY = (evt.changedTouches[0].pageY - dragelemY),
-                t = $('.list-geos').val();
+ }, false)
 
 
-            window.forms.geometrique[t][idCurrentPoint].x = (offsetX - 25);
-            window.forms.geometrique[t][idCurrentPoint].y = (offsetY - 25);
+ document.getElementById("draggable-element").addEventListener('touchmove', function(evt){
 
-            drowForms(window.forms.geometrique[t]);
-            $('.form1').attr('d', path);
-        }
+ evt = evt || window.event;
 
-    }, false)
+ if (idCurrentPoint !== -1) {
+
+ var offsetX = (evt.changedTouches[0].pageX - dragelemX),
+ offsetY = (evt.changedTouches[0].pageY - dragelemY),
+ t = $('.list-geos').val();
 
 
-    document.getElementById("draggable-element").addEventListener('touchend', function(){
-        idCurrentPoint = -1;
-        var t = $('.list-geos').val();
-    }, false)
+ window.forms.geometrique[t][idCurrentPoint].x = (offsetX - 25);
+ window.forms.geometrique[t][idCurrentPoint].y = (offsetY - 25);
 
-}, false)
+ drowForms(window.forms.geometrique[t]);
+ $('.form1').attr('d', path);
+ }
+
+ }, false)
+
+
+ document.getElementById("draggable-element").addEventListener('touchend', function(){
+ idCurrentPoint = -1;
+ var t = $('.list-geos').val();
+ }, false)
+
+ }, false)*/

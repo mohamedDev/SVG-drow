@@ -1,29 +1,25 @@
 (function ($) {
     "use strict";
-	
-	window.order = 0;
+
+    window.order = 0;
 
     var myForms = {
-		name : "",
+        name: "",
         points: [],
-		path: "",
+        path: "",
         coefficientArc: 0,
-        state : "",
+        state: "",
+        order: 0,
 
         init: function (forme, name) {
             this.points = forme;
-			this.name = name;
-			window.order++;
-			
-			
-			console.log(this.points);
+            this.name = name;
+            this.order = window.order;
         },
 
         drowPoint: function () {
 
             var i = 0;
-
-            $("#transform-points").children("rect").remove();
 
             for (i; i < this.points.length; i++) {
 
@@ -37,33 +33,62 @@
                     rect.setAttributeNS(null, "stroke-width", 2);
                     rect.setAttributeNS(null, "stroke", "blue");
                     rect.setAttributeNS(null, "fill", "transparent");
+                    rect.setAttributeNS(null, "id", (this.order + "-" + i + "-" + this.name));
                     rect.setAttributeNS(null, "data-id", i);
-                    document.getElementById("transform-points").appendChild(rect);
+                    document.getElementById(this.order + "-" + this.name).children[2].appendChild(rect);
                 }
             }
         },
 
-        drow: function () {
+        updatePoint: function (idPoint) {
+
+            var rect = document.getElementById((this.order + "-" + idPoint + "-" + this.name));
+            rect.setAttributeNS(null, "x", (this.points[idPoint].x - 15));
+            rect.setAttributeNS(null, "y", (this.points[idPoint].y - 15));
+
+        },
+
+        calculPath: function () {
 
             var coif = this.coefficientArc,
                 i = 1,
                 dx,
-                dy;
-
-            var degArc = parseInt($('input[type=range]').val());
+                dy,
+                degArc = parseInt($('input[type=range]').val());
 
             this.path = "M" + this.points[0].x + "," + this.points[0].y;
 
             for (i; i < this.points.length; i++) {
 
                 if (this.points[i] === "arcD" || this.points[i] === "arcG") {
+
                     if ((i + 1) === this.points.length) {
-                        coif = ( this.points[0].x - this.points[i - 1].x ) / ( this.points[0].y - this.points[i - 1].y );
+
+                        if( (this.points[0].y - this.points[i - 1].y)  === 0 ) {
+
+                            coif = ( this.points[0].x - this.points[i - 1].x );
+
+                        } else {
+
+                            coif = ( this.points[0].x - this.points[i - 1].x ) / ( this.points[0].y - this.points[i - 1].y );
+
+                        }
+
                         dx = ((this.points[0].x - this.points[i - 1].x ) / 2) + this.points[i - 1].x;
                         dy = ((this.points[0].y - this.points[i - 1].y ) / 2) + this.points[i - 1].y;
 
                     } else {
-                        coif = ( this.points[i + 1].x - this.points[i - 1].x ) / ( this.points[i + 1].y - this.points[i - 1].y );
+
+                        if( ( this.points[i + 1].y - this.points[i - 1].y )  === 0 ) {
+
+                            coif = ( this.points[i + 1].x - this.points[i - 1].x );
+
+                        } else {
+
+                            coif = ( this.points[i + 1].x - this.points[i - 1].x ) / ( this.points[i + 1].y - this.points[i - 1].y );
+
+                        }
+
                         dx = ((this.points[i + 1].x - this.points[i - 1].x ) / 2) + this.points[i - 1].x;
                         dy = ((this.points[i + 1].y - this.points[i - 1].y ) / 2) + this.points[i - 1].y;
                     }
@@ -81,40 +106,69 @@
                 }
 
                 if (i === this.points.length) {
+
                     this.path += this.points[0].x + "," + this.points[0].y;
+
                 } else {
+
                     this.path += this.points[i].x + "," + this.points[i].y;
+
                 }
             }
 
             this.path += " z";
 
-			var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-			g.setAttributeNS(null, "id", (window.order + "-" + this.name));
-			
-			
-			var clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
-			clipPath.setAttributeNS(null, "id", (window.order + "-cp-" + this.name));
-			
-			
-            var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path.setAttributeNS(null, "d", this.path);
-            path.setAttributeNS(null, "stroke-width", 20);
-            path.setAttributeNS(null, "class", this.name);
-            path.setAttributeNS(null, "stroke", "gray");
-			
-			document.getElementById("drowforme").appendChild(g);
-			
-            
-			
-			document.getElementById((window.order + "-" + this.name)).appendChild(clipPath);
-			document.getElementById((window.order + "-cp-" + this.name)).appendChild(path);
-			
-			document.getElementById((window.order + "-" + this.name)).appendChild(path);
-			
-            
+        },
+
+        drow: function () {
+
+            this.calculPath();
+
+            createElement(this.path, this.name, this.order)
+
             this.drowPoint();
+        },
+
+        update: function () {
+
+            this.calculPath();
+
+            updateElement(this.path, this.name, this.order);
         }
+
+    }
+
+
+    var createElement = function (path, name, order) {
+
+        var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttributeNS(null, "id", (order + "-" + name));
+        g.setAttributeNS(null, "data-order", order);
+
+        var transformpoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        transformpoint.setAttributeNS(null, "class", "transform-points");
+
+        var clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
+        clipPath.setAttributeNS(null, "id", (order + "-cp-" + name));
+
+        var pathelem = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        pathelem.setAttributeNS(null, "d", path);
+        pathelem.setAttributeNS(null, "stroke-width", 20);
+        pathelem.setAttributeNS(null, "class", name);
+        pathelem.setAttributeNS(null, "stroke", "gray");
+
+        document.getElementById("drowforme").appendChild(g);
+
+        document.getElementById((order + "-" + name)).appendChild(clipPath);
+        document.getElementById((order + "-cp-" + name)).appendChild(pathelem);
+        document.getElementById((order + "-" + name)).appendChild(pathelem);
+        document.getElementById((order + "-" + name)).appendChild(transformpoint);
+
+    }
+
+    var updateElement = function (path, name, order) {
+        var g = document.getElementById((order + "-" + name));
+        g.children[1].setAttributeNS(null, "d", path);
     }
 
     window.myForms = myForms;
