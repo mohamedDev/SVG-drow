@@ -15,8 +15,8 @@ $(document).ready(function () {
             object = window.forms.type2[objectTxt];
 
         listforms.push(Object.create(window.myForms));
-        listforms[0].init(object, objectTxt)
-        listforms[0].drow();
+        listforms[window.order].init(object, objectTxt)
+        listforms[window.order].drow();
         window.order++;
     });
 
@@ -33,7 +33,18 @@ $(document).ready(function () {
     listforms = [];
     $('.list-geos').change(function () {
         var objectTxt = $(this).val(),
-            object = window.forms.geometrique[objectTxt];
+		object = [];
+			for(let i = 0; i < window.forms.geometrique[objectTxt].length; i++ ) {
+				if(window.forms.geometrique[objectTxt][i] === "arcD" || window.forms.geometrique[objectTxt][i] === "arcG") {
+					object[i] =  window.forms.geometrique[objectTxt][i];
+				} else {
+					object[i] =  { x : window.forms.geometrique[objectTxt][i].x , y : window.forms.geometrique[objectTxt][i].y};
+				}
+			}
+			
+			console.log(window.forms.geometrique);
+			
+			console.log(object)
 
         listforms[window.order] = Object.create(window.myForms);
         listforms[window.order].init(object, objectTxt)
@@ -117,6 +128,8 @@ $(document).ready(function () {
             listforms[currentelem].points[idCurrentPoint].x = (offsetX - 25);
             listforms[currentelem].points[idCurrentPoint].y = (offsetY - 25);
 
+			console.log(listforms[currentelem]);
+			
             listforms[currentelem].update();
             listforms[currentelem].updatePoint(idCurrentPoint);
         }

@@ -12,7 +12,8 @@
         order: 0,
 
         init: function (forme, name) {
-            this.points = forme;
+            this.points = forme
+			
             this.name = name;
             this.order = window.order;
         },
