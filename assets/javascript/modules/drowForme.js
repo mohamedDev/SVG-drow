@@ -10,12 +10,13 @@
         coefficientArc: 0,
         state: "",
         order: 0,
+        bgImage: "",
 
         init: function (forme, name) {
             this.points = forme
-			
             this.name = name;
             this.order = window.order;
+            this.bgImage = "./assets/images/bg.jpg";
         },
 
         drowPoint: function () {
@@ -36,7 +37,7 @@
                     rect.setAttributeNS(null, "fill", "transparent");
                     rect.setAttributeNS(null, "id", (this.order + "-" + i + "-" + this.name));
                     rect.setAttributeNS(null, "data-id", i);
-                    document.getElementById(this.order + "-" + this.name).children[2].appendChild(rect);
+                    document.getElementById(this.order + "-" + this.name).children[3].appendChild(rect);
                 }
             }
         },
@@ -65,7 +66,7 @@
 
                     if ((i + 1) === this.points.length) {
 
-                        if( (this.points[0].y - this.points[i - 1].y)  === 0 ) {
+                        if ((this.points[0].y - this.points[i - 1].y) === 0) {
 
                             coif = ( this.points[0].x - this.points[i - 1].x );
 
@@ -80,7 +81,7 @@
 
                     } else {
 
-                        if( ( this.points[i + 1].y - this.points[i - 1].y )  === 0 ) {
+                        if (( this.points[i + 1].y - this.points[i - 1].y ) === 0) {
 
                             coif = ( this.points[i + 1].x - this.points[i - 1].x );
 
@@ -93,12 +94,25 @@
                         dx = ((this.points[i + 1].x - this.points[i - 1].x ) / 2) + this.points[i - 1].x;
                         dy = ((this.points[i + 1].y - this.points[i - 1].y ) / 2) + this.points[i - 1].y;
                     }
+                    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    rect.setAttributeNS(null, "width", 1);
+                    rect.setAttributeNS(null, "height", 1);
+                    rect.setAttributeNS(null, "stroke-width", 1);
+                    rect.setAttributeNS(null, "stroke", "red");
+                    rect.setAttributeNS(null, "fill", "transparent");
+
                     if (this.points[i] === "arcD") {
                         this.path += " Q" + (dx + degArc) + "," + (dy - (coif * degArc )) + " ";
+                        rect.setAttributeNS(null, "x", (dx + degArc));
+                        rect.setAttributeNS(null, "y", (dy - (coif * degArc )));
                     }
+
                     if (this.points[i] === "arcG") {
                         this.path += " Q" + (dx - degArc) + "," + (dy + (coif * degArc )) + " ";
+                        rect.setAttributeNS(null, "x", (dx - degArc));
+                        rect.setAttributeNS(null, "y", (dy + (coif * degArc )));
                     }
+                    document.getElementById("drowforme").appendChild(rect);
                     i++;
                 }
 
@@ -125,7 +139,7 @@
 
             this.calculPath();
 
-            createElement(this.path, this.name, this.order)
+            createElement(this.path, this.name, this.order, this.bgImage)
 
             this.drowPoint();
         },
@@ -140,7 +154,7 @@
     }
 
 
-    var createElement = function (path, name, order) {
+    var createElement = function (path, name, order, bgImage) {
 
         var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
         g.setAttributeNS(null, "id", (order + "-" + name));
@@ -152,24 +166,45 @@
         var clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
         clipPath.setAttributeNS(null, "id", (order + "-cp-" + name));
 
-        var pathelem = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        pathelem.setAttributeNS(null, "d", path);
-        pathelem.setAttributeNS(null, "stroke-width", 20);
-        pathelem.setAttributeNS(null, "class", name);
-        pathelem.setAttributeNS(null, "stroke", "gray");
+        var image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+        image.setAttributeNS(null, "id", (order + "-image-" + name));
+        image.setAttributeNS(null, "width", 1500);
+        image.setAttributeNS(null, "height", 997);
+        image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', bgImage);
+        image.setAttributeNS(null, "clip-path", "url(#" + order + "-cp-" + name + ")");
+
+        var pathelem1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        pathelem1.setAttributeNS(null, "d", path);
+        pathelem1.setAttributeNS(null, "stroke-width", 20);
+        pathelem1.setAttributeNS(null, "class", name);
+        pathelem1.setAttributeNS(null, "stroke", "gray");
+        pathelem1.setAttributeNS(null, "stroke-linejoin", "miter");
+        pathelem1.setAttributeNS(null, "stroke-miterlimit", 10);
+
+        var pathelem2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        pathelem2.setAttributeNS(null, "d", path);
+        pathelem2.setAttributeNS(null, "class", name);
+
 
         document.getElementById("drowforme").appendChild(g);
 
         document.getElementById((order + "-" + name)).appendChild(clipPath);
-        document.getElementById((order + "-cp-" + name)).appendChild(pathelem);
-        document.getElementById((order + "-" + name)).appendChild(pathelem);
+        document.getElementById((order + "-cp-" + name)).appendChild(pathelem2);
+        document.getElementById((order + "-" + name)).appendChild(image);
+
+        document.getElementById((order + "-" + name)).appendChild(pathelem1);
         document.getElementById((order + "-" + name)).appendChild(transformpoint);
 
     }
 
     var updateElement = function (path, name, order) {
-        var g = document.getElementById((order + "-" + name));
-        g.children[1].setAttributeNS(null, "d", path);
+
+        var groupForm = document.getElementById((order + "-" + name)),
+            groupFormClippath = document.getElementById((order + "-cp-" + name));
+
+        groupForm.children[2].setAttributeNS(null, "d", path);
+        groupFormClippath.children[0].setAttributeNS(null, "d", path);
+
     }
 
     window.myForms = myForms;

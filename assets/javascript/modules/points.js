@@ -33,6 +33,7 @@
         geometrique: {
             insert: " ",
             cercle: [points.c, "arcD", points.g,"arcD", points.k, "arcG" ,points.o , "arcG"],
+            demicercle: [points.o, "arcD", points.g],
             rect1: [points.a, points.e, points.i, points.m],
             rect2: [points.q, points.s, points.y, points.w],
             triangleIarcDarcG: [points.c, "arcD", points.i, "arcD", points.m, "arcG"],

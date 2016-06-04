@@ -11,7 +11,7 @@
 
     <div class="deg-arc">
         <label>Arc deg</label><br>
-        <input class="arcdeg" type="range" value="0" max="150" min="-150" step="10"/>
+        <input class="arcdeg" type="range" value="0" max="200" min="-200" step="1"/>
     </div>
 
     <div class="form-patterns">
@@ -139,15 +139,78 @@
             </g>
         </g>
         <g id="drowforme">
-		
+
         </g>
     </g>
 </svg>
+
+
+<div id="content">
+
+</div>
+
+
+<canvas id="myCanvas" width="578" height="250">
+
+
+
+</canvas>
+
 
 <script type="text/javascript" src="assets/javascript/libs/jquery/v2.1.1/jquery.js"></script>
 <script type="text/javascript" src="assets/javascript/modules/points.js"></script>
 <script type="text/javascript" src="assets/javascript/modules/drowForme.js"></script>
 <script type="text/javascript" src="assets/javascript/modules/main.js"></script>
+
+<script>
+
+
+   /* var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var x = canvas.width / 2;
+    var y = canvas.height / 2;
+    var radius = 75;
+    var startAngle = .8 * Math.PI;
+    var endAngle = 2.2 * Math.PI;
+    var counterClockwise = false;
+
+    context.beginPath();
+    context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+    context.lineWidth = 30;
+
+    // line color
+    context.strokeStyle = 'blue';
+    context.stroke();
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var x = canvas.width / 2;
+    var y = canvas.height / 2;
+    var radius = 75;
+    var startAngle = 8 * Math.PI;
+    var endAngle = 2.3 * Math.PI;
+    var counterClockwise = false;
+
+    context.beginPath();
+    context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+    context.lineWidth = 30;
+
+    // line color
+    context.strokeStyle = 'red';
+    context.stroke();
+
+    var img = new Image();
+    img.src = 'backdrop.jpg';
+    img.onload = function () {
+        context.drawImage(img, 0, 0);
+        context.beginPath();
+        context.moveTo(30, 96);
+        context.lineTo(70, 66);
+        context.lineTo(103, 76);
+        context.lineTo(170, 15);
+        context.stroke();
+    }*/
+</script>
+
 
 </body>
 </html>

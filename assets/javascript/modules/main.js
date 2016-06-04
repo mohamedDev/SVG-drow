@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+
+    $( "#content" ).load( "http://www.cosmetic-valley.com/annuaire/entreprises/matieres-premieres/" );
+
     var optionstypes = "";
 
     for (item in forms.type2) {
@@ -34,7 +37,7 @@ $(document).ready(function () {
     $('.list-geos').change(function () {
         var objectTxt = $(this).val(),
 		object = [];
-			for(let i = 0; i < window.forms.geometrique[objectTxt].length; i++ ) {
+			for(var i = 0; i < window.forms.geometrique[objectTxt].length; i++ ) {
 				if(window.forms.geometrique[objectTxt][i] === "arcD" || window.forms.geometrique[objectTxt][i] === "arcG") {
 					object[i] =  window.forms.geometrique[objectTxt][i];
 				} else {
@@ -91,13 +94,13 @@ $(document).ready(function () {
         for (let i = 0; i < listforms.length; i++) {
             listforms[i].update();
         }
-
     });
 
     var currentelem = -1,
         idCurrentPoint = -1,
         dragelemX = 0,
-        dragelemY = 0;
+        dragelemY = 0,
+        moveElem = "";
 
     $("body").on("mousedown", "#draggable-element", function (evt) {
         evt = evt || window.event;
@@ -105,17 +108,14 @@ $(document).ready(function () {
         dragelemX = $(this).offset().left;
         dragelemY = $(this).offset().top;
 
-        console.log(dragelemX + " " + dragelemY);
-
-
         if (evt.target.nodeName === "rect") {
             currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
             idCurrentPoint = evt.target.attributes["data-id"].value;
-            console.log(currentelem + " " + idCurrentPoint);
+
+            moveElem = "#" + currentelem + "-" + listforms[currentelem].name;
+            $(moveElem).find('path').css("opacity", "0.8");
         }
-
     });
-
 
     $("body").on("mousemove", "#draggable-element", function (evt) {
         evt = evt || window.event;
@@ -124,22 +124,22 @@ $(document).ready(function () {
             var offsetX = (evt.pageX - dragelemX),
                 offsetY = (evt.pageY - dragelemY);
 
-
             listforms[currentelem].points[idCurrentPoint].x = (offsetX - 25);
             listforms[currentelem].points[idCurrentPoint].y = (offsetY - 25);
 
-			console.log(listforms[currentelem]);
-			
             listforms[currentelem].update();
             listforms[currentelem].updatePoint(idCurrentPoint);
         }
     });
 
     $("body").on("mouseup", "#draggable-element", function () {
+        $(moveElem).find('path').css("opacity", "1");
         currentelem = -1;
         idCurrentPoint = -1;
+        moveElem = "";
         dragelemX = 0;
         dragelemY = 0;
+
     });
 
 });
