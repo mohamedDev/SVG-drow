@@ -65,53 +65,25 @@
                 if (this.points[i] === "arcD" || this.points[i] === "arcG") {
 
                     if ((i + 1) === this.points.length) {
-
-                        if ((this.points[0].y - this.points[i - 1].y) === 0) {
-
-                            coif = ( this.points[0].x - this.points[i - 1].x );
-
-                        } else {
-
-                            coif = ( this.points[0].x - this.points[i - 1].x ) / ( this.points[0].y - this.points[i - 1].y );
-
-                        }
-
                         dx = ((this.points[0].x - this.points[i - 1].x ) / 2) + this.points[i - 1].x;
                         dy = ((this.points[0].y - this.points[i - 1].y ) / 2) + this.points[i - 1].y;
 
                     } else {
-
-                        if (( this.points[i + 1].y - this.points[i - 1].y ) === 0) {
-
-                            coif = ( this.points[i + 1].x - this.points[i - 1].x );
-
-                        } else {
-
-                            coif = ( this.points[i + 1].x - this.points[i - 1].x ) / ( this.points[i + 1].y - this.points[i - 1].y );
-
-                        }
-
                         dx = ((this.points[i + 1].x - this.points[i - 1].x ) / 2) + this.points[i - 1].x;
                         dy = ((this.points[i + 1].y - this.points[i - 1].y ) / 2) + this.points[i - 1].y;
                     }
+
                     var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                    rect.setAttributeNS(null, "width", 1);
-                    rect.setAttributeNS(null, "height", 1);
+                    rect.setAttributeNS(null, "width", 20);
+                    rect.setAttributeNS(null, "height", 20);
                     rect.setAttributeNS(null, "stroke-width", 1);
                     rect.setAttributeNS(null, "stroke", "red");
                     rect.setAttributeNS(null, "fill", "transparent");
+                    rect.setAttributeNS(null, "x", dx);
+                    rect.setAttributeNS(null, "y", dy);
 
-                    if (this.points[i] === "arcD") {
-                        this.path += " Q" + (dx + degArc) + "," + (dy - (coif * degArc )) + " ";
-                        rect.setAttributeNS(null, "x", (dx + degArc));
-                        rect.setAttributeNS(null, "y", (dy - (coif * degArc )));
-                    }
+                    this.path += " Q" + dx + "," + dy + " ";
 
-                    if (this.points[i] === "arcG") {
-                        this.path += " Q" + (dx - degArc) + "," + (dy + (coif * degArc )) + " ";
-                        rect.setAttributeNS(null, "x", (dx - degArc));
-                        rect.setAttributeNS(null, "y", (dy + (coif * degArc )));
-                    }
                     document.getElementById("drowforme").appendChild(rect);
                     i++;
                 }
