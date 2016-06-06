@@ -41,6 +41,7 @@
             poliD: [points.c, points.d, points.f, points.h, points.j, points.k],
             poli: [points.b, points.d, points.f, points.h, points.j, points.l, points.n, points.p],
             porte: [points.q, points.l, points.m, points.a, points.e, points.i, points.j, points.s],
+            ported: [points.q, points.l, points.m, points.a, "arcD", points.e, points.i, points.j, points.s , "arcD"],
         },
         type2: {
             itop: [points.p, points.f],

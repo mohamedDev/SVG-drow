@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-    $( "#content" ).load( "http://www.cosmetic-valley.com/annuaire/entreprises/matieres-premieres/" );
+    $("#content").load("http://www.cosmetic-valley.com/annuaire/entreprises/matieres-premieres/");
 
     var optionstypes = "";
 
@@ -36,18 +36,18 @@ $(document).ready(function () {
     listforms = [];
     $('.list-geos').change(function () {
         var objectTxt = $(this).val(),
-		object = [];
-			for(var i = 0; i < window.forms.geometrique[objectTxt].length; i++ ) {
-				if(window.forms.geometrique[objectTxt][i] === "arcD" || window.forms.geometrique[objectTxt][i] === "arcG") {
-					object[i] =  window.forms.geometrique[objectTxt][i];
-				} else {
-					object[i] =  { x : window.forms.geometrique[objectTxt][i].x , y : window.forms.geometrique[objectTxt][i].y};
-				}
-			}
-			
-			console.log(window.forms.geometrique);
-			
-			console.log(object)
+            object = [];
+        for (var i = 0; i < window.forms.geometrique[objectTxt].length; i++) {
+            if (window.forms.geometrique[objectTxt][i] === "arcD" || window.forms.geometrique[objectTxt][i] === "arcG") {
+                object[i] = window.forms.geometrique[objectTxt][i];
+            } else {
+                object[i] = {x: window.forms.geometrique[objectTxt][i].x, y: window.forms.geometrique[objectTxt][i].y};
+            }
+        }
+
+        console.log(window.forms.geometrique);
+
+        console.log(object)
 
         listforms[window.order] = Object.create(window.myForms);
         listforms[window.order].init(object, objectTxt)
@@ -91,7 +91,7 @@ $(document).ready(function () {
 
     $('.arcdeg').on('input', function () {
 
-        for (let i = 0; i < listforms.length; i++) {
+        for (var i = 0; i < listforms.length; i++) {
             listforms[i].update();
         }
     });
@@ -108,9 +108,22 @@ $(document).ready(function () {
         dragelemX = $(this).offset().left;
         dragelemY = $(this).offset().top;
 
+        console.log(evt.target.nodeName);
+
         if (evt.target.nodeName === "rect") {
             currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
             idCurrentPoint = evt.target.attributes["data-id"].value;
+
+            moveElem = "#" + currentelem + "-" + listforms[currentelem].name;
+            $(moveElem).find('path').css("opacity", "0.8");
+        }
+
+        if (evt.target.nodeName === "circle") {
+            currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
+            idCurrentPoint = evt.target.attributes["data-id"].value;
+
+            console.log(currentelem);
+            console.log(idCurrentPoint);
 
             moveElem = "#" + currentelem + "-" + listforms[currentelem].name;
             $(moveElem).find('path').css("opacity", "0.8");
@@ -124,8 +137,14 @@ $(document).ready(function () {
             var offsetX = (evt.pageX - dragelemX),
                 offsetY = (evt.pageY - dragelemY);
 
-            listforms[currentelem].points[idCurrentPoint].x = (offsetX - 25);
-            listforms[currentelem].points[idCurrentPoint].y = (offsetY - 25);
+            if (listforms[currentelem].points[idCurrentPoint] !== "arcD" && listforms[currentelem].points[idCurrentPoint] !== "arcG") {
+
+                listforms[currentelem].points[idCurrentPoint].x = (offsetX - 25);
+                listforms[currentelem].points[idCurrentPoint].y = (offsetY - 25);
+            } else {
+                listforms[currentelem].pControl[idCurrentPoint].x = (offsetX - 25);
+                listforms[currentelem].pControl[idCurrentPoint].y = (offsetY - 25);
+            }
 
             listforms[currentelem].update();
             listforms[currentelem].updatePoint(idCurrentPoint);
@@ -195,3 +214,39 @@ $(document).ready(function () {
  }, false)
 
  }, false)*/
+
+
+/*
+on calcule les coordonnées des droites
+puis on fait une petite équation comme sa : "droite1 = droite2"
+et puis on a tout les point d'intersections après il faut que le programme puisse géré sa ^^ mais ça marche
+
+rappel (même si tu le sais peut-être sa m'occupe  :p ) :
+
+- calcul d'une droite à partir de 2 points :
+droite d'équation : y = ax + b
+a = (y1 - y2 ) / (x1 - x2)
+b = y1 - a.x1
+    (Sachant que le point A a pour coordonnées : x1 et y1
+et le point B : x2 et y2)
+
+- savoir si elles sont sécantes :
+    on a deux droite :
+    y1 = a1.x + b1
+y2 = a2.x + b2
+
+on fait y1 = y2
+ce qui revient à :
+    y1 - y2 = 0
+a1.x + b1 - a2.x - b2 = 0
+x(a1 - a2) + b1 - b2 = 0
+x = (b2 - b1) / (a1 - a2)
+
+et donc on à la fin de l'équation on obtient la valeur x où elle se croisent
+(si elles se croisent) et si elles se croisent pas alors tu aura un petit
+a1 - a2 = 0 (donc tu fait une condition pour vérifié si a1 - a2 != 0 ;)
+
+voilà
+si je me trompe dites moi que je parte pas sans avoir dit n'importe quoi ^^
+ça fait longtemps que j'ai pas fait de trigo ^^
+*/

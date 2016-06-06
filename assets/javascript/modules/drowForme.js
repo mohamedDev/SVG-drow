@@ -7,10 +7,10 @@
         name: "",
         points: [],
         path: "",
-        coefficientArc: 0,
         state: "",
         order: 0,
         bgImage: "",
+        pControl: [],
 
         init: function (forme, name) {
             this.points = forme
@@ -38,25 +38,74 @@
                     rect.setAttributeNS(null, "id", (this.order + "-" + i + "-" + this.name));
                     rect.setAttributeNS(null, "data-id", i);
                     document.getElementById(this.order + "-" + this.name).children[3].appendChild(rect);
+
+                } else {
+
+                    var pc = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    pc.setAttributeNS(null, "id", (this.order + "-pc-" + i + "-" + this.name));
+                    pc.setAttributeNS(null, "data-id", i);
+                    pc.setAttributeNS(null, "r", 15);
+                    pc.setAttributeNS(null, "stroke-width", 1);
+                    pc.setAttributeNS(null, "stroke", "red");
+                    pc.setAttributeNS(null, "fill", "transparent");
+                    pc.setAttributeNS(null, "cx", this.pControl[i].x);
+                    pc.setAttributeNS(null, "cy", this.pControl[i].y);
+
+                    document.getElementById(this.order + "-" + this.name).children[3].appendChild(pc);
+
                 }
             }
         },
 
         updatePoint: function (idPoint) {
 
-            var rect = document.getElementById((this.order + "-" + idPoint + "-" + this.name));
-            rect.setAttributeNS(null, "x", (this.points[idPoint].x - 15));
-            rect.setAttributeNS(null, "y", (this.points[idPoint].y - 15));
+            if (this.points[idPoint] !== "arcD" && this.points[idPoint] !== "arcG") {
+                var rect = document.getElementById((this.order + "-" + idPoint + "-" + this.name));
+                rect.setAttributeNS(null, "x", (this.points[idPoint].x - 15));
+                rect.setAttributeNS(null, "y", (this.points[idPoint].y - 15));
+
+                var p1 = idPoint - 1,
+                    p2 = p1 + 2;
+
+                if (p1 < 0) {
+                    p1 = this.points.length - 1;
+                }
+
+                if (this.points[p1] === "arcD" || this.points[p1] === "arcG") {
+
+                    var pc1 = document.getElementById((this.order + "-pc-" + p1 + "-" + this.name));
+
+                    pc1.setAttributeNS(null, "cx", this.pControl[p1].x);
+                    pc1.setAttributeNS(null, "cy", this.pControl[p1].y);
+
+                }
+
+                if (this.points[p2] === "arcD" || this.points[p2] === "arcG") {
+
+                    var pc2 = document.getElementById((this.order + "-pc-" + p2 + "-" + this.name));
+
+                    pc2.setAttributeNS(null, "cx", this.pControl[p2].x);
+                    pc2.setAttributeNS(null, "cy", this.pControl[p2].y);
+
+                }
+            } else {
+
+                var pc1 = document.getElementById((this.order + "-pc-" + idPoint + "-" + this.name));
+
+                pc1.setAttributeNS(null, "cx", this.pControl[idPoint].x);
+                pc1.setAttributeNS(null, "cy", this.pControl[idPoint].y);
+
+            }
+
+
 
         },
 
         calculPath: function () {
 
-            var coif = this.coefficientArc,
-                i = 1,
+            var i = 1,
                 dx,
-                dy,
-                degArc = parseInt($('input[type=range]').val());
+                dy;
 
             this.path = "M" + this.points[0].x + "," + this.points[0].y;
 
@@ -73,18 +122,49 @@
                         dy = ((this.points[i + 1].y - this.points[i - 1].y ) / 2) + this.points[i - 1].y;
                     }
 
-                    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                    rect.setAttributeNS(null, "width", 20);
-                    rect.setAttributeNS(null, "height", 20);
-                    rect.setAttributeNS(null, "stroke-width", 1);
-                    rect.setAttributeNS(null, "stroke", "red");
-                    rect.setAttributeNS(null, "fill", "transparent");
-                    rect.setAttributeNS(null, "x", dx);
-                    rect.setAttributeNS(null, "y", dy);
+                    this.pControl[i] = {x: dx, y: dy}
 
                     this.path += " Q" + dx + "," + dy + " ";
 
-                    document.getElementById("drowforme").appendChild(rect);
+                    i++;
+                }
+
+                if (this.points[i - 1] !== "arcD" && this.points[i - 1] !== "arcG") {
+                    this.path += " L";
+                }
+
+                if (i === this.points.length) {
+
+                    this.path += this.points[0].x + "," + this.points[0].y;
+
+                } else {
+
+                    this.path += this.points[i].x + "," + this.points[i].y;
+
+                }
+            }
+
+            this.path += " z";
+
+        },
+
+        updatePath: function () {
+
+            var i = 1,
+                dx,
+                dy;
+
+            this.path = "M" + this.points[0].x + "," + this.points[0].y;
+
+            for (i; i < this.points.length; i++) {
+
+                if (this.points[i] === "arcD" || this.points[i] === "arcG") {
+
+                    dx = this.pControl[i].x;
+                    dy = this.pControl[i].y;
+
+                    this.path += " Q" + dx + "," + dy + " ";
+
                     i++;
                 }
 
@@ -118,9 +198,10 @@
 
         update: function () {
 
-            this.calculPath();
+            this.updatePath();
 
             updateElement(this.path, this.name, this.order);
+
         }
 
     }
