@@ -1,15 +1,11 @@
 $(document).ready(function () {
 
-
-    $("#content").load("http://www.cosmetic-valley.com/annuaire/entreprises/matieres-premieres/");
-
     var optionstypes = "";
-
     for (item in forms.type2) {
         optionstypes += "<option value=\"" + item + "\">" + item + "</option>";
     }
 
-    var listType = $("<select class=\"list-types\"></select>")
+    var listType = $("<select class=\"list-types\"></select>");
     $(".aside-menu").prepend(listType);
     $('.list-types').append(optionstypes);
 
@@ -23,14 +19,13 @@ $(document).ready(function () {
         window.order++;
     });
 
-
     var optionsgeos = "";
     for (item in forms.geometrique) {
         optionsgeos += "<option value=\"" + item + "\">" + item + "</option>";
     }
 
-    var listGeos = $("<select class=\"list-geos\"></select>")
-    $(".aside-menu").prepend(listGeos)
+    var listGeos = $("<select class=\"list-geos\"></select>");
+    $(".aside-menu").prepend(listGeos);
     $('.list-geos').append(optionsgeos);
 
     listforms = [];
@@ -38,16 +33,12 @@ $(document).ready(function () {
         var objectTxt = $(this).val(),
             object = [];
         for (var i = 0; i < window.forms.geometrique[objectTxt].length; i++) {
-            if (window.forms.geometrique[objectTxt][i] === "arcD" || window.forms.geometrique[objectTxt][i] === "arcG") {
+            if (window.forms.geometrique[objectTxt][i] === "arc") {
                 object[i] = window.forms.geometrique[objectTxt][i];
             } else {
                 object[i] = {x: window.forms.geometrique[objectTxt][i].x, y: window.forms.geometrique[objectTxt][i].y};
             }
         }
-
-        console.log(window.forms.geometrique);
-
-        console.log(object)
 
         listforms[window.order] = Object.create(window.myForms);
         listforms[window.order].init(object, objectTxt)
@@ -55,46 +46,6 @@ $(document).ready(function () {
         window.order++;
     });
 
-
-    /*$("body").on('click', '.menu a', function (e) {
-     e.preventDefault();
-
-     var url = $(this).attr('href');
-     var width = $(this).children('img').width();
-     var height = $(this).children('img').height();
-
-     var patternsource = document.getElementById('pattern1');
-
-     patternsource.attributes["width"].value = width;
-     patternsource.attributes["height"].value = height;
-
-     var imagespattern = patternsource.children[0].attributes;
-     imagespattern["width"].value = width;
-     imagespattern["height"].value = height;
-     imagespattern["xlink:href"].value = url;
-
-     $('.form1').attr('stroke', 'url(#pattern1)');
-     $('.form2').attr('stroke', 'url(#pattern1)');
-
-     });
-
-
-     $('.text-pattern').on('change', function () {
-
-     var url = $(this).val();
-     var p = $("<a href=\"" + url + "\"><img src=\"" + url + "\"></a>");
-
-     $('.menu').append(p);
-     var url = $(this).val("");
-     });*/
-
-
-    $('.arcdeg').on('input', function () {
-
-        for (var i = 0; i < listforms.length; i++) {
-            listforms[i].update();
-        }
-    });
 
     var currentelem = -1,
         idCurrentPoint = -1,
@@ -108,25 +59,20 @@ $(document).ready(function () {
         dragelemX = $(this).offset().left;
         dragelemY = $(this).offset().top;
 
-        console.log(evt.target.nodeName);
-
         if (evt.target.nodeName === "rect") {
             currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
             idCurrentPoint = evt.target.attributes["data-id"].value;
 
             moveElem = "#" + currentelem + "-" + listforms[currentelem].name;
-            $(moveElem).find('path').css("opacity", "0.8");
+            $(moveElem).find('path').css("opacity", "0.5");
         }
 
         if (evt.target.nodeName === "circle") {
             currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
             idCurrentPoint = evt.target.attributes["data-id"].value;
 
-            console.log(currentelem);
-            console.log(idCurrentPoint);
-
             moveElem = "#" + currentelem + "-" + listforms[currentelem].name;
-            $(moveElem).find('path').css("opacity", "0.8");
+            $(moveElem).find('path').css("opacity", "0.5");
         }
     });
 
@@ -137,10 +83,11 @@ $(document).ready(function () {
             var offsetX = (evt.pageX - dragelemX),
                 offsetY = (evt.pageY - dragelemY);
 
-            if (listforms[currentelem].points[idCurrentPoint] !== "arcD" && listforms[currentelem].points[idCurrentPoint] !== "arcG") {
+            if (listforms[currentelem].points[idCurrentPoint] !== "arc") {
 
                 listforms[currentelem].points[idCurrentPoint].x = (offsetX - 25);
                 listforms[currentelem].points[idCurrentPoint].y = (offsetY - 25);
+
             } else {
                 listforms[currentelem].pControl[idCurrentPoint].x = (offsetX - 25);
                 listforms[currentelem].pControl[idCurrentPoint].y = (offsetY - 25);
@@ -173,12 +120,9 @@ $(document).ready(function () {
 
  evt = evt || window.event;
 
- console.log(evt);
 
  dragelemX = $(this).offset().left;
  dragelemY = $(this).offset().top;
-
- console.log(dragelemX + "//" + dragelemY);
 
  if (evt.target.nodeName === "rect") {
  idCurrentPoint = evt.target.attributes["data-id"].value;
@@ -214,6 +158,40 @@ $(document).ready(function () {
  }, false)
 
  }, false)*/
+
+
+
+/*$("body").on('click', '.menu a', function (e) {
+ e.preventDefault();
+
+ var url = $(this).attr('href');
+ var width = $(this).children('img').width();
+ var height = $(this).children('img').height();
+
+ var patternsource = document.getElementById('pattern1');
+
+ patternsource.attributes["width"].value = width;
+ patternsource.attributes["height"].value = height;
+
+ var imagespattern = patternsource.children[0].attributes;
+ imagespattern["width"].value = width;
+ imagespattern["height"].value = height;
+ imagespattern["xlink:href"].value = url;
+
+ $('.form1').attr('stroke', 'url(#pattern1)');
+ $('.form2').attr('stroke', 'url(#pattern1)');
+
+ });
+
+
+ $('.text-pattern').on('change', function () {
+
+ var url = $(this).val();
+ var p = $("<a href=\"" + url + "\"><img src=\"" + url + "\"></a>");
+
+ $('.menu').append(p);
+ var url = $(this).val("");
+ });*/
 
 
 /*

@@ -32,16 +32,17 @@
     var forms = {
         geometrique: {
             insert: " ",
-            cercle: [points.c, "arcD", points.g,"arcD", points.k, "arcG" ,points.o , "arcG"],
-            demicercle: [points.o, "arcD", points.g],
+            cercle: [points.c, "arc", points.g,"arc", points.k, "arc" ,points.o , "arc"],
+            rectrot: [points.c, points.g, points.k ,points.o ],
+            demicercle: [points.o, "arc", points.g],
             rect1: [points.a, points.e, points.i, points.m],
             rect2: [points.q, points.s, points.y, points.w],
-            triangleIarcDarcG: [points.c, "arcD", points.i, "arcD", points.m, "arcG"],
+            triangleIarcarc: [points.c, "arc", points.i, "arc", points.m, "arc"],
             poliG: [points.b, points.c, points.k, points.l, points.n, points.p],
             poliD: [points.c, points.d, points.f, points.h, points.j, points.k],
             poli: [points.b, points.d, points.f, points.h, points.j, points.l, points.n, points.p],
             porte: [points.q, points.l, points.m, points.a, points.e, points.i, points.j, points.s],
-            ported: [points.q, points.l, points.m, points.a, "arcD", points.e, points.i, points.j, points.s , "arcD"],
+            ported: [points.q, points.l, points.m, points.a, "arc", points.e, points.i, points.j, points.s , "arc"],
         },
         type2: {
             itop: [points.p, points.f],
