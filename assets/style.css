@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+}
+
+html,body {
+    width: 100%;
+    
+    /*overflow: hidden;*/
+}
+
+
+body {
+    font-family: sans-serif;
+    font-weight: normal;
+}
+
+.aside-menu {
+    width: 210px;
+    float: left;
+    position: relative;
+    height: 100%;
+    padding: 5px;
+}
+
+.simulation {
+    margin: 0;
+}
+
+text {
+    font-size: 10px;
+}
+
+.x-bar text {
+    text-anchor: middle;
+    transform: translateY(-5px);
+}
+
+.y-bar text {
+    text-anchor: end;
+    transform: translateX(-5px);
+    baseline-shift: -0.5ex;
+}
+
+line {
+    stroke-width: 1;
+    stroke: #999;
+    stroke-opacity: 0.5;
+}
+
+
+.graf-stroke {
+
+    stroke: rgba(0, 59, 155, 0.85);
+    stroke-width: 1px;
+}
+
+.graf-fill {
+    fill: #ff6700;
+}
+
+.translate {
+    transform: translate(25px, 25px);
+}
+
+path {
+    fill: transparent;
+}
+
+.list-geos,
+.list-types {
+    display: block;
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid #000;
+}
+
+.menu a {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: grey;
+    border-bottom: 1px solid #fff;
+}
+
+.menu a img {
+    max-width: 100%;
+}
+
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+}
+.text-pattern {
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px ;
+}
+
+input[type="range"] {
+    position: relative;
+    margin-bottom: 20px;
+}
+input[type="range"]:after,
+input[type="range"]:before {
+    position: absolute;
+    top: 1.5em;
+    color: #aaa;
+}
+input[type="range"]:before {
+    left:0em;
+    content: attr(min);
+}
+input[type="range"]:after {
+    right: 0em;
+    content: attr(max);
+}
