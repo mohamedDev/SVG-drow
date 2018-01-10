@@ -1,8 +1,14 @@
 $(document).ready(function () {
 
+    var currentelem = -1;
+    var idCurrentPoint = -1;
+    var dragelemX = 0;
+    var dragelemY = 0;
+    var moveElem = "";
+
     var optionstypes = "";
-    for (item in forms.type2) {
-        optionstypes += "<option value=\"" + item + "\">" + item + "</option>";
+    for (item in forms) {
+        optionstypes += "<option value=\"" + item + "\">" + forms[item].name + "</option>";
     }
 
     var listType = $("<select class=\"list-types\"></select>");
@@ -10,48 +16,10 @@ $(document).ready(function () {
     $('.list-types').append(optionstypes);
 
     $('.list-types').change(function () {
-        var objectTxt = $(this).val(),
-            object = window.forms.type2[objectTxt];
-
-        listforms.push(Object.create(window.myForms));
-        listforms[window.order].init(object, objectTxt)
-        listforms[window.order].drow();
-        window.order++;
+        let objectTxt = $(this).val();
+        let object = forms[objectTxt];
+        drowForm(object);
     });
-
-    var optionsgeos = "";
-    for (item in forms.geometrique) {
-        optionsgeos += "<option value=\"" + item + "\">" + item + "</option>";
-    }
-
-    var listGeos = $("<select class=\"list-geos\"></select>");
-    $(".aside-menu").prepend(listGeos);
-    $('.list-geos').append(optionsgeos);
-
-    listforms = [];
-    $('.list-geos').change(function () {
-        var objectTxt = $(this).val(),
-            object = [];
-        for (var i = 0; i < window.forms.geometrique[objectTxt].length; i++) {
-            if (window.forms.geometrique[objectTxt][i] === "arc") {
-                object[i] = window.forms.geometrique[objectTxt][i];
-            } else {
-                object[i] = {x: window.forms.geometrique[objectTxt][i].x, y: window.forms.geometrique[objectTxt][i].y};
-            }
-        }
-
-        listforms[window.order] = Object.create(window.myForms);
-        listforms[window.order].init(object, objectTxt)
-        listforms[window.order].drow();
-        window.order++;
-    });
-
-
-    var currentelem = -1,
-        idCurrentPoint = -1,
-        dragelemX = 0,
-        dragelemY = 0,
-        moveElem = "";
 
     $("body").on("mousedown", "#draggable-element", function (evt) {
         evt = evt || window.event;
@@ -105,7 +73,6 @@ $(document).ready(function () {
         moveElem = "";
         dragelemX = 0;
         dragelemY = 0;
-
     });
 
 });
@@ -195,36 +162,36 @@ $(document).ready(function () {
 
 
 /*
-on calcule les coordonnées des droites
-puis on fait une petite équation comme sa : "droite1 = droite2"
-et puis on a tout les point d'intersections après il faut que le programme puisse géré sa ^^ mais ça marche
+on calcule les coordonnï¿½es des droites
+puis on fait une petite ï¿½quation comme sa : "droite1 = droite2"
+et puis on a tout les point d'intersections aprï¿½s il faut que le programme puisse gï¿½rï¿½ sa ^^ mais ï¿½a marche
 
-rappel (même si tu le sais peut-être sa m'occupe  :p ) :
+rappel (mï¿½me si tu le sais peut-ï¿½tre sa m'occupe  :p ) :
 
-- calcul d'une droite à partir de 2 points :
-droite d'équation : y = ax + b
+- calcul d'une droite ï¿½ partir de 2 points :
+droite d'ï¿½quation : y = ax + b
 a = (y1 - y2 ) / (x1 - x2)
 b = y1 - a.x1
-    (Sachant que le point A a pour coordonnées : x1 et y1
+    (Sachant que le point A a pour coordonnï¿½es : x1 et y1
 et le point B : x2 et y2)
 
-- savoir si elles sont sécantes :
+- savoir si elles sont sï¿½cantes :
     on a deux droite :
     y1 = a1.x + b1
 y2 = a2.x + b2
 
 on fait y1 = y2
-ce qui revient à :
+ce qui revient ï¿½ :
     y1 - y2 = 0
 a1.x + b1 - a2.x - b2 = 0
 x(a1 - a2) + b1 - b2 = 0
 x = (b2 - b1) / (a1 - a2)
 
-et donc on à la fin de l'équation on obtient la valeur x où elle se croisent
+et donc on ï¿½ la fin de l'ï¿½quation on obtient la valeur x oï¿½ elle se croisent
 (si elles se croisent) et si elles se croisent pas alors tu aura un petit
-a1 - a2 = 0 (donc tu fait une condition pour vérifié si a1 - a2 != 0 ;)
+a1 - a2 = 0 (donc tu fait une condition pour vï¿½rifiï¿½ si a1 - a2 != 0 ;)
 
-voilà
+voilï¿½
 si je me trompe dites moi que je parte pas sans avoir dit n'importe quoi ^^
-ça fait longtemps que j'ai pas fait de trigo ^^
+ï¿½a fait longtemps que j'ai pas fait de trigo ^^
 */
