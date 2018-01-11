@@ -1,17 +1,17 @@
 var calculPath = function (form) {
 
-    var i = 1,
+    let i = 1,
         dx,
-        dy;
-    console.log(form)
-    path = "M" + form.points[0].x + "," + form.points[0].y;
-    getchenfrainOfcurrentPoints(form.points[0], form.points[1], form.points[form.points.length - 1]);
+        dy,
+        path = "M" + form.points[0].x + "," + form.points[0].y;
+
+
+
     for (i; i < form.points.length; i++) {
         if (form.points[i] === "arc") {
             if ((i + 1) === form.points.length) {
                 dx = ((form.points[0].x - form.points[i - 1].x) / 2) + form.points[i - 1].x;
                 dy = ((form.points[0].y - form.points[i - 1].y) / 2) + form.points[i - 1].y;
-
             } else {
                 dx = ((form.points[i + 1].x - form.points[i - 1].x) / 2) + form.points[i - 1].x;
                 dy = ((form.points[i + 1].y - form.points[i - 1].y) / 2) + form.points[i - 1].y;
@@ -19,6 +19,19 @@ var calculPath = function (form) {
             //this.pControl[i] = { x: dx, y: dy }
             path += " Q" + dx + "," + dy + " ";
             i++;
+        }
+
+
+        console.log(i);
+
+        if (i === 1) {
+            // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) 
+            getchenfrainOfcurrentPoints(form.points[i], form.points[i + 1], form.points[form.points.length - 1]);
+        } else if (i === (form.points.length - 1)) {
+            // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) 
+            getchenfrainOfcurrentPoints(form.points[i], form.points[0], form.points[i - 1]);
+        } else {
+            getchenfrainOfcurrentPoints(form.points[i], form.points[i + 1], form.points[i - 1]);
         }
 
         if (form.points[i - 1] !== "arc") {
@@ -35,63 +48,69 @@ var calculPath = function (form) {
     return path;
 }
 
-var drowForm = function (form) {
-    var path = this.calculPath(form);
-    createElement(path, form.name);
-    //this.drowPoint();
-}
+var drowForm = function (form, container) {
 
-var createElement = function (path, name) {
-
-    console.log(path)
-    var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    g.setAttributeNS(null, "id", (name));
+    let path = calculPath(form);
+    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.setAttributeNS(null, "id", form.name);
 
     var transformpoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
     transformpoint.setAttributeNS(null, "class", "transform-points");
 
-    var clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
-    clipPath.setAttributeNS(null, "id", ("cp-" + name));
-
-    /*
-    var image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-    image.setAttributeNS(null, "id", ("image-" + name));
-    image.setAttributeNS(null, "width", 1500);
-    image.setAttributeNS(null, "height", 997);
-    image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', bgImage);
-    image.setAttributeNS(null, "clip-path", "url(#" + "cp-" + name + ")");
-    */
-
     var pathelem1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
     pathelem1.setAttributeNS(null, "d", path);
     pathelem1.setAttributeNS(null, "stroke-width", 20);
-    pathelem1.setAttributeNS(null, "class", name);
+    pathelem1.setAttributeNS(null, "class", form.name);
     pathelem1.setAttributeNS(null, "stroke", "gray");
     pathelem1.setAttributeNS(null, "stroke-linejoin", "miter");
     pathelem1.setAttributeNS(null, "stroke-miterlimit", 10);
 
     var pathelem2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
     pathelem2.setAttributeNS(null, "d", path);
-    pathelem2.setAttributeNS(null, "class", name);
+    pathelem2.setAttributeNS(null, "class", form.name);
     document.getElementById("drowforme").appendChild(g);
-    document.getElementById((name)).appendChild(clipPath);
-    document.getElementById(("cp-" + name)).appendChild(pathelem2);
-    //document.getElementById((name)).appendChild(image);
-    document.getElementById((name)).appendChild(pathelem1);
-    document.getElementById((name)).appendChild(transformpoint);
+    document.getElementById(form.name).appendChild(pathelem1);
+    document.getElementById(form.name).appendChild(transformpoint);
 }
 
-var updateElement = function (path, name, order) {
+var drowTransformPoint = function (form) {
 
+    var i = 0;
+    for (i; i < form.points.length; i++) {
+        if (form.points[i] !== "arc") {
+            var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttributeNS(null, "x", (form.points[i].x - 20));
+            rect.setAttributeNS(null, "y", (form.points[i].y - 20));
+            rect.setAttributeNS(null, "width", 40);
+            rect.setAttributeNS(null, "height", 40);
+            rect.setAttributeNS(null, "stroke-width", 2);
+            rect.setAttributeNS(null, "stroke", "blue");
+            rect.setAttributeNS(null, "fill", "transparent");
+            rect.setAttributeNS(null, "id", ("pointcontrole-" + i + "-" + form.name));
+            rect.setAttributeNS(null, "data-id", i);
+            document.getElementById(form.name).children[1].appendChild(rect);
+        } else {
+            var pc = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            pc.setAttributeNS(null, "id", ("pointcontrole-" + i + "-" + form.name));
+            pc.setAttributeNS(null, "data-id", i);
+            pc.setAttributeNS(null, "r", 15);
+            pc.setAttributeNS(null, "stroke-width", 1);
+            pc.setAttributeNS(null, "stroke", "red");
+            pc.setAttributeNS(null, "fill", "transparent");
+            pc.setAttributeNS(null, "cx", form.pControl[i].x);
+            pc.setAttributeNS(null, "cy", form.pControl[i].y);
+            document.getElementById(form.name).children[3].appendChild(pc);
+        }
+    }
+}
+
+var updateElement = function (path, name) {
     var groupForm = document.getElementById((name)),
         groupFormClippath = document.getElementById(("cp-" + name));
 
     groupForm.children[2].setAttributeNS(null, "d", path);
     groupFormClippath.children[0].setAttributeNS(null, "d", path);
-
 }
-
-
 
 function checkLineCircleIntersection(a, b, cx, cy, r) {
 
@@ -109,8 +128,7 @@ function checkLineCircleIntersection(a, b, cx, cy, r) {
         x = (-B + Math.sqrt(delta)) / (2 * A);
         y = a * x + b;
         lst.push({ x: x, y: y });
-    }
-    else if (delta == 0) {
+    } else if (delta == 0) {
         var x = -B / (2 * A);
         var y = a * x + b;
 
@@ -161,8 +179,6 @@ function getEquationOfverticalLineFromTwoPoints(point1, point2) {
         a: 0,
         b: 0
     }, parts;
-
-    console.log(point1.x)
 
     if ((point1.x - point2.x) !== 0) {
         lineObj.a = (point1.y - point2.y) / (point1.x - point2.x);

@@ -47,9 +47,9 @@ var forms = {
         name: "porte",
         points: [points.q, points.l, points.m, points.a, points.e, points.i, points.j, points.s]
     },
-     f4: {
+     f5: {
         id: 5,
         name: "tttttt",
-        points: [points.c, points.G, points.k, points.l]
+        points: [points.c, points.g, points.k, points.o]
     }
 };

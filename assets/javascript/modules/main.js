@@ -5,8 +5,9 @@ $(document).ready(function () {
     var dragelemX = 0;
     var dragelemY = 0;
     var moveElem = "";
-
+    
     var optionstypes = "";
+    
     for (item in forms) {
         optionstypes += "<option value=\"" + item + "\">" + forms[item].name + "</option>";
     }
@@ -16,9 +17,11 @@ $(document).ready(function () {
     $('.list-types').append(optionstypes);
 
     $('.list-types').change(function () {
-        let objectTxt = $(this).val();
-        let object = forms[objectTxt];
-        drowForm(object);
+        let form_name = $(this).val();
+        let form = forms[form_name];
+        
+        drowForm(form);
+        drowTransformPoint(form);
     });
 
     $("body").on("mousedown", "#draggable-element", function (evt) {
