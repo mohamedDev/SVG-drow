@@ -5,6 +5,18 @@ var calculPath = function (form) {
         dy,
         path = "M" + form.points[0].x + "," + form.points[0].y;
 
+    // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) 
+    getchenfrainOfcurrentPoints(form.points[0], form.points[1], form.points[3]);
+
+    /*for (j = 0; j < form.points.length; j++) {
+        if (j === 0) {
+            getchenfrainOfcurrentPoints(form.points[j], form.points[j + 1], form.points[form.points.length - 1]);
+        } else if (j === (form.points.length - 1)) {
+            getchenfrainOfcurrentPoints(form.points[j], form.points[0], form.points[j - 1]);
+        } else {
+            getchenfrainOfcurrentPoints(form.points[j], form.points[j + 1], form.points[j - 1]);
+        }
+    }*/
 
 
     for (i; i < form.points.length; i++) {
@@ -16,22 +28,8 @@ var calculPath = function (form) {
                 dx = ((form.points[i + 1].x - form.points[i - 1].x) / 2) + form.points[i - 1].x;
                 dy = ((form.points[i + 1].y - form.points[i - 1].y) / 2) + form.points[i - 1].y;
             }
-            //this.pControl[i] = { x: dx, y: dy }
             path += " Q" + dx + "," + dy + " ";
             i++;
-        }
-
-
-        console.log(i);
-
-        if (i === 1) {
-            // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) 
-            getchenfrainOfcurrentPoints(form.points[i], form.points[i + 1], form.points[form.points.length - 1]);
-        } else if (i === (form.points.length - 1)) {
-            // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) 
-            getchenfrainOfcurrentPoints(form.points[i], form.points[0], form.points[i - 1]);
-        } else {
-            getchenfrainOfcurrentPoints(form.points[i], form.points[i + 1], form.points[i - 1]);
         }
 
         if (form.points[i - 1] !== "arc") {
@@ -104,136 +102,6 @@ var drowTransformPoint = function (form) {
     }
 }
 
-var updateElement = function (path, name) {
-    var groupForm = document.getElementById((name)),
-        groupFormClippath = document.getElementById(("cp-" + name));
-
-    groupForm.children[2].setAttributeNS(null, "d", path);
-    groupFormClippath.children[0].setAttributeNS(null, "d", path);
-}
-
-function checkLineCircleIntersection(a, b, cx, cy, r) {
-
-    var A = 1 + (a * a),
-        B = 2 * (a * b - a * cy - cx),
-        C = (cx * cx) + (cy * cy) + (b * b) - (2 * b * cy) - (r * r),
-        delta = (B * B) - (4 * A * C),
-        lst = [];
-
-    if (delta > 0) {
-        var x = (-B - Math.sqrt(delta)) / (2 * A);
-        var y = a * x + b;
-        lst.push({ x: x, y: y });
-
-        x = (-B + Math.sqrt(delta)) / (2 * A);
-        y = a * x + b;
-        lst.push({ x: x, y: y });
-    } else if (delta == 0) {
-        var x = -B / (2 * A);
-        var y = a * x + b;
-
-        lst.push({ x: x, y: y });
-    }
-
-    return lst;
-}
-
-function checkLineIntersection(point1, point2, point3, point4) {
-    var denominator, a, b, numerator1, numerator2, result = {
-        x: null,
-        y: null,
-        onLine1: false,
-        onLine2: false
-    };
-    denominator = ((point4.y - point3.y) * (point2.x - point1.x)) - ((point4.x - point3.x) * (point2.y - point1.y));
-    if (denominator == 0) {
-        return result;
-    }
-    a = point1.y - point3.y;
-    b = point1.x - point3.x;
-    numerator1 = ((point4.x - point3.x) * a) - ((point4.y - point3.y) * b);
-    numerator2 = ((point2.x - point1.x) * a) - ((point2.y - point1.y) * b);
-    a = numerator1 / denominator;
-    b = numerator2 / denominator;
-
-    result.x = point1.x + (a * (point2.x - point1.x));
-    result.y = point1.y + (a * (point2.y - point1.y));
-
-    if (a > 0 && a < 1) {
-        result.onLine1 = true;
-    }
-    if (b > 0 && b < 1) {
-        result.onLine2 = true;
-    }
-    return result;
-}
-
-
-//********************************//
-
-function getEquationOfverticalLineFromTwoPoints(point1, point2) {
-
-    var lineObj = {
-        a: 0,
-    }, linevObj = {
-        a: 0,
-        b: 0
-    }, parts;
-
-    if ((point1.x - point2.x) !== 0) {
-        lineObj.a = (point1.y - point2.y) / (point1.x - point2.x);
-    } else {
-        lineObj.a = 1;
-    }
-
-    linevObj.a = -(1 / lineObj.a);
-    linevObj.b = point1.y - (linevObj.a * point1.x);
-
-    linevObj.toString = function () {
-
-        parts = [];
-
-        if (linevObj.a !== 0) {
-            parts.push(linevObj.a + 'x');
-        }
-
-        if (linevObj.b !== 0) {
-            parts.push(linevObj.b);
-        }
-
-        return 'y = ' + parts.join(' + ');
-    };
-
-    var p1 = {
-        x: 0,
-        y: 0
-    },
-        p2 = {
-            x: 0,
-            y: 0
-        };
-
-    p1.x = 0;
-    p1.y = (linevObj.a * p1.x) + linevObj.b;
-
-    p2.x = 1000;
-    p2.y = (linevObj.a * p2.x) + linevObj.b;
-
-
-    /*var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttributeNS(null, "x1", p1.x);
-    line.setAttributeNS(null, "y1", p1.y);
-    line.setAttributeNS(null, "x2", p2.x);
-    line.setAttributeNS(null, "y2", p2.y);
-    line.setAttributeNS(null, "stroke-width", 1);
-    line.setAttributeNS(null, "class", 'nlinev');
-    line.setAttributeNS(null, "stroke", "red");
-
-    document.getElementById("translate").appendChild(line);*/
-
-    return linevObj;
-}
-
 var curNextInter = {},
     nextCurInter = {},
     curPrevInter = {},
@@ -241,20 +109,36 @@ var curNextInter = {},
 
 function getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) {
 
+    var obj = getEquationOfLineFromTwoPoints(prevPoint, currentPoint);
+    console.log(obj);
+    
+    /*t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
+    prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10);
+    console.log("-----------");
+    console.log(t);
+    console.log(prevCurInter);
+
     var t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
     curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10);
+    console.log("-----------");
+    console.log(t);
+    console.log(curNextInter);
 
     t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
     nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10);
+    console.log("-----------");
+    console.log(t);
+    console.log(nextCurInter);
 
     t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
     curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10);
+    console.log("-----------");
+    console.log(t);
+    console.log(curPrevInter);*/
 
-    t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
-    prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10);
+    
 
-
-    p1 = checkLineIntersection(curNextInter[1], nextCurInter[1], curPrevInter[0], prevCurInter[0]);
+    /*p1 = checkLineIntersection(curNextInter[1], nextCurInter[1], curPrevInter[0], prevCurInter[0]);
     p2 = checkLineIntersection(curNextInter[0], nextCurInter[0], curPrevInter[1], prevCurInter[1]);
 
     var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -263,9 +147,17 @@ function getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) {
     line.setAttributeNS(null, "x2", p2.x);
     line.setAttributeNS(null, "y2", p2.y);
     line.setAttributeNS(null, "stroke-width", 0.5);
-    line.setAttributeNS(null, "stroke-opacity", 0.5);
+    line.setAttributeNS(null, "stroke-opacity", 1);
     line.setAttributeNS(null, "stroke", "red");
 
-    document.getElementById("translate").lastElementChild.setAttributeNS(null, "stroke-width", 0);
-    document.getElementById("translate").appendChild(line)
+    //document.getElementById("translate").lastElementChild.setAttributeNS(null, "stroke-width", 0);
+    document.getElementById("translate").appendChild(line)*/
+}
+
+var updateElement = function (path, name) {
+    var groupForm = document.getElementById((name)),
+        groupFormClippath = document.getElementById(("cp-" + name));
+
+    groupForm.children[2].setAttributeNS(null, "d", path);
+    groupFormClippath.children[0].setAttributeNS(null, "d", path);
 }

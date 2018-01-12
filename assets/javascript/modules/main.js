@@ -7,7 +7,7 @@ $(document).ready(function () {
     var moveElem = "";
     
     var optionstypes = "";
-    
+    optionstypes += "<option > ... </option>";
     for (item in forms) {
         optionstypes += "<option value=\"" + item + "\">" + forms[item].name + "</option>";
     }
