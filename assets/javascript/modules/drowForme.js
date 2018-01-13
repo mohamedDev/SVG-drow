@@ -102,41 +102,90 @@ var drowTransformPoint = function (form) {
     }
 }
 
-var curNextInter = {},
-    nextCurInter = {},
-    curPrevInter = {},
-    prevCurInter = {};
+var curNextInter = [],
+    nextCurInter = [],
+    curPrevInter = [],
+    prevCurInter = [];
 
 function getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) {
 
-    var obj = getEquationOfLineFromTwoPoints(prevPoint, currentPoint);
-    console.log(obj);
-    
+
+    if (prevPoint.x === currentPoint.x) {
+        prevCurInter.push({ x: prevPoint.x - 10, y: prevPoint.y });
+        prevCurInter.push({ x: prevPoint.x + 10, y: prevPoint.y });
+        curPrevInter.push({ x: currentPoint.x - 10, y: currentPoint.y });
+        curPrevInter.push({ x: currentPoint.x + 10, y: currentPoint.y });
+
+        if (currentPoint.y === nextpoint.y) {
+            curNextInter.push({ x: currentPoint.x, y: currentPoint.y - 10 });
+            curNextInter.push({ x: currentPoint.x, y: currentPoint.y + 10 });
+            nextCurInter.push({ x: nextpoint.x, y: nextpoint.y - 10 });
+            nextCurInter.push({ x: nextpoint.x, y: nextpoint.y + 10 });
+        }
+    }
+
+    p1 = checkLineIntersection(prevCurInter[0], curPrevInter[0], curNextInter[0], nextCurInter[0]);
+    p2 = checkLineIntersection(prevCurInter[1], curPrevInter[1], curNextInter[1], nextCurInter[1]);
+
+    var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttributeNS(null, "x1", p1.x);
+    line.setAttributeNS(null, "y1", p1.y);
+    line.setAttributeNS(null, "x2", p2.x);
+    line.setAttributeNS(null, "y2", p2.y);
+    line.setAttributeNS(null, "stroke-width", 1);
+    line.setAttributeNS(null, "stroke-opacity", 1);
+    line.setAttributeNS(null, "stroke", "red");
+
+    document.getElementById("translate").appendChild(line)
+
+    var line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line1.setAttributeNS(null, "x1", prevCurInter[0].x);
+    line1.setAttributeNS(null, "y1", prevCurInter[0].y);
+    line1.setAttributeNS(null, "x2", curPrevInter[0].x);
+    line1.setAttributeNS(null, "y2", curPrevInter[0].y);
+    line1.setAttributeNS(null, "stroke-width", 1);
+    line1.setAttributeNS(null, "stroke-opacity", 1);
+    line1.setAttributeNS(null, "stroke", "red");
+
+    document.getElementById("translate").appendChild(line1)
+
+    var line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
+    line2.setAttributeNS(null, "x1", prevCurInter[1].x);
+    line2.setAttributeNS(null, "y1", prevCurInter[1].y);
+    line2.setAttributeNS(null, "x2", curPrevInter[1].x);
+    line2.setAttributeNS(null, "y2", curPrevInter[1].y);
+    line2.setAttributeNS(null, "stroke-width", 1);
+    line2.setAttributeNS(null, "stroke-opacity", 1);
+    line2.setAttributeNS(null, "stroke", "green");
+
+    document.getElementById("translate").appendChild(line2)
+
     /*t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
     prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10);
     console.log("-----------");
     console.log(t);
     console.log(prevCurInter);
-
+    
     var t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
     curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10);
     console.log("-----------");
     console.log(t);
     console.log(curNextInter);
-
+    
     t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
     nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10);
     console.log("-----------");
     console.log(t);
     console.log(nextCurInter);
-
+    
     t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
     curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10);
     console.log("-----------");
     console.log(t);
     console.log(curPrevInter);*/
 
-    
+
 
     /*p1 = checkLineIntersection(curNextInter[1], nextCurInter[1], curPrevInter[0], prevCurInter[0]);
     p2 = checkLineIntersection(curNextInter[0], nextCurInter[0], curPrevInter[1], prevCurInter[1]);
@@ -150,7 +199,7 @@ function getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) {
     line.setAttributeNS(null, "stroke-opacity", 1);
     line.setAttributeNS(null, "stroke", "red");
 
-    //document.getElementById("translate").lastElementChild.setAttributeNS(null, "stroke-width", 0);
+    document.getElementById("translate").lastElementChild.setAttributeNS(null, "stroke-width", 0);
     document.getElementById("translate").appendChild(line)*/
 }
 
