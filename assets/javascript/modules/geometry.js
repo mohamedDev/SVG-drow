@@ -91,50 +91,16 @@ function getEquationOfverticalLineFromTwoPoints(point1, point2) {
     return linevObj;
 }
 
-function getEquationOfLineFromTwoPoints(point1, point2) {
-
-    console.log(point1)
-    console.log(point2)
-    var lineObj = {
-        gradient: (point1.y - point2.y) / (point1.x - point2.x)
-    }, parts;
-
-    console.log(lineObj.gradient)
-
-    lineObj.yIntercept = point1.y - lineObj.gradient * point1.x;
-    lineObj.toString = function () {
-        if (Math.abs(lineObj.gradient) === Infinity) {
-            return 'x = ' + point1.x;
-        }
-        else {
-            parts = [];
-
-            if (lineObj.gradient !== 0) {
-                parts.push(lineObj.gradient + 'x');
-            }
-
-            if (lineObj.yIntercept !== 0) {
-                parts.push(lineObj.yIntercept);
-            }
-
-            return 'y = ' + parts.join(' + ');
-        }
-    };
-
-    return lineObj;
-}
-
-function drowline(p1, p2, elemtoadd) {
+function drowline(form, p1, p2, elemtoadd, stroke_width, stroke_opacity, stroke_color) {
     var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
     line.setAttributeNS(null, "x1", p1.x);
     line.setAttributeNS(null, "y1", p1.y);
     line.setAttributeNS(null, "x2", p2.x);
     line.setAttributeNS(null, "y2", p2.y);
-    line.setAttributeNS(null, "stroke-width", 1);
-    line.setAttributeNS(null, "stroke-opacity", 1);
-    line.setAttributeNS(null, "stroke", "red");
+    line.setAttributeNS(null, "stroke-width", stroke_width);
+    line.setAttributeNS(null, "stroke-opacity", stroke_opacity);
+    line.setAttributeNS(null, "stroke", stroke_color);
 
-    //    document.getElementById("translate").lastElementChild.setAttributeNS(null, "stroke-width", 0);
-    document.getElementById(elemtoadd).appendChild(line)
+    document.getElementById(form.name).children[2].appendChild(line);
 }
 
