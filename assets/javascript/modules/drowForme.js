@@ -64,6 +64,9 @@ var drowForm = function (form, container) {
     document.getElementById(form.name).appendChild(chanfreinPoint);
 
     // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) 
+    //getchenfrainOfcurrentPoints(form, form.points[0], form.points[1], form.points[2]);
+
+    
     for (j = 0; j < form.points.length; j++) {
         if (j === 0) {
             getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1]);
@@ -73,6 +76,7 @@ var drowForm = function (form, container) {
             getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1]);
         }
     }
+    
 }
 
 var drowTransformPoint = function (form) {
@@ -120,7 +124,7 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint) {
         prevCurInter.push({ x: prevPoint.x + 10, y: prevPoint.y });
         curPrevInter.push({ x: currentPoint.x - 10, y: currentPoint.y });
         curPrevInter.push({ x: currentPoint.x + 10, y: currentPoint.y });
-    }
+    } 
 
     if (currentPoint.x === prevPoint.x && prevPoint.y < currentPoint.y) {
         prevCurInter.push({ x: prevPoint.x + 10, y: prevPoint.y });

@@ -60,7 +60,12 @@ var forms = {
     f7: {
         id: 7,
         name: "rectrot",
-        points: [points.c, points.g, points.k ,points.o ]
+        points: [points.c, points.g, points.k, points.o]
+    },
+    f8: {
+        id: 7,
+        name: "test",
+        points: [points.p, points.q, points.b, points.d, points.s, points.f, points.h, points.y, points.j, points.l, points.w, points.n]
     }
-    
+
 };
