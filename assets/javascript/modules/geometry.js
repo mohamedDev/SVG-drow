@@ -10,16 +10,16 @@ function checkLineCircleIntersection(a, b, cx, cy, r) {
     if (delta > 0) {
         var x = (-B - Math.sqrt(delta)) / (2 * A);
         var y = a * x + b;
-        lst.push({ x: x, y: y });
+        lst[1] = { x: x, y: y };
 
         x = (-B + Math.sqrt(delta)) / (2 * A);
         y = a * x + b;
-        lst.push({ x: x, y: y });
+        lst[0] = { x: x, y: y };
     } else if (delta == 0) {
         var x = -B / (2 * A);
         var y = a * x + b;
 
-        lst.push({ x: x, y: y });
+        lst[1] ={ x: x, y: y };
     }
 
     return lst;
