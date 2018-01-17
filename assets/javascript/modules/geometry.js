@@ -1,5 +1,5 @@
 
-function checkLineCircleIntersection(a, b, cx, cy, r) {
+function checkLineCircleIntersection(a, b, cx, cy, r, direction) {
 
     var A = 1 + (a * a),
         B = 2 * (a * b - a * cy - cx),
@@ -10,16 +10,29 @@ function checkLineCircleIntersection(a, b, cx, cy, r) {
     if (delta > 0) {
         var x = (-B - Math.sqrt(delta)) / (2 * A);
         var y = a * x + b;
-        lst[1] = { x: x, y: y };
+        if (direction === "left") {
+            lst[0] = { x: x, y: y };
+        } else {
+            lst[1] = { x: x, y: y };
+        }
 
         x = (-B + Math.sqrt(delta)) / (2 * A);
         y = a * x + b;
-        lst[0] = { x: x, y: y };
+
+        if (direction === "left") {
+            lst[1] = { x: x, y: y };
+        } else {
+            lst[0] = { x: x, y: y };
+        }
     } else if (delta == 0) {
         var x = -B / (2 * A);
         var y = a * x + b;
 
-        lst[1] ={ x: x, y: y };
+        if (direction === "left") {
+            lst[0] = { x: x, y: y };
+        } else {
+            lst[1] = { x: x, y: y };
+        }
     }
 
     return lst;
@@ -89,19 +102,6 @@ function getEquationOfverticalLineFromTwoPoints(point1, point2) {
     p2.y = (linevObj.a * p2.x) + linevObj.b;
 
     return linevObj;
-}
-
-function drowline(form, p1, p2, elemtoadd, stroke_width, stroke_opacity, stroke_color) {
-    var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttributeNS(null, "x1", p1.x);
-    line.setAttributeNS(null, "y1", p1.y);
-    line.setAttributeNS(null, "x2", p2.x);
-    line.setAttributeNS(null, "y2", p2.y);
-    line.setAttributeNS(null, "stroke-width", stroke_width);
-    line.setAttributeNS(null, "stroke-opacity", stroke_opacity);
-    line.setAttributeNS(null, "stroke", stroke_color);
-
-    document.getElementById(form.name).children[2].appendChild(line);
 }
 
 function getIntersectionCircleLine(x1, y1, x2, y2, Cx, Cy, Cr) {

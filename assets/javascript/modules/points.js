@@ -49,23 +49,23 @@ var forms = {
     },
     f5: {
         id: 5,
-        name: "tttttt",
+        name: "Losange",
         points: [points.c, points.g, points.k, points.o]
     },
     f6: {
         id: 6,
-        name: "rrr",
+        name: "rectangle inversé",
         points: [points.m, points.i, points.e, points.a]
     },
     f7: {
         id: 7,
-        name: "rectrot",
-        points: [points.c, points.g, points.k, points.o]
+        name: "Quatrefoil",
+        points: [points.p, points.q, points.b, points.d, points.s, points.f, points.h, points.y, points.j, points.l, points.w, points.n]
     },
     f8: {
-        id: 7,
-        name: "test",
-        points: [points.p, points.q, points.b, points.d, points.s, points.f, points.h, points.y, points.j, points.l, points.w, points.n]
+        id: 8,
+        name: "Octogone",
+        points: [points.p, points.b, points.d, points.f, points.h, points.j, points.l, points.n]
     }
 
 };

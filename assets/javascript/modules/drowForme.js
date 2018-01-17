@@ -5,9 +5,6 @@ var calculPath = function (form) {
         dy,
         path = "M" + form.points[0].x + "," + form.points[0].y;
 
-
-
-
     for (i; i < form.points.length; i++) {
         if (form.points[i] === "arc") {
             if ((i + 1) === form.points.length) {
@@ -35,7 +32,7 @@ var calculPath = function (form) {
     return path;
 }
 
-var drowForm = function (form, container) {
+var drowForm = function (form) {
 
     let path = calculPath(form);
     let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -47,26 +44,16 @@ var drowForm = function (form, container) {
     var chanfreinPoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
     chanfreinPoint.setAttributeNS(null, "class", "chanfrein-points");
 
-    var pathelem1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    pathelem1.setAttributeNS(null, "d", path);
-    pathelem1.setAttributeNS(null, "stroke-width", 20);
-    pathelem1.setAttributeNS(null, "class", form.name);
-    pathelem1.setAttributeNS(null, "stroke", "gray");
-    pathelem1.setAttributeNS(null, "stroke-linejoin", "miter");
-    pathelem1.setAttributeNS(null, "stroke-miterlimit", 10);
+    var pathelem1 = drowPath(form, path, 20);
 
-    var pathelem2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    pathelem2.setAttributeNS(null, "d", path);
-    pathelem2.setAttributeNS(null, "class", form.name);
     document.getElementById("drowforme").appendChild(g);
     document.getElementById(form.name).appendChild(pathelem1);
     document.getElementById(form.name).appendChild(transformpoint);
     document.getElementById(form.name).appendChild(chanfreinPoint);
 
     // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint) 
-
-
-
+    getchenfrainOfcurrentPoints(form, form.points[0], form.points[1], form.points[3]);
+/*    
     for (j = 0; j < form.points.length; j++) {
         if (j === 0) {
             getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1]);
@@ -76,7 +63,7 @@ var drowForm = function (form, container) {
             getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1]);
         }
     }
-
+*/
 }
 
 var drowTransformPoint = function (form) {
@@ -84,16 +71,7 @@ var drowTransformPoint = function (form) {
     var i = 0;
     for (i; i < form.points.length; i++) {
         if (form.points[i] !== "arc") {
-            var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-            rect.setAttributeNS(null, "x", (form.points[i].x - 20));
-            rect.setAttributeNS(null, "y", (form.points[i].y - 20));
-            rect.setAttributeNS(null, "width", 40);
-            rect.setAttributeNS(null, "height", 40);
-            rect.setAttributeNS(null, "stroke-width", 2);
-            rect.setAttributeNS(null, "stroke", "blue");
-            rect.setAttributeNS(null, "fill", "transparent");
-            rect.setAttributeNS(null, "id", ("pointcontrole-" + i + "-" + form.name));
-            rect.setAttributeNS(null, "data-id", i);
+            let rect = drowRect(form, i);
             document.getElementById(form.name).children[1].appendChild(rect);
         } else {
             var pc = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -109,8 +87,6 @@ var drowTransformPoint = function (form) {
         }
     }
 }
-
-
 
 function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint) {
 
@@ -134,12 +110,43 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint) {
         }
     }
 
-    if (currentPoint.x !== prevPoint.x && nextpoint.y !== currentPoint.y) {
-        t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
-        prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10);
-        
-        t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
-        curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10);
+    if (currentPoint.x !== prevPoint.x && currentPoint.y !== prevPoint.y && currentPoint.x !== nextpoint.x && currentPoint.y !== nextpoint.y) {
+
+        if (prevPoint.x < currentPoint.x && prevPoint.y > currentPoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
+            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "left");
+            console.log(prevCurInter)
+
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
+            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
+            console.log(curPrevInter)
+        } 
+
+        /*if (prevPoint.x > currentPoint.x && prevPoint.y > currentPoint.x) {            
+            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
+            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "left");
+
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
+            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "right");
+        }*/
+
+        if (currentPoint.x < nextpoint.x && currentPoint.y < nextpoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
+            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "letf");
+            console.log(curNextInter)
+
+            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
+            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "right");
+            console.log(nextCurInter)
+        } 
+
+        /*else {
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
+            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
+
+            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
+            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "right");
+        }*/
     }
 
     if (currentPoint.y === nextpoint.y) {
@@ -155,13 +162,22 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint) {
             nextCurInter.push({ x: nextpoint.x, y: nextpoint.y - 10 });
         }
     }
-    if (currentPoint.y !== nextpoint.y && nextpoint.x !== currentPoint.x) {
-        t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
-        curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10);
 
-        t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
-        nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10);
-    }
+    /*if (currentPoint.y !== nextpoint.y && currentPoint.x !== nextpoint.x) {
+        if (nextpoint.x < currentPoint.x) {
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
+            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
+
+            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
+            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "right");
+        } else {
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
+            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "right");
+
+            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
+            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "left");
+        }
+    }*/
 
     ////////////////////////
 
@@ -193,48 +209,16 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint) {
         }
     }
 
-
-    console.log(prevCurInter)
-    console.log(curPrevInter)
-    console.log(curNextInter)
-    console.log(nextCurInter)
+    console.log("-----")
+    console.log(prevCurInter[0])
+    console.log(curPrevInter[0])
+    console.log(curNextInter[0])
+    console.log(nextCurInter[0])
 
     var p1 = checkLineIntersection(prevCurInter[0], curPrevInter[0], curNextInter[0], nextCurInter[0]);
     var p2 = checkLineIntersection(prevCurInter[1], curPrevInter[1], curNextInter[1], nextCurInter[1]);
 
     drowline(form, p1, p2, "translate", 0.5, 1, "red");
-
-
-    /*
-    var t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
-    prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10);
-    console.log("-----------");
-    console.log(t);
-    console.log(prevCurInter);
-    
-    t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
-    curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10);
-    console.log("-----------");
-    console.log(t);
-    console.log(curNextInter);
-    
-    t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
-    nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10);
-    console.log("-----------");
-    console.log(t);
-    console.log(nextCurInter);
-    
-    t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
-    curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10);
-    console.log("-----------");
-    console.log(t);
-    console.log(curPrevInter);
-
-
-
-    p1 = checkLineIntersection(curNextInter[1], nextCurInter[1], curPrevInter[0], prevCurInter[0]);
-    p2 = checkLineIntersection(curNextInter[0], nextCurInter[0], curPrevInter[1], prevCurInter[1]);
-    */
 
 }
 
