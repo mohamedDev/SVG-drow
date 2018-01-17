@@ -66,6 +66,11 @@ var forms = {
         id: 8,
         name: "Octogone",
         points: [points.p, points.b, points.d, points.f, points.h, points.j, points.l, points.n]
-    }
+    },
+    f9: {
+        id: 9,
+        name: "Losangeinv",
+        points: [points.n, points.k, points.f, points.c]
+    },
 
 };
