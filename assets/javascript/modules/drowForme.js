@@ -108,88 +108,6 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint) {
         }
     }
 
-    if (currentPoint.x !== prevPoint.x && currentPoint.y !== prevPoint.y && currentPoint.x !== nextpoint.x && currentPoint.y !== nextpoint.y) {
-
-        if (prevPoint.x < currentPoint.x && prevPoint.y > currentPoint.y) {
-            console.log("1")
-            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
-            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "left");
-
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
-            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
-        }
-
-        if (currentPoint.x < nextpoint.x && currentPoint.y < nextpoint.y) {
-            console.log("2")
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
-            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "letf");
-
-            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
-            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "right");
-        }
-
-        if (prevPoint.x < currentPoint.x && prevPoint.y < currentPoint.y) {
-            console.log("3")
-            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
-            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "right");
-
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
-            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "right");
-        }
-
-        if (currentPoint.x > nextpoint.x && currentPoint.y < nextpoint.y) {
-            console.log("4")
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
-            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "letf");
-
-            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
-            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "right");
-        }
-
-        /////////
-        if (prevPoint.x > currentPoint.x && prevPoint.y < currentPoint.y) {
-            console.log("5")
-            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
-            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "right");
-
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
-            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "right");
-        }
-
-        if (currentPoint.x > nextpoint.x && currentPoint.y > nextpoint.y) {
-            console.log("6")
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
-            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
-
-            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
-            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "left");
-        }
-
-        if (prevPoint.x > currentPoint.x && prevPoint.y > currentPoint.y) {
-            console.log("7")
-            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
-            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "left");
-            console.log(prevCurInter)
-
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
-            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
-            console.log(curPrevInter)
-        }
-
-        if (currentPoint.x < nextpoint.x && currentPoint.y > nextpoint.y) {
-            console.log("8")
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
-            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
-            console.log(curNextInter)
-
-            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
-            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "left");
-            console.log(nextCurInter)
-        }
-
-
-    }
-
     if (currentPoint.y === nextpoint.y) {
         if (nextpoint.x > currentPoint.x) {
             curNextInter.push({ x: currentPoint.x, y: currentPoint.y - 10 });
@@ -203,24 +121,6 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint) {
             nextCurInter.push({ x: nextpoint.x, y: nextpoint.y - 10 });
         }
     }
-
-    /*if (currentPoint.y !== nextpoint.y && currentPoint.x !== nextpoint.x) {
-        if (nextpoint.x < currentPoint.x) {
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
-            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
-
-            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
-            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "right");
-        } else {
-            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
-            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "right");
-
-            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
-            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "left");
-        }
-    }*/
-
-    ////////////////////////
 
     if (currentPoint.y === prevPoint.y) {
         if (prevPoint.x < currentPoint.x) {
@@ -250,11 +150,60 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint) {
         }
     }
 
+    if (currentPoint.x !== prevPoint.x && currentPoint.y !== prevPoint.y && currentPoint.x !== nextpoint.x && currentPoint.y !== nextpoint.y) {
+        if (prevPoint.x < currentPoint.x && prevPoint.y > currentPoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
+            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "left");
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
+            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
+        }
+        if (currentPoint.x < nextpoint.x && currentPoint.y < nextpoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
+            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "letf");
+            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
+            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "right");
+        }
+        if (prevPoint.x < currentPoint.x && prevPoint.y < currentPoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
+            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "right");
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
+            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "right");
+        }
+        if (currentPoint.x > nextpoint.x && currentPoint.y < nextpoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
+            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "letf");
+            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
+            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "right");
+        }
+        if (prevPoint.x > currentPoint.x && prevPoint.y < currentPoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
+            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "right");
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
+            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "right");
+        }
+        if (currentPoint.x > nextpoint.x && currentPoint.y > nextpoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
+            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
+            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
+            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "left");
+        }
+        if (prevPoint.x > currentPoint.x && prevPoint.y > currentPoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(prevPoint, currentPoint);
+            prevCurInter = checkLineCircleIntersection(t.a, t.b, prevPoint.x, prevPoint.y, 10, "left");
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, prevPoint);
+            curPrevInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
+        }
+        if (currentPoint.x < nextpoint.x && currentPoint.y > nextpoint.y) {
+            t = getEquationOfverticalLineFromTwoPoints(currentPoint, nextpoint);
+            curNextInter = checkLineCircleIntersection(t.a, t.b, currentPoint.x, currentPoint.y, 10, "left");
+            t = getEquationOfverticalLineFromTwoPoints(nextpoint, currentPoint);
+            nextCurInter = checkLineCircleIntersection(t.a, t.b, nextpoint.x, nextpoint.y, 10, "left");
+        }
+    }
+    
     var p1 = checkLineIntersection(prevCurInter[0], curPrevInter[0], curNextInter[0], nextCurInter[0]);
     var p2 = checkLineIntersection(prevCurInter[1], curPrevInter[1], curNextInter[1], nextCurInter[1]);
-
     drowline(form, p1, p2, "translate", 0.5, 1, "red");
-
 }
 
 var updateElement = function (path, name) {
