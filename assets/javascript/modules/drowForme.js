@@ -31,7 +31,7 @@ var calculPath = function (form) {
     return path;
 }
 
-var drowForm = function (form) {
+var drowForm = function (form, container) {
 
     let path = calculPath(form);
     let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -45,7 +45,7 @@ var drowForm = function (form) {
 
     var pathelem1 = drowPath(form, path, 20);
 
-    document.getElementById("drowforme").appendChild(g);
+    document.getElementById(container).appendChild(g);
     document.getElementById(form.name).appendChild(pathelem1);
     document.getElementById(form.name).appendChild(transformpoint);
     document.getElementById(form.name).appendChild(chanfreinPoint);

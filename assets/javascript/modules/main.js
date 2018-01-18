@@ -5,12 +5,32 @@ $(document).ready(function () {
     var dragelemX = 0;
     var dragelemY = 0;
     var moveElem = "";
-    
+
     var optionstypes = "";
     optionstypes += "<option > ... </option>";
     for (item in forms) {
         optionstypes += "<option value=\"" + item + "\">" + forms[item].name + "</option>";
     }
+    /*for (item in forms) {
+        let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        //svg.setAttributeNS(null, "xmlns", "http://www.w3.org/2000/svg");
+        //svg.setAttributeNS(null, "xml:lang", "fr");
+        svg.setAttributeNS(null, "viewBox", "0 0 550 550");
+        //svg.setAttributeNS(null, "xmlns:xlink", "http://www.w3.org/1999/xlink");
+        svg.setAttributeNS(null, "width", 200);
+        svg.setAttributeNS(null, "height", 200);
+        svg.setAttributeNS(null, "id", forms[item].name + "t");
+        svg.setAttributeNS(null, "preserveAspectRatio", "xMidYMid meet");
+        svg.setAttributeNS(null, "smiling", "fake");
+
+        let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttributeNS(null, "id", forms[item].name + "tt");
+        g.setAttributeNS(null, "class", "translate");
+
+        document.getElementById("menu").appendChild(svg);
+        document.getElementById(forms[item].name + "t").appendChild(g);
+        drowForm(forms[item], forms[item].name + "tt");
+    }*/
 
     var listType = $("<select class=\"list-types\"></select>");
     $(".aside-menu").prepend(listType);
@@ -19,8 +39,8 @@ $(document).ready(function () {
     $('.list-types').change(function () {
         let form_name = $(this).val();
         let form = forms[form_name];
-        
-        drowForm(form);
+
+        drowForm(form, "drowforme");
         drowTransformPoint(form);
     });
 
