@@ -132,11 +132,9 @@ function getIntersectionCircleLine(x1, y1, x2, y2, Cx, Cy, Cr) {
         var Fx = (t - dt) * Dx + x1;
         var Fy = (t - dt) * Dy + y1;
 
-
         // compute second intersection point
         var Gx = (t + dt) * Dx + x1;
         var Gy = (t + dt) * Dy + y1;
-
 
         return [{ x: Fx, y: Fy }, { x: Gx, y: Gy }];
     }

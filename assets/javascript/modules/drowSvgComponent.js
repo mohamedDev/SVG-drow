@@ -38,6 +38,16 @@ function drowRect(form, order, rect_width = 40, stroke_width = 2, stroke_color =
     return rect;
 }
 
-function drowCircle() {
+function drowCircle(form, order) {
+    var point_controle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    pc.setAttributeNS(null, "id", ("pointcontrole-" + i + "-" + form.name));
+    pc.setAttributeNS(null, "data-id", i);
+    pc.setAttributeNS(null, "r", 15);
+    pc.setAttributeNS(null, "stroke-width", 1);
+    pc.setAttributeNS(null, "stroke", "red");
+    pc.setAttributeNS(null, "fill", "transparent");
+    pc.setAttributeNS(null, "cx", form.pControl[i].x);
+    pc.setAttributeNS(null, "cy", form.pControl[i].y);
 
+    return point_controle;
 }
