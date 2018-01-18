@@ -26,6 +26,46 @@ var points = {
     y: { x: 400, y: 400 },
 };
 
+
+var points1 = {
+    a: { x: 0, y: 0 },
+    b: { x: 100, y: 0 },
+    c: { x: 200, y: 0 },
+    d: { x: 300, y: 0 },
+    e: { x: 400, y: 0 },
+    f: { x: 500, y: 0 },
+    g: { x: 500, y: 100 },
+    h: { x: 500, y: 200 },
+    i: { x: 500, y: 300 },
+    j: { x: 500, y: 400 },
+    k: { x: 500, y: 500 },
+    l: { x: 400, y: 500 },
+    m: { x: 300, y: 500 },
+    n: { x: 200, y: 500 },
+    o: { x: 100, y: 500 },
+    p: { x: 0, y: 500 },
+    q: { x: 0, y: 400 },
+    r: { x: 0, y: 300 },
+    s: { x: 0, y: 200 },
+    t: { x: 0, y: 100 },
+    u: { x: 100, y: 100 },
+    v: { x: 200, y: 100 },
+    w: { x: 300, y: 100 },
+    x: { x: 400, y: 100 },
+    y: { x: 100, y: 200 },
+    z: { x: 200, y: 200 },
+    ab: { x: 300, y: 200 },
+    ac: { x: 400, y: 200 },
+    ad: { x: 100, y: 300 },
+    ae: { x: 200, y: 300 },
+    af: { x: 300, y: 300 },
+    ag: { x: 400, y: 300 },
+    ah: { x: 100, y: 400 },
+    ai: { x: 200, y: 400 },
+    aj: { x: 300, y: 400 },
+    ak: { x: 400, y: 400 }
+};
+
 var forms = {
     f1: {
         id: 1,
@@ -69,8 +109,13 @@ var forms = {
     },
     f9: {
         id: 9,
+        name: "DemiOctogone",
+        points: [points.p, points.b, points.d, points.f, points.i, points.m]
+    },
+    f10: {
+        id: 10,
         name: "Losangeinv",
-        points: [points.n, points.k, points.f, points.c]
+        points: [points.o, points.k, points.g, points.c]
     },
 
 };
