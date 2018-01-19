@@ -1,11 +1,5 @@
 $(document).ready(function () {
 
-    var currentelem = -1;
-    var idCurrentPoint = -1;
-    var dragelemX = 0;
-    var dragelemY = 0;
-    var moveElem = "";
-
     var optionstypes = "";
     optionstypes += "<option > ... </option>";
     for (item in forms) {
@@ -40,9 +34,15 @@ $(document).ready(function () {
         let form_name = $(this).val();
         let form = forms[form_name];
 
+        selectedform = form;
         drowForm(form, "drowforme");
-        drowTransformPoint(form);
     });
+
+    /*$('.arcdeg').on('input', function () {
+        for (let i = 0; i < listforms.length; i++) {
+            updateForm(selectedform);
+        }
+    });*/
 
     $("body").on("mousedown", "#draggable-element", function (evt) {
         evt = evt || window.event;

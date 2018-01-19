@@ -41,9 +41,9 @@ function checkLineCircleIntersection(a, b, cx, cy, r, direction) {
 function checkLineIntersection(point1, point2, point3, point4) {
     var denominator, a, b, numerator1, numerator2, result = {
         x: null,
-        y: null,
-        onLine1: false,
-        onLine2: false
+        y: null
+        //onLine1: false,
+        //onLine2: false
     };
     denominator = ((point4.y - point3.y) * (point2.x - point1.x)) - ((point4.x - point3.x) * (point2.y - point1.y));
     if (denominator == 0) {
@@ -59,12 +59,12 @@ function checkLineIntersection(point1, point2, point3, point4) {
     result.x = point1.x + (a * (point2.x - point1.x));
     result.y = point1.y + (a * (point2.y - point1.y));
 
-    if (a > 0 && a < 1) {
+    /*if (a > 0 && a < 1) {
         result.onLine1 = true;
     }
     if (b > 0 && b < 1) {
         result.onLine2 = true;
-    }
+    }*/
     return result;
 }
 

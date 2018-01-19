@@ -8,7 +8,7 @@ function drowline(form, p1, p2, elemtoadd, stroke_width, stroke_opacity, stroke_
     line.setAttributeNS(null, "stroke-opacity", stroke_opacity);
     line.setAttributeNS(null, "stroke", stroke_color);
 
-    document.getElementById(form.name).children[2].appendChild(line);
+    return line;
 }
 
 function drowPath(form, path, stroke_width = 20, stroke_color = "gray") {

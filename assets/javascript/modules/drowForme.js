@@ -31,45 +31,13 @@ var calculPath = function (form) {
     return path;
 }
 
-var drowForm = function (form, container) {
-
-    let path = calculPath(form);
-    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    g.setAttributeNS(null, "id", form.name);
-
-    var transformpoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    transformpoint.setAttributeNS(null, "class", "transform-points");
-
-    var chanfreinPoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    chanfreinPoint.setAttributeNS(null, "class", "chanfrein-points");
-
-    var pathelem1 = drowPath(form, path, 20);
-
-    document.getElementById(container).appendChild(g);
-    document.getElementById(form.name).appendChild(pathelem1);
-    document.getElementById(form.name).appendChild(transformpoint);
-    document.getElementById(form.name).appendChild(chanfreinPoint);
-
-    // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint)
-    for (j = 0; j < form.points.length; j++) {
-        if (j === 0) {
-            getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1], 10);
-        } else if (j === (form.points.length - 1)) {
-            getchenfrainOfcurrentPoints(form, form.points[j], form.points[0], form.points[j - 1], 10);
-        } else {
-            getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], 10);
-        }
-    }
-
-}
-
 var drowTransformPoint = function (form) {
 
     var i = 0;
     for (i; i < form.points.length; i++) {
         if (form.points[i] !== "arc") {
             let rect = drowRect(form, i);
-            document.getElementById(form.name).children[1].appendChild(rect);
+            document.getElementById(form.name + "_" + nombre_simulation).children[1].appendChild(rect);
         } else {
             var pc = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             pc.setAttributeNS(null, "id", ("pointcontrole-" + i + "-" + form.name));
@@ -80,9 +48,88 @@ var drowTransformPoint = function (form) {
             pc.setAttributeNS(null, "fill", "transparent");
             pc.setAttributeNS(null, "cx", form.pControl[i].x);
             pc.setAttributeNS(null, "cy", form.pControl[i].y);
-            document.getElementById(form.name).children[3].appendChild(pc);
+            document.getElementById(form.name + "_" + nombre_simulation).children[3].appendChild(pc);
         }
     }
+}
+
+var drowTransformline = function (form) {
+
+    var i = 0;
+
+    let x, y;
+
+    for (i; i < form.points.length; i++) {
+        if (form.points[i] !== "arc") {
+            if (i === 0) {
+                x = (form.points[i].x - form.points[form.points.length - 1].x) / 2;
+                y = (form.points[i].y - form.points[form.points.length - 1].y) / 2;
+            } else {
+                x = (form.points[i].x - form.points[i - 1].x) / 2;
+                y = (form.points[i].y - form.points[i - 1].y) / 2;
+            }
+
+            let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttributeNS(null, "x", x - 10);
+            rect.setAttributeNS(null, "y", y - 10);
+            rect.setAttributeNS(null, "width", 20);
+            rect.setAttributeNS(null, "height", 20);
+            rect.setAttributeNS(null, "stroke-width", 1);
+            rect.setAttributeNS(null, "stroke", "green");
+            rect.setAttributeNS(null, "fill", "green");
+
+            document.getElementById(form.name + "_" + nombre_simulation).children[1].appendChild(rect);
+
+        }
+    }
+}
+
+var drowForm = function (form, container) {
+
+    let simulation = {};
+    nombre_simulation++;
+    simulation.id = form.name + "_" + nombre_simulation;
+    simulation.name = form.name;
+    simulation.points = [];
+
+    let path = calculPath(form);
+    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.setAttributeNS(null, "id", simulation.id);
+
+    let transformpoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    transformpoint.setAttributeNS(null, "id", "transform-points_" + nombre_simulation);
+    transformpoint.setAttributeNS(null, "class", "transform-points");
+
+    let chanfreinPoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    chanfreinPoint.setAttributeNS(null, "id", "chanfrein-points_" + nombre_simulation);
+    chanfreinPoint.setAttributeNS(null, "class", "chanfrein-points");
+
+    let form_path = drowPath(form, path, 20);
+
+    document.getElementById(container).appendChild(g);
+    document.getElementById(simulation.id).appendChild(form_path);
+    document.getElementById(simulation.id).appendChild(transformpoint);
+    document.getElementById(simulation.id).appendChild(chanfreinPoint);
+    //drowTransformPoint(form);
+    //drowTransformline(form);
+
+    // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint)
+    for (let j = 0; j < form.points.length; j++) {
+        let points = [];
+        if (j === 0) {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1], 10));
+        } else if (j === (form.points.length - 1)) {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[0], form.points[j - 1], 10));
+        } else {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], 10));
+        }
+        simulation.points.push(points[0].p1);
+        simulation.points.push(points[0].p2);
+        let line = drowline(form, points[0].p1, points[0].p2, "translate", 0.5, 1, "red");
+        document.getElementById(simulation.id).children[2].appendChild(line);
+    }
+
+    simulations.push(simulation);
 }
 
 function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint, stroke_width) {
@@ -199,7 +246,7 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint, s
 
     var p1 = checkLineIntersection(prevCurInter[0], curPrevInter[0], curNextInter[0], nextCurInter[0]);
     var p2 = checkLineIntersection(prevCurInter[1], curPrevInter[1], curNextInter[1], nextCurInter[1]);
-    drowline(form, p1, p2, "translate", 0.5, 1, "red");
+    return { p1, p2 };
 }
 
 var updateElement = function (path, name) {
