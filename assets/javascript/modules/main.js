@@ -31,11 +31,11 @@ $(document).ready(function () {
     $('.list-types').append(optionstypes);
 
     $('.list-types').change(function () {
-        let form_name = $(this).val();
-        let form = forms[form_name];
+        let form_key = $(this).val();
+        let form = forms[form_key];
 
         selectedform = form;
-        drowForm(form, form_name, "drowforme");
+        drowForm(form, form_key, "drowforme");
     });
 
     /*$('.arcdeg').on('input', function () {
@@ -65,10 +65,19 @@ $(document).ready(function () {
             var offsetX = (evt.pageX - dragelemX),
                 offsetY = (evt.pageY - dragelemY);
 
-            forms[currentelem].points[idCurrentPoint].x = (offsetX - 20);
-            forms[currentelem].points[idCurrentPoint].y = (offsetY - 20);
+            console.log(simulations[0])
+            simulations[0].points[idCurrentPoint].x = (offsetX - 25);
+            simulations[0].points[idCurrentPoint].y = (offsetY - 25);
 
-            console.log(forms[currentelem].points)
+
+
+
+            let form = {};
+            form.points = simulations[0].points;
+
+            selectedform = form;
+            $("#drowforme").html("");
+            drowForm(form, "f1", "drowforme");
 
             //listforms[currentelem].update();
             //listforms[currentelem].updatePoint(idCurrentPoint);

@@ -84,7 +84,7 @@ var drowTransformline = function (form) {
     }
 }
 
-function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint, stroke_width) {
+var getchenfrainOfcurrentPoints = function (form, currentPoint, nextpoint, prevPoint, stroke_width) {
 
     var curNextInter = [],
         nextCurInter = [],
@@ -207,7 +207,8 @@ var drowForm = function (form, formid, container) {
     nombre_simulation++;
     simulation.id = form.name + "_" + nombre_simulation;
     simulation.name = form.name;
-    simulation.points = [];
+    simulation.chenfrein = [];
+    simulation.points = {};
 
     let path = calculPath(form);
     let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -240,12 +241,13 @@ var drowForm = function (form, formid, container) {
         } else {
             points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], 10));
         }
-        simulation.points.push(points[0].p1);
-        simulation.points.push(points[0].p2);
+        simulation.chenfrein.push(points[0].p1);
+        simulation.chenfrein.push(points[0].p2);
         let line = drowline(form, points[0].p1, points[0].p2, "translate", 0.5, 1, "red");
         document.getElementById(simulation.id).children[2].appendChild(line);
     }
 
+    simulation.points = form.points;
     simulations.push(simulation);
 }
 
