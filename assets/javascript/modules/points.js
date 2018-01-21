@@ -80,7 +80,7 @@ var forms = {
     f3: {
         id: 3,
         name: "demi cercle",
-        points: [points.o, "arc", points.g]
+        points: [points.o, { name: "arc", val: 20 }, points.g]
     },
     f4: {
         id: 4,
@@ -110,7 +110,7 @@ var forms = {
     f9: {
         id: 9,
         name: "DemiOctogone",
-        points: [points.p, points.b, points.d, points.f, points.i, points.m]
+        points: [points.p, points.b, points.s, points.d, points.f, points.i, points.m]
     },
     f10: {
         id: 10,

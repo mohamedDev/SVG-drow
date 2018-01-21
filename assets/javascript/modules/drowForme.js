@@ -5,7 +5,7 @@ var calculPath = function (form) {
         path = "M" + form.points[0].x + "," + form.points[0].y;
 
     for (i; i < form.points.length; i++) {
-        if (form.points[i] === "arc") {
+        if (form.points[i].name === "arc") {
             if ((i + 1) === form.points.length) {
                 dx = ((form.points[0].x - form.points[i - 1].x) / 2) + form.points[i - 1].x;
                 dy = ((form.points[0].y - form.points[i - 1].y) / 2) + form.points[i - 1].y;
@@ -41,7 +41,7 @@ var drowTransformPoint = function (form) {
         } else {
             var pc = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             pc.setAttributeNS(null, "id", ("pointcontrole-" + i + "-" + form.name));
-            pc.setAttributeNS(null, "data-id", i);
+            pc.setAttributeNS(null, "data-id", form.name + "_" + i);
             pc.setAttributeNS(null, "r", 15);
             pc.setAttributeNS(null, "stroke-width", 1);
             pc.setAttributeNS(null, "stroke", "red");
@@ -54,82 +54,34 @@ var drowTransformPoint = function (form) {
 }
 
 var drowTransformline = function (form) {
-
-    var i = 0;
-
+    let i = 0;
     let x, y;
 
     for (i; i < form.points.length; i++) {
+        let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttributeNS(null, "width", 10);
+        rect.setAttributeNS(null, "height", 10);
+        rect.setAttributeNS(null, "stroke-width", 1);
+        rect.setAttributeNS(null, "stroke", "blue");
+        rect.setAttributeNS(null, "fill", "blue");
+
         if (form.points[i] !== "arc") {
             if (i === 0) {
-                x = (form.points[i].x - form.points[form.points.length - 1].x) / 2;
-                y = (form.points[i].y - form.points[form.points.length - 1].y) / 2;
+                x = (form.points[i].x + form.points[form.points.length - 1].x) / 2;
+                y = (form.points[i].y + form.points[form.points.length - 1].y) / 2;
+                rect.setAttributeNS(null, "data-prev", form.points.length - 1);
             } else {
-                x = (form.points[i].x - form.points[i - 1].x) / 2;
-                y = (form.points[i].y - form.points[i - 1].y) / 2;
+                x = (form.points[i].x + form.points[i - 1].x) / 2;
+                y = (form.points[i].y + form.points[i - 1].y) / 2;
+                rect.setAttributeNS(null, "data-prev", i - 1);
             }
-
-            let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-            rect.setAttributeNS(null, "x", x - 10);
-            rect.setAttributeNS(null, "y", y - 10);
-            rect.setAttributeNS(null, "width", 20);
-            rect.setAttributeNS(null, "height", 20);
-            rect.setAttributeNS(null, "stroke-width", 1);
-            rect.setAttributeNS(null, "stroke", "green");
-            rect.setAttributeNS(null, "fill", "green");
+            rect.setAttributeNS(null, "data-next", i);
+            rect.setAttributeNS(null, "x", x - 5);
+            rect.setAttributeNS(null, "y", y - 5);
 
             document.getElementById(form.name + "_" + nombre_simulation).children[1].appendChild(rect);
-
         }
     }
-}
-
-var drowForm = function (form, container) {
-
-    let simulation = {};
-    nombre_simulation++;
-    simulation.id = form.name + "_" + nombre_simulation;
-    simulation.name = form.name;
-    simulation.points = [];
-
-    let path = calculPath(form);
-    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    g.setAttributeNS(null, "id", simulation.id);
-
-    let transformpoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    transformpoint.setAttributeNS(null, "id", "transform-points_" + nombre_simulation);
-    transformpoint.setAttributeNS(null, "class", "transform-points");
-
-    let chanfreinPoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    chanfreinPoint.setAttributeNS(null, "id", "chanfrein-points_" + nombre_simulation);
-    chanfreinPoint.setAttributeNS(null, "class", "chanfrein-points");
-
-    let form_path = drowPath(form, path, 20);
-
-    document.getElementById(container).appendChild(g);
-    document.getElementById(simulation.id).appendChild(form_path);
-    document.getElementById(simulation.id).appendChild(transformpoint);
-    document.getElementById(simulation.id).appendChild(chanfreinPoint);
-    //drowTransformPoint(form);
-    //drowTransformline(form);
-
-    // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint)
-    for (let j = 0; j < form.points.length; j++) {
-        let points = [];
-        if (j === 0) {
-            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1], 10));
-        } else if (j === (form.points.length - 1)) {
-            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[0], form.points[j - 1], 10));
-        } else {
-            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], 10));
-        }
-        simulation.points.push(points[0].p1);
-        simulation.points.push(points[0].p2);
-        let line = drowline(form, points[0].p1, points[0].p2, "translate", 0.5, 1, "red");
-        document.getElementById(simulation.id).children[2].appendChild(line);
-    }
-
-    simulations.push(simulation);
 }
 
 function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint, stroke_width) {
@@ -247,6 +199,54 @@ function getchenfrainOfcurrentPoints(form, currentPoint, nextpoint, prevPoint, s
     var p1 = checkLineIntersection(prevCurInter[0], curPrevInter[0], curNextInter[0], nextCurInter[0]);
     var p2 = checkLineIntersection(prevCurInter[1], curPrevInter[1], curNextInter[1], nextCurInter[1]);
     return { p1, p2 };
+}
+
+var drowForm = function (form, container) {
+
+    let simulation = {};
+    nombre_simulation++;
+    simulation.id = form.name + "_" + nombre_simulation;
+    simulation.name = form.name;
+    simulation.points = [];
+
+    let path = calculPath(form);
+    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.setAttributeNS(null, "id", simulation.id);
+
+    let transformpoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    transformpoint.setAttributeNS(null, "id", "transform-points_" + nombre_simulation);
+    transformpoint.setAttributeNS(null, "class", "transform-points");
+
+    let chanfreinPoint = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    chanfreinPoint.setAttributeNS(null, "id", "chanfrein-points_" + nombre_simulation);
+    chanfreinPoint.setAttributeNS(null, "class", "chanfrein-points");
+
+    let form_path = drowPath(form, path, 20);
+
+    document.getElementById(container).appendChild(g);
+    document.getElementById(simulation.id).appendChild(form_path);
+    document.getElementById(simulation.id).appendChild(transformpoint);
+    document.getElementById(simulation.id).appendChild(chanfreinPoint);
+    drowTransformPoint(form);
+    //drowTransformline(form);
+
+    // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint)
+    for (let j = 0; j < form.points.length; j++) {
+        let points = [];
+        if (j === 0) {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1], 10));
+        } else if (j === (form.points.length - 1)) {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[0], form.points[j - 1], 10));
+        } else {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], 10));
+        }
+        simulation.points.push(points[0].p1);
+        simulation.points.push(points[0].p2);
+        let line = drowline(form, points[0].p1, points[0].p2, "translate", 0.5, 1, "red");
+        document.getElementById(simulation.id).children[2].appendChild(line);
+    }
+
+    simulations.push(simulation);
 }
 
 var updateElement = function (path, name) {
