@@ -35,7 +35,7 @@ $(document).ready(function () {
         let form = forms[form_name];
 
         selectedform = form;
-        drowForm(form, "drowforme");
+        drowForm(form, form_name, "drowforme");
     });
 
     /*$('.arcdeg').on('input', function () {
@@ -51,19 +51,10 @@ $(document).ready(function () {
         dragelemY = $(this).offset().top;
 
         if (evt.target.nodeName === "rect") {
-            currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
-            idCurrentPoint = evt.target.attributes["data-id"].value;
-
-            moveElem = "#" + currentelem + "-" + listforms[currentelem].name;
-            $(moveElem).find('path').css("opacity", "0.5");
-        }
-
-        if (evt.target.nodeName === "circle") {
-            currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
-            idCurrentPoint = evt.target.attributes["data-id"].value;
-
-            moveElem = "#" + currentelem + "-" + listforms[currentelem].name;
-            $(moveElem).find('path').css("opacity", "0.5");
+            let form_id = evt.target.dataset.formId;
+            currentelem = evt.target.dataset.key;
+            idCurrentPoint = evt.target.dataset.id;
+            idCurrentPoint = evt.target.dataset.id;
         }
     });
 
@@ -74,18 +65,13 @@ $(document).ready(function () {
             var offsetX = (evt.pageX - dragelemX),
                 offsetY = (evt.pageY - dragelemY);
 
-            if (listforms[currentelem].points[idCurrentPoint] !== "arc") {
+            forms[currentelem].points[idCurrentPoint].x = (offsetX - 20);
+            forms[currentelem].points[idCurrentPoint].y = (offsetY - 20);
 
-                listforms[currentelem].points[idCurrentPoint].x = (offsetX - 25);
-                listforms[currentelem].points[idCurrentPoint].y = (offsetY - 25);
+            console.log(forms[currentelem].points)
 
-            } else {
-                listforms[currentelem].pControl[idCurrentPoint].x = (offsetX - 25);
-                listforms[currentelem].pControl[idCurrentPoint].y = (offsetY - 25);
-            }
-
-            listforms[currentelem].update();
-            listforms[currentelem].updatePoint(idCurrentPoint);
+            //listforms[currentelem].update();
+            //listforms[currentelem].updatePoint(idCurrentPoint);
         }
     });
 
@@ -97,7 +83,6 @@ $(document).ready(function () {
         dragelemX = 0;
         dragelemY = 0;
     });
-
 });
 
 
