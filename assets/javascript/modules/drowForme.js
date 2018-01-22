@@ -31,12 +31,12 @@ var calculPath = function (form) {
     return path;
 }
 
-var drowTransformPoint = function (form, formid) {
+var drowTransformPoint = function (form) {
 
     var i = 0;
     for (i; i < form.points.length; i++) {
         if (form.points[i] !== "arc") {
-            let rect = drowRect(form, formid, i);
+            let rect = drowRect(form, i);
             document.getElementById(form.name + "_" + nombre_simulation).children[1].appendChild(rect);
         } else {
             var pc = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -201,7 +201,7 @@ var getchenfrainOfcurrentPoints = function (form, currentPoint, nextpoint, prevP
     return { p1, p2 };
 }
 
-var drowForm = function (form, formid, container) {
+var drowForm = function (form, container) {
 
     let simulation = {};
     nombre_simulation++;
@@ -228,7 +228,7 @@ var drowForm = function (form, formid, container) {
     document.getElementById(simulation.id).appendChild(form_path);
     document.getElementById(simulation.id).appendChild(transformpoint);
     document.getElementById(simulation.id).appendChild(chanfreinPoint);
-    drowTransformPoint(form, formid);
+    drowTransformPoint(form);
     //drowTransformline(form);
 
     // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint)
@@ -249,6 +249,13 @@ var drowForm = function (form, formid, container) {
 
     simulation.points = form.points;
     simulations.push(simulation);
+}
+
+var updateForm = function (form, elementid) {
+
+    let path = calculPath(form);
+
+    $(elementid + " path").attr("d", path);
 }
 
 var updateElement = function (path, name) {

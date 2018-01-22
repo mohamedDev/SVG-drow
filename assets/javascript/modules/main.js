@@ -35,7 +35,7 @@ $(document).ready(function () {
         let form = forms[form_key];
 
         selectedform = form;
-        drowForm(form, form_key, "drowforme");
+        drowForm(form, "drowforme");
     });
 
     /*$('.arcdeg').on('input', function () {
@@ -65,30 +65,20 @@ $(document).ready(function () {
             var offsetX = (evt.pageX - dragelemX),
                 offsetY = (evt.pageY - dragelemY);
 
-            console.log(simulations[0])
             simulations[0].points[idCurrentPoint].x = (offsetX - 25);
             simulations[0].points[idCurrentPoint].y = (offsetY - 25);
-
-
-
 
             let form = {};
             form.points = simulations[0].points;
 
             selectedform = form;
-            $("#drowforme").html("");
-            drowForm(form, "f1", "drowforme");
-
-            //listforms[currentelem].update();
-            //listforms[currentelem].updatePoint(idCurrentPoint);
+            updateForm(form, "#" + simulations[0].id);
         }
     });
 
     $("body").on("mouseup", "#draggable-element", function () {
-        $(moveElem).find('path').css("opacity", "1");
         currentelem = -1;
         idCurrentPoint = -1;
-        moveElem = "";
         dragelemX = 0;
         dragelemY = 0;
     });
