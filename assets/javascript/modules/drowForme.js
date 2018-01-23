@@ -210,7 +210,7 @@ var drowForm = function (form, container) {
     simulation.chenfrein = [];
     simulation.points = {};
 
-    let path = calculPath(form);
+    //let path = calculPath(form);
     let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
     g.setAttributeNS(null, "id", simulation.id);
 
@@ -222,13 +222,13 @@ var drowForm = function (form, container) {
     chanfreinPoint.setAttributeNS(null, "id", "chanfrein-points_" + nombre_simulation);
     chanfreinPoint.setAttributeNS(null, "class", "chanfrein-points");
 
-    let form_path = drowPath(form, path, 20);
+    //let form_path = drowPath(form, path, 20);
 
     document.getElementById(container).appendChild(g);
-    document.getElementById(simulation.id).appendChild(form_path);
+    //document.getElementById(simulation.id).appendChild(form_path);
     document.getElementById(simulation.id).appendChild(transformpoint);
     document.getElementById(simulation.id).appendChild(chanfreinPoint);
-    drowTransformPoint(form);
+    drowTransformPoint(form);    
     //drowTransformline(form);
 
     // getchenfrainOfcurrentPoints(currentPoint, nextpoint, prevPoint)
@@ -244,24 +244,52 @@ var drowForm = function (form, container) {
         simulation.chenfrein.push(points[0].p1);
         simulation.chenfrein.push(points[0].p2);
         let line = drowline(form, points[0].p1, points[0].p2, "translate", 0.5, 1, "red");
-        document.getElementById(simulation.id).children[2].appendChild(line);
+        document.getElementById(simulation.id).children[1].appendChild(line);
     }
+
 
     simulation.points = form.points;
     simulations.push(simulation);
+
+    drowElement(simulation);
+
 }
 
 var updateForm = function (form, elementid) {
 
-    let path = calculPath(form);
-
-    $(elementid + " path").attr("d", path);
+    drowElement(form);
 }
 
-var updateElement = function (path, name) {
-    var groupForm = document.getElementById((name)),
-        groupFormClippath = document.getElementById(("cp-" + name));
+var drowElement = function (simulation) {
 
-    groupForm.children[2].setAttributeNS(null, "d", path);
-    groupFormClippath.children[0].setAttributeNS(null, "d", path);
+    console.log(simulation.chenfrein);
+    var path = "";
+    var j = 0;
+    for (var i = 0; i < simulation.chenfrein.length / 2; i++) {
+
+        path = "M" + simulation.chenfrein[j].x + "," + simulation.chenfrein[j].y;
+        path += " L" + simulation.chenfrein[j + 1].x + "," + simulation.chenfrein[j + 1].y;
+
+        if ((simulation.chenfrein.length / 2) - 1 !== i) {
+            path += " L" + simulation.chenfrein[j + 3].x + "," + simulation.chenfrein[j + 3].y;
+            path += " L" + simulation.chenfrein[j + 2].x + "," + simulation.chenfrein[j + 2].y;
+            j += 2;
+        } else {
+            path += " L" + simulation.chenfrein[1].x + "," + simulation.chenfrein[1].y;
+            path += " L" + simulation.chenfrein[0].x + "," + simulation.chenfrein[0].y;
+        }
+
+        path += " z";
+        let pathelem1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        pathelem1.setAttributeNS(null, "d", path);
+        pathelem1.setAttributeNS(null, "stroke-width", 0.5);
+        pathelem1.setAttributeNS(null, "stroke", "gray");
+        pathelem1.setAttributeNS(null, "fill", "red");
+
+        document.getElementById(simulation.id).prepend(pathelem1);
+    }
+
+
+
+
 }

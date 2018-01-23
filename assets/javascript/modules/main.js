@@ -72,7 +72,7 @@ $(document).ready(function () {
             form.points = simulations[0].points;
 
             selectedform = form;
-            updateForm(form, "#" + simulations[0].id);
+            updateForm(simulations[0], "#" + simulations[0].id);
         }
     });
 

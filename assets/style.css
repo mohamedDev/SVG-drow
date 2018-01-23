@@ -62,7 +62,7 @@ text {
     transform: translate(25px, 25px);
 }
 
-path {
+.canvas  path {
     fill: transparent;
 }
 
