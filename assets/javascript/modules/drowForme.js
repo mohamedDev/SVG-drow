@@ -65,6 +65,7 @@ var drowTransformline = function (form) {
         rect.setAttributeNS(null, "stroke-width", 1);
         rect.setAttributeNS(null, "stroke", "blue");
         rect.setAttributeNS(null, "fill", "blue");
+        rect.setAttributeNS(null, "data-form-id", nombre_simulation);
 
         if (form.points[i] !== "arc") {
             if (i === 0) {
@@ -253,7 +254,7 @@ var drowForm = function (form, container) {
 
     simulations.push(simulation);
 
-    console.log(forms)
+    drowTransformline(simulation)
     drowTransformPoint(simulation);
     drowElement(simulation);
 }
@@ -279,6 +280,7 @@ var updateForm = function (simulation) {
     }
     document.getElementById("form-path_" + simulation.order).innerHTML = "";
 
+    drowTransformline(simulation)
     drowTransformPoint(simulation);
     drowElement(simulation);
 }

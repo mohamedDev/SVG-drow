@@ -53,7 +53,11 @@ $(document).ready(function () {
         if (evt.target.nodeName === "rect") {
             currentelem = evt.target.dataset.formId;
             idCurrentPoint = evt.target.dataset.id;
-            console.log(currentelem);
+            //idPrevPoint = evt.target.dataset.prev;
+            //idNextPoint = evt.target.dataset.next;
+
+            console.log(idPrevPoint);
+            console.log(idNextPoint);
         }
     });
 
