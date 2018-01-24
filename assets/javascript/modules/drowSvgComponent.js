@@ -34,8 +34,7 @@ function drowRect(form, order, rect_width = 40, stroke_width = 2, stroke_color =
     rect.setAttributeNS(null, "fill", "transparent");
     rect.setAttributeNS(null, "id", ("pointcontrole-" + form.name + "-" + nombre_simulation));
     rect.setAttributeNS(null, "data-id", order);
-    rect.setAttributeNS(null, "data-form-id", form.name + "_" + nombre_simulation);
-    rect.setAttributeNS(null, "data-form", form.name);
+    rect.setAttributeNS(null, "data-form-id", form.order);
 
     return rect;
 }

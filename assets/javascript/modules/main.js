@@ -51,10 +51,9 @@ $(document).ready(function () {
         dragelemY = $(this).offset().top;
 
         if (evt.target.nodeName === "rect") {
-            let form_id = evt.target.dataset.formId;
-            currentelem = evt.target.dataset.key;
+            currentelem = evt.target.dataset.formId;
             idCurrentPoint = evt.target.dataset.id;
-            idCurrentPoint = evt.target.dataset.id;
+            console.log(currentelem);
         }
     });
 
@@ -65,14 +64,10 @@ $(document).ready(function () {
             var offsetX = (evt.pageX - dragelemX),
                 offsetY = (evt.pageY - dragelemY);
 
-            simulations[0].points[idCurrentPoint].x = (offsetX - 25);
-            simulations[0].points[idCurrentPoint].y = (offsetY - 25);
+            simulations[currentelem].points[idCurrentPoint].x = (offsetX - 25);
+            simulations[currentelem].points[idCurrentPoint].y = (offsetY - 25);
 
-            let form = {};
-            form.points = simulations[0].points;
-
-            selectedform = form;
-            updateForm(simulations[0], "#" + simulations[0].id);
+            updateForm(simulations[currentelem]);
         }
     });
 
@@ -166,39 +161,3 @@ $(document).ready(function () {
  $('.menu').append(p);
  var url = $(this).val("");
  });*/
-
-
-/*
-on calcule les coordonn�es des droites
-puis on fait une petite �quation comme sa : "droite1 = droite2"
-et puis on a tout les point d'intersections apr�s il faut que le programme puisse g�r� sa ^^ mais �a marche
-
-rappel (m�me si tu le sais peut-�tre sa m'occupe  :p ) :
-
-- calcul d'une droite � partir de 2 points :
-droite d'�quation : y = ax + b
-a = (y1 - y2 ) / (x1 - x2)
-b = y1 - a.x1
-    (Sachant que le point A a pour coordonn�es : x1 et y1
-et le point B : x2 et y2)
-
-- savoir si elles sont s�cantes :
-    on a deux droite :
-    y1 = a1.x + b1
-y2 = a2.x + b2
-
-on fait y1 = y2
-ce qui revient � :
-    y1 - y2 = 0
-a1.x + b1 - a2.x - b2 = 0
-x(a1 - a2) + b1 - b2 = 0
-x = (b2 - b1) / (a1 - a2)
-
-et donc on � la fin de l'�quation on obtient la valeur x o� elle se croisent
-(si elles se croisent) et si elles se croisent pas alors tu aura un petit
-a1 - a2 = 0 (donc tu fait une condition pour v�rifi� si a1 - a2 != 0 ;)
-
-voil�
-si je me trompe dites moi que je parte pas sans avoir dit n'importe quoi ^^
-�a fait longtemps que j'ai pas fait de trigo ^^
-*/
