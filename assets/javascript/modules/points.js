@@ -77,11 +77,11 @@ var forms = {
         name: "triangle",
         points: [points.a, points.e, points.m]
     },
-    f3: {
+    /*f3: {
         id: 3,
         name: "demi cercle",
         points: [points.o, { name: "arc", val: 20 }, points.g]
-    },
+    },*/
     f4: {
         id: 4,
         name: "porte",

@@ -5,4 +5,6 @@ var idNextPoint = -1;
 var dragelemX = 0;
 var dragelemY = 0;
 var nombre_simulation = -1;
-var simulations = []
+var simulations = [];
+var type_transform = "";
+var stroke_with = 10;

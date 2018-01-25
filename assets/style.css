@@ -15,15 +15,18 @@ body {
 }
 
 .aside-menu {
-    width: 210px;
+    width: 250px;
     float: left;
-    position: relative;
+    position: fixed;
     height: 100%;
+    top: 0;
+    bottom: 0;
     padding: 5px;
+    overflow-y: auto;
 }
 
 .simulation {
-    margin: 0;
+    margin: 0 0 0 250px;
 }
 
 text {
@@ -116,11 +119,12 @@ input[type="range"]:after {
     right: 0em;
     content: attr(max);
 }
-
-.form-transform rect {
-    display: none
+/*
+.form-transform-line rect ,
+.form-transform-point rect {
+    opacity: 0
 }
 
 #drowforme:hover rect {
-    display: block
-}
+    opacity: 1
+}/*

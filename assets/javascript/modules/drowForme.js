@@ -33,12 +33,11 @@ var calculPath = function (form) {
 
 var drowTransformPoint = function (form) {
 
-    document.getElementById("form-transform_" + form.order).innerHTML = "";
     var i = 0;
     for (i; i < form.points.length; i++) {
         if (form.points[i] !== "arc") {
             let rect = drowRect(form, i);
-            document.getElementById("form-transform_" + form.order).appendChild(rect);
+            document.getElementById("form-transform-point_" + form.order).appendChild(rect);
         } else {
             var pc = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             pc.setAttributeNS(null, "id", ("pointcontrole-" + i + "-" + form.name));
@@ -60,6 +59,7 @@ var drowTransformline = function (form) {
 
     for (i; i < form.points.length; i++) {
         let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttributeNS(null, "data-id", i);
         rect.setAttributeNS(null, "width", 10);
         rect.setAttributeNS(null, "height", 10);
         rect.setAttributeNS(null, "stroke-width", 1);
@@ -81,7 +81,7 @@ var drowTransformline = function (form) {
             rect.setAttributeNS(null, "x", x - 5);
             rect.setAttributeNS(null, "y", y - 5);
 
-            document.getElementById(form.name + "_" + nombre_simulation).children[1].appendChild(rect);
+            document.getElementById("form-transform-line_" + form.order).appendChild(rect);
         }
     }
 }
@@ -219,9 +219,13 @@ var drowForm = function (form, container) {
     let form_group_path = document.createElementNS("http://www.w3.org/2000/svg", "g");
     form_group_path.setAttributeNS(null, "id", "form-path_" + simulation.order);
 
-    let form_group_transform = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    form_group_transform.setAttributeNS(null, "id", "form-transform_" + simulation.order);
-    form_group_transform.setAttributeNS(null, "class", "form-transform");
+    let form_group_transform_point = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    form_group_transform_point.setAttributeNS(null, "id", "form-transform-point_" + simulation.order);
+    form_group_transform_point.setAttributeNS(null, "class", "form-transform-point");
+
+    let form_group_transform_line = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    form_group_transform_line.setAttributeNS(null, "id", "form-transform-line_" + simulation.order);
+    form_group_transform_line.setAttributeNS(null, "class", "form-transform-line");
 
     let form_group_chanfrein = document.createElementNS("http://www.w3.org/2000/svg", "g");
     form_group_chanfrein.setAttributeNS(null, "id", "form-chanfrein_" + simulation.order);
@@ -230,17 +234,17 @@ var drowForm = function (form, container) {
     document.getElementById(container).appendChild(form_group);
     document.getElementById(simulation.id).appendChild(form_group_path);
     document.getElementById(simulation.id).appendChild(form_group_chanfrein);
-    document.getElementById(simulation.id).appendChild(form_group_transform);
-    
+    document.getElementById(simulation.id).appendChild(form_group_transform_point);
+    document.getElementById(simulation.id).appendChild(form_group_transform_line);
 
     for (let j = 0; j < form.points.length; j++) {
         let points = [];
         if (j === 0) {
-            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1], 10));
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1], stroke_with));
         } else if (j === (form.points.length - 1)) {
-            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[0], form.points[j - 1], 10));
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[0], form.points[j - 1], stroke_with));
         } else {
-            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], 10));
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], stroke_with));
         }
         simulation.chenfrein.push(points[0].p1);
         simulation.chenfrein.push(points[0].p2);
@@ -254,9 +258,11 @@ var drowForm = function (form, container) {
 
     simulations.push(simulation);
 
+    document.getElementById("form-transform-point_" + simulation.order).innerHTML = "";
+    document.getElementById("form-transform-line_" + simulation.order).innerHTML = "";
     drowTransformline(simulation)
     drowTransformPoint(simulation);
-    drowElement(simulation);
+    drowElement(simulation, "form-path_" + simulation.order);
 }
 
 var updateForm = function (simulation) {
@@ -266,29 +272,28 @@ var updateForm = function (simulation) {
     for (let j = 0; j < simulation.points.length; j++) {
         let points = [];
         if (j === 0) {
-            points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[j + 1], simulation.points[simulation.points.length - 1], 10));
+            points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[j + 1], simulation.points[simulation.points.length - 1], stroke_with));
         } else if (j === (simulation.points.length - 1)) {
-            points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[0], simulation.points[j - 1], 10));
+            points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[0], simulation.points[j - 1], stroke_with));
         } else {
-            points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[j + 1], simulation.points[j - 1], 10));
+            points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[j + 1], simulation.points[j - 1], stroke_with));
         }
         simulation.chenfrein.push(points[0].p1);
         simulation.chenfrein.push(points[0].p2);
         let line = drowline(simulation, points[0].p1, points[0].p2, "translate", 0.5, 1, "red");
-
         document.getElementById("form-chanfrein_" + simulation.order).appendChild(line);
     }
-    document.getElementById("form-path_" + simulation.order).innerHTML = "";
 
+    document.getElementById("form-path_" + simulation.order).innerHTML = "";
+    document.getElementById("form-transform-point_" + simulation.order).innerHTML = "";
+    document.getElementById("form-transform-line_" + simulation.order).innerHTML = "";
     drowTransformline(simulation)
     drowTransformPoint(simulation);
-    drowElement(simulation);
+    drowElement(simulation, "form-path_" + simulation.order);
 }
 
 
-
-var drowElement = function (simulation) {
-
+var drowElement = function (simulation, container) {    
     var path = "";
     var j = 0;
     for (var i = 0; i < simulation.chenfrein.length / 2; i++) {
@@ -312,10 +317,6 @@ var drowElement = function (simulation) {
         pathelem1.setAttributeNS(null, "stroke", "black");
         pathelem1.setAttributeNS(null, "fill", "red");
 
-        document.getElementById("form-path_" + simulation.order).appendChild(pathelem1);
+        document.getElementById(container).appendChild(pathelem1);
     }
-
-
-
-
 }
