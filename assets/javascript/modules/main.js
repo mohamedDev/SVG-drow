@@ -51,7 +51,6 @@ $(document).ready(function () {
         evt = evt || window.event;
 
         currentelem = evt.target.dataset.formId;
-        idCurrentPoint = evt.target.dataset.id;
         idPrevPoint = evt.target.dataset.prev;
         idNextPoint = evt.target.dataset.next;
         type_transform = "line";
@@ -75,8 +74,8 @@ $(document).ready(function () {
                 offsetY = (evt.pageY - $(this).find("#form-transform-" + type_transform + "_" + currentelem + " rect[data-id=" + idCurrentPoint + "]").offset().top);
 
             if (type_transform === "point") {
-                simulations[currentelem].points[idCurrentPoint].x += (offsetX - 20);
-                simulations[currentelem].points[idCurrentPoint].y += (offsetY - 20);
+                simulations[currentelem].points[idCurrentPoint].x += (offsetX - 15);
+                simulations[currentelem].points[idCurrentPoint].y += (offsetY - 15);
             }
             if (type_transform === "line") {
                 simulations[currentelem].points[idPrevPoint].x += (offsetX - 5);

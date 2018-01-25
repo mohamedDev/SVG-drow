@@ -35,21 +35,8 @@ var drowTransformPoint = function (form) {
 
     var i = 0;
     for (i; i < form.points.length; i++) {
-        if (form.points[i] !== "arc") {
-            let rect = drowRect(form, i);
-            document.getElementById("form-transform-point_" + form.order).appendChild(rect);
-        } else {
-            var pc = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            pc.setAttributeNS(null, "id", ("pointcontrole-" + i + "-" + form.name));
-            pc.setAttributeNS(null, "data-id", form.name + "_" + i);
-            pc.setAttributeNS(null, "r", 15);
-            pc.setAttributeNS(null, "stroke-width", 1);
-            pc.setAttributeNS(null, "stroke", "red");
-            pc.setAttributeNS(null, "fill", "transparent");
-            pc.setAttributeNS(null, "cx", form.pControl[i].x);
-            pc.setAttributeNS(null, "cy", form.pControl[i].y);
-            document.getElementById(form.name + "_" + nombre_simulation).children[3].appendChild(pc);
-        }
+        let rect = drowRect(form, i);
+        document.getElementById("form-transform-point_" + form.order).appendChild(rect);
     }
 }
 
@@ -65,7 +52,7 @@ var drowTransformline = function (form) {
         rect.setAttributeNS(null, "stroke-width", 1);
         rect.setAttributeNS(null, "stroke", "blue");
         rect.setAttributeNS(null, "fill", "blue");
-        rect.setAttributeNS(null, "data-form-id", nombre_simulation);
+        rect.setAttributeNS(null, "data-form-id", form.order);
 
         if (form.points[i] !== "arc") {
             if (i === 0) {
@@ -293,7 +280,7 @@ var updateForm = function (simulation) {
 }
 
 
-var drowElement = function (simulation, container) {    
+var drowElement = function (simulation, container) {
     var path = "";
     var j = 0;
     for (var i = 0; i < simulation.chenfrein.length / 2; i++) {

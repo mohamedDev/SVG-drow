@@ -23,7 +23,7 @@ function drowPath(form, path, stroke_width = 20, stroke_color = "gray") {
     return pathelem1;
 }
 
-function drowRect(form, order, rect_width = 40, stroke_width = 2, stroke_color = "blue") {
+function drowRect(form, order, rect_width = 30, stroke_width = 2, stroke_color = "blue") {
     let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttributeNS(null, "x", (form.points[order].x - (rect_width / 2)));
     rect.setAttributeNS(null, "y", (form.points[order].y - (rect_width / 2)));

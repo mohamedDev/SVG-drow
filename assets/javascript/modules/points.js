@@ -120,7 +120,7 @@ var forms = {
     f11: {
         id: 2,
         name: "trianglein",
-        points: [points.m, points.e, points.b]
+        points: [points.a, points.i, points.m]
     },
 
 };
