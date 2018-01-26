@@ -13,30 +13,19 @@ $(document).ready(function () {
         drowForm(form, "drowforme");
     });
 
+
     $("body").on("mousedown", "#draggable-element .form-transform-line rect", function (evt) {
         evt = evt || window.event;
+        evt.stopPropagation();
 
         dragelemX = $(this).offset().left;
         dragelemY = $(this).offset().top;
-
         currentelem = evt.target.dataset.formId;
         idCurrentPoint = evt.target.dataset.id;
         idPrevPoint = evt.target.dataset.prev;
         idNextPoint = evt.target.dataset.next;
-
-    });
-
-    $("body").on("mousedown", "#draggable-element .form-transform-line rect", function (evt) {
-        evt = evt || window.event;
-
-        evt.stopPropagation()
-
-        currentelem = evt.target.dataset.formId;
-        idPrevPoint = evt.target.dataset.prev;
-        idNextPoint = evt.target.dataset.next;
         type_transform = "line";
         form_id = -1;
-
     });
 
     $("body").on("mousedown", "#draggable-element .form-transform-point rect", function (evt) {
@@ -47,7 +36,6 @@ $(document).ready(function () {
         idCurrentPoint = evt.target.dataset.id;
         type_transform = "point";
         form_id = -1;
-
     });
 
     $("body").on("mousemove", "#draggable-element", function (evt) {
@@ -69,7 +57,6 @@ $(document).ready(function () {
             }
             updateForm(simulations[currentelem]);
         }
-
     });
 
     $("body").on("mouseup", "#draggable-element", function () {
@@ -109,86 +96,3 @@ $(document).ready(function () {
     });
 
 });
-
-
-/*
- window.addEventListener('load', function(){ // on page load
-
- var idCurrentPoint = -1;
-
- document.getElementById("draggable-element").addEventListener('touchstart', function(evt){
-
- evt = evt || window.event;
-
-
- dragelemX = $(this).offset().left;
- dragelemY = $(this).offset().top;
-
- if (evt.target.nodeName === "rect") {
- idCurrentPoint = evt.target.attributes["data-id"].value;
- }
-
- }, false)
-
-
- document.getElementById("draggable-element").addEventListener('touchmove', function(evt){
-
- evt = evt || window.event;
-
- if (idCurrentPoint !== -1) {
-
- var offsetX = (evt.changedTouches[0].pageX - dragelemX),
- offsetY = (evt.changedTouches[0].pageY - dragelemY),
- t = $('.list-geos').val();
-
-
- window.forms.geometrique[t][idCurrentPoint].x = (offsetX - 25);
- window.forms.geometrique[t][idCurrentPoint].y = (offsetY - 25);
-
- drowForms(window.forms.geometrique[t]);
- $('.form1').attr('d', path);
- }
-
- }, false)
-
-
- document.getElementById("draggable-element").addEventListener('touchend', function(){
- idCurrentPoint = -1;
- var t = $('.list-geos').val();
- }, false)
-
- }, false)*/
-
-
-
-/*$("body").on('click', '.menu a', function (e) {
- e.preventDefault();
-
- var url = $(this).attr('href');
- var width = $(this).children('img').width();
- var height = $(this).children('img').height();
-
- var patternsource = document.getElementById('pattern1');
-
- patternsource.attributes["width"].value = width;
- patternsource.attributes["height"].value = height;
-
- var imagespattern = patternsource.children[0].attributes;
- imagespattern["width"].value = width;
- imagespattern["height"].value = height;
- imagespattern["xlink:href"].value = url;
-
- $('.form1').attr('stroke', 'url(#pattern1)');
- $('.form2').attr('stroke', 'url(#pattern1)');
-
- });
-
-
- $('.text-pattern').on('change', function () {
-
- var url = $(this).val();
- var p = $("<a href=\"" + url + "\"><img src=\"" + url + "\"></a>");
-
- $('.menu').append(p);
- var url = $(this).val("");
- });*/

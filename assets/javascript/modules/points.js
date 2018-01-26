@@ -136,9 +136,14 @@ var forms = {
         points: [points.a0, points.a8, points.i0]
     },
     f3: {
-        id: 2,
+        id: 3,
         name: "Octogone",
         points: [points.c0, points.a2, points.a6, points.c8, points.i8, points.i0]
+    },
+    f4: {
+        id: 4,
+        name: "quoitrfall",
+        points: [points.c0, points.a2, points.a6, points.c8, points.g8, points.i6, points.i2, points.g0]
     }
 }
 
