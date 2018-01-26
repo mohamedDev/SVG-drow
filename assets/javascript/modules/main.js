@@ -1,22 +1,7 @@
 $(document).ready(function () {
 
-    var optionstypes = "";
-    optionstypes += "<option > ... </option>";
-    for (item in forms) {
-        optionstypes += "<option value=\"" + item + "\">" + forms[item].name + "</option>";
-    }
-
-    var listType = $("<select class=\"list-types\"></select>");
-    $(".aside-menu").prepend(listType);
-    $('.list-types').append(optionstypes);
-
-    $('.list-types').change(function () {
-        let form_key = $(this).val();
-        let form = forms[form_key];
-
-        selectedform = form;
-        drowForm(form, "drowforme");
-    });
+    var currentx,
+        currenty;
 
     generateMenu(forms);
 
@@ -27,12 +12,6 @@ $(document).ready(function () {
         selectedform = form;
         drowForm(form, "drowforme");
     });
-
-    /*$('.arcdeg').on('input', function () {
-        for (let i = 0; i < listforms.length; i++) {
-            updateForm(selectedform);
-        }
-    });*/
 
     $("body").on("mousedown", "#draggable-element .form-transform-line rect", function (evt) {
         evt = evt || window.event;
@@ -50,19 +29,24 @@ $(document).ready(function () {
     $("body").on("mousedown", "#draggable-element .form-transform-line rect", function (evt) {
         evt = evt || window.event;
 
+        evt.stopPropagation()
+
         currentelem = evt.target.dataset.formId;
         idPrevPoint = evt.target.dataset.prev;
         idNextPoint = evt.target.dataset.next;
         type_transform = "line";
+        form_id = -1;
 
     });
 
     $("body").on("mousedown", "#draggable-element .form-transform-point rect", function (evt) {
         evt = evt || window.event;
+        evt.stopPropagation()
 
         currentelem = evt.target.dataset.formId;
         idCurrentPoint = evt.target.dataset.id;
         type_transform = "point";
+        form_id = -1;
 
     });
 
@@ -96,7 +80,34 @@ $(document).ready(function () {
         idPrevPoint = -1;
         idNextPoint = -1;
         type_transform = "";
+        form_id = -1;
     });
+
+
+    $("body").on("mousedown", ".form", function (evt) {
+        evt = evt || window.event;
+
+        form_id = $(this).attr("data-id");
+        currentx = evt.pageX;
+        currenty = evt.pageY;
+    });
+
+    $("body").on("mousemove", ".form", function (evt) {
+        evt = evt || window.event;
+
+        if (form_id !== -1) {
+            let offsetX = (evt.pageX - currentx),
+                offsetY = (evt.pageY - currenty);
+            for (let i = 0; i < simulations[form_id].points.length; i++) {
+                simulations[form_id].points[i].x += offsetX;
+                simulations[form_id].points[i].y += offsetY;
+                updateForm(simulations[form_id]);
+            }
+            currentx = evt.pageX;
+            currenty = evt.pageY;
+        }
+    });
+
 });
 
 

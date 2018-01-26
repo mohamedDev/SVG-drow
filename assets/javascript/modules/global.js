@@ -8,3 +8,6 @@ var nombre_simulation = -1;
 var simulations = [];
 var type_transform = "";
 var stroke_with = 10;
+var bgImage = "./assets/images/bg.jpg";
+
+var form_id = -1;
