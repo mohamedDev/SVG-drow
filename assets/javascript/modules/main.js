@@ -91,6 +91,11 @@ $(document).ready(function () {
                 simulations[form_id].points[i].y += offsetY;
                 updateForm(simulations[form_id]);
             }
+            for (let i = 0; i < simulations[form_id].point_transform.length; i++) {
+                simulations[form_id].point_transform[i].position.x += offsetX;
+                simulations[form_id].point_transform[i].position.y += offsetY;
+            }
+                
             currentx = evt.pageX;
             currenty = evt.pageY;
         }
@@ -100,13 +105,9 @@ $(document).ready(function () {
         form_id = -1;
     });
 
-    //------------------------------
-
-
     $("body").on("mousedown", ".form-transform-point rect", function (evt) {
         evt = evt || window.event;
         evt.stopPropagation()
-
 
         formid = $(this).attr("data-form-id");
         idCurrentPoint = $(this).attr("data-id");
@@ -125,25 +126,33 @@ $(document).ready(function () {
                 if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "x") {
                     simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX;
                 }
-
                 if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-x") {
                     simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] -= offsetX;
                 }
-
                 if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "y") {
                     simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY;
                 }
                 if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-y") {
                     simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] -= offsetY;
                 }
-
                 if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "xy") {
                     simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX;
                     simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY;
                 }
-                updateForm(simulations[formid]);
             }
-
+            if (simulations[formid].point_transform[idCurrentPoint].direction === "x") {
+                simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
+                simulations[formid].point_transform[0].position.x += offsetX/2;
+                simulations[formid].point_transform[2].position.x += offsetX/2;
+            }
+            if (simulations[formid].point_transform[idCurrentPoint].direction === "y") {
+                simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
+            }
+            if (simulations[formid].point_transform[idCurrentPoint].direction === "xy") {
+                simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
+                simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
+            }
+            updateForm(simulations[formid]);
             currentx = evt.pageX;
             currenty = evt.pageY;
         }

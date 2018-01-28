@@ -96,8 +96,10 @@ var forms = {
         name: "rectangle",
         points: [points.a0, points.a8, points.i8, points.i0],
         point_transform: [
-            { id: 0, position: "a4", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] },
-            { id: 1, position: "e0", for: [{ point: "0", direction: "x" }, { point: "3", direction: "x" }] }
+            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] },
+            { position: "e8", direction: "x", for: [{ point: "1", direction: "x" }, { point: "2", direction: "x" }] },
+            { position: "i4", direction: "y", for: [{ point: "2", direction: "y" }, { point: "3", direction: "y" }] },
+            { position: "e0", direction: "x", for: [{ point: "3", direction: "x" }, { point: "0", direction: "x" }] }
         ]
     },
     f2: {
@@ -105,19 +107,15 @@ var forms = {
         name: "triangle",
         points: [points.a0, points.a8, points.i0],
         point_transform: [
-            { id: 0, position: "a4", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] },
-            { id: 1, position: "e0", for: [{ point: "0", direction: "x" }, { point: "2", direction: "x" }] }
+            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] },
+            { position: "e4", direction: "xy", for: [{ point: "1", direction: "x" }, { point: "2", direction: "y" }] },
+            { position: "e0", direction: "x", for: [{ point: "2", direction: "x" }, { point: "0", direction: "x" }] }
         ]
     },
     f3: {
         id: 3,
         name: "Octogone",
-        points: [points.c0, points.a2, points.a6, points.c8, points.i8, points.i0],
-        point_transform: [
-            { id: 0, position: "a2", for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }] },
-            { id: 1, position: "c0", for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }] },
-            { id: 2, position: "b1", for: [{ point: "0", direction: "xy" }, { point: "3", direction: "xy" }] }
-        ]
+        points: [points.c0, points.a2, points.a6, points.c8, points.i8, points.i0]
     },
     f4: {
         id: 4,
@@ -127,11 +125,7 @@ var forms = {
     f5: {
         id: 5,
         name: "porte1",
-        points: [points.b0, points.a1, points.a7, points.b8, points.i8, points.i7, points.c7, points.b6, points.b2, points.c1, points.i1, points.i0],
-        point_transform: [
-            { id: 0, position: "a4", for: [{ point: "a0", direction: "x" }] },
-            { id: 1, position: "e0", for: [{ point: "a0", direction: "x" }] }
-        ]
+        points: [points.b0, points.a1, points.a7, points.b8, points.i8, points.i7, points.c7, points.b6, points.b2, points.c1, points.i1, points.i0]
     },
     f6: {
         id: 7,

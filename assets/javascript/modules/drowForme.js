@@ -159,9 +159,9 @@ var drowForm = function (form, container) {
     for (let a = 0; a < form.point_transform.length; a++) {
         simulation.point_transform[a] = {
             "position": { x: points[form.point_transform[a].position].x, y: points[form.point_transform[a].position].y },
+            "direction": form.point_transform[a].direction,
             "for": form.point_transform[a].for
         };
-
     }
 
     simulations.push(simulation);
