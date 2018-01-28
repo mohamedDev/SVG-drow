@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
     var currentx,
-        currenty;
+        currenty,
+        formid = -1;
 
     generateMenu(forms);
 
@@ -14,7 +15,7 @@ $(document).ready(function () {
     });
 
 
-    $("body").on("mousedown", "#draggable-element .form-transform-line rect", function (evt) {
+    /*$("body").on("mousedown", "#draggable-element .form-transform-line rect", function (evt) {
         evt = evt || window.event;
         evt.stopPropagation();
 
@@ -68,7 +69,7 @@ $(document).ready(function () {
         idNextPoint = -1;
         type_transform = "";
         form_id = -1;
-    });
+    });*/
 
 
     $("body").on("mousedown", ".form", function (evt) {
@@ -93,6 +94,63 @@ $(document).ready(function () {
             currentx = evt.pageX;
             currenty = evt.pageY;
         }
+    });
+
+    $("body").on("mouseup", ".form", function () {
+        form_id = -1;
+    });
+
+    //------------------------------
+
+
+    $("body").on("mousedown", ".form-transform-point rect", function (evt) {
+        evt = evt || window.event;
+        evt.stopPropagation()
+
+
+        formid = $(this).attr("data-form-id");
+        idCurrentPoint = $(this).attr("data-id");
+        currentx = evt.pageX;
+        currenty = evt.pageY;
+    });
+
+    $("body").on("mousemove", "#draggable-element", function (evt) {
+        evt = evt || window.event;
+
+        if (formid !== -1) {
+            let offsetX = (evt.pageX - currentx),
+                offsetY = (evt.pageY - currenty);
+
+            for (let i = 0; i < simulations[formid].point_transform[idCurrentPoint].for.length; i++) {
+                if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "x") {
+                    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX;
+                }
+
+                if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-x") {
+                    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] -= offsetX;
+                }
+
+                if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "y") {
+                    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY;
+                }
+                if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-y") {
+                    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] -= offsetY;
+                }
+
+                if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "xy") {
+                    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX;
+                    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY;
+                }
+                updateForm(simulations[formid]);
+            }
+
+            currentx = evt.pageX;
+            currenty = evt.pageY;
+        }
+    });
+
+    $("body").on("mouseup", "#draggable-element", function () {
+        formid = -1;
     });
 
 });

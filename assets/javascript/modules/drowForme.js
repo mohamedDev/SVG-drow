@@ -164,8 +164,6 @@ var drowForm = function (form, container) {
 
     }
 
-   
-
     simulations.push(simulation);
     document.getElementById(container_transform_point + simulation.order).innerHTML = "";
     document.getElementById(container_transform_line + simulation.order).innerHTML = "";
@@ -208,7 +206,6 @@ var updateForm = function (simulation) {
 var newDrowTransformPoint = function (simuation) {
 
     for (let i = 0; i < simuation.point_transform.length; i++) {
-
         let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         rect.setAttributeNS(null, "x", simuation.point_transform[i].position.x - 5);
         rect.setAttributeNS(null, "y", simuation.point_transform[i].position.y - 5);
@@ -217,9 +214,9 @@ var newDrowTransformPoint = function (simuation) {
         rect.setAttributeNS(null, "stroke-width", 0);
     
         rect.setAttributeNS(null, "fill", "green");
-        rect.setAttributeNS(null, "id", "point-controle-" + simuation.order);
-        rect.setAttributeNS(null, "data-id", simuation.order);
-        console.log(rect)
+        rect.setAttributeNS(null, "id", "point-controle-" + i);
+        rect.setAttributeNS(null, "data-id", i);
+        rect.setAttributeNS(null, "data-form-id", simuation.order);
         document.getElementById(container_transform_point + simuation.order).appendChild(rect);
     }
 }
