@@ -41,7 +41,7 @@ var generateMenu = function (forms) {
     let i = 0;
     for (item in forms) {
         let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttributeNS(null, "viewBox", "0 0 550 550");
+        svg.setAttributeNS(null, "viewBox", "0 0 450 450");
         svg.setAttributeNS(null, "width", 120);
         svg.setAttributeNS(null, "height", 120);
         svg.setAttributeNS(null, "id", forms[item].name);

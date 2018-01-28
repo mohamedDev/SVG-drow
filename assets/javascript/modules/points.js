@@ -125,14 +125,13 @@ var forms = {
         name: "rectangle",
         points: [points.a0, points.a8, points.i8, points.i0],
         point_transform: [
-            { "position": points.a0, "direction": ["x"], "for": ["0"] },
-            { "position": points.a0, "direction": ["x"], "for": ["0"] },
-            { "position": points.a0, "direction": ["x"], "for": ["0"] }
+            { id: 1, position: "a4", for: [{ point: "a0", direction: "x" }] },
+            { id: 2, position: "e0", for: [{ point: "a0", direction: "x" }] }
         ]
     },
     f2: {
         id: 2,
-        name: "fenetre",
+        name: "triangle",
         points: [points.a0, points.a8, points.i0]
     },
     f3: {
@@ -144,6 +143,30 @@ var forms = {
         id: 4,
         name: "quoitrfall",
         points: [points.c0, points.a2, points.a6, points.c8, points.g8, points.i6, points.i2, points.g0]
+    },
+    f5: {
+        id: 5,
+        name: "porte1",
+        points: [points.b0, points.a1, points.a7, points.b8, points.i8, points.i7, points.c7, points.b6, points.b2, points.c1, points.i1, points.i0],
+        point_transform: [
+            { id: 1, position: "a4", for: [{ point: "a0", direction: "x" }] },
+            { id: 2, position: "e0", for: [{ point: "a0", direction: "x" }] }
+        ]
+    },
+    f6: {
+        id: 7,
+        name: "fenetre1",
+        points: [points.b0, points.b1, points.a1, points.a7, points.b7, points.b8, points.h8, points.h7, points.i7, points.i1, points.h1, points.h0]
+    },
+    f7: {
+        id: 8,
+        name: "triangle1",
+        points: [points.a4, points.i0, points.i8]
+    },
+    f8: {
+        id: 9,
+        name: "triangle2",
+        points: [points.a8, points.i0, points.i8]
     }
 }
 

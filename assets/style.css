@@ -120,11 +120,10 @@ input[type="range"]:after {
     content: attr(max);
 }
 /*
-.form-transform-line rect ,
-.form-transform-point rect {
+.form rect {
     opacity: 0
 }
 
-#drowforme:hover rect {
+.form:hover rect {
     opacity: 1
-}/*
+}*/
