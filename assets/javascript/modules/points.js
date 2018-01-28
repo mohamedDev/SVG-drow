@@ -115,31 +115,53 @@ var forms = {
     f3: {
         id: 3,
         name: "Octogone",
-        points: [points.c0, points.a2, points.a6, points.c8, points.i8, points.i0]
+        points: [points.c0, points.a2, points.a6, points.c8, points.i8, points.i0],
+        point_transform: [
+            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] }
+        ]
     },
     f4: {
         id: 4,
         name: "quoitrfall",
-        points: [points.c0, points.a2, points.a6, points.c8, points.g8, points.i6, points.i2, points.g0]
+        points: [points.c0, points.a2, points.a6, points.c8, points.g8, points.i6, points.i2, points.g0],
+        point_transform: [
+            { position: "a2", direction: "x", for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }, { point: "5", direction: "-x" }, { point: "6", direction: "x" }] },
+            { position: "c0", direction: "y", for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "-y" }, { point: "7", direction: "-y" }] },
+            { position: "e0", direction: "x", for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "6", direction: "x" }, { point: "7", direction: "x" },] },
+            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }] }
+        ]
     },
     f5: {
         id: 5,
         name: "porte1",
-        points: [points.b0, points.a1, points.a7, points.b8, points.i8, points.i7, points.c7, points.b6, points.b2, points.c1, points.i1, points.i0]
+        points: [points.b0, points.a1, points.a7, points.b8, points.i8, points.i7, points.c7, points.b6, points.b2, points.c1, points.i1, points.i0],
+        point_transform: [
+            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] }
+        ]
     },
     f6: {
         id: 7,
         name: "fenetre1",
-        points: [points.b0, points.b1, points.a1, points.a7, points.b7, points.b8, points.h8, points.h7, points.i7, points.i1, points.h1, points.h0]
+        points: [points.b0, points.b1, points.a1, points.a7, points.b7, points.b8, points.h8, points.h7, points.i7, points.i1, points.h1, points.h0],
+        point_transform: [
+            { position: "a1", direction: "x", for: [{ point: "2", direction: "x" }, { point: "3", direction: "-x" }, { point: "8", direction: "-x" }, { point: "9", direction: "x" }] },
+            { position: "b0", direction: "y", for: [{ point: "0", direction: "y" }, { point: "5", direction: "y" }, { point: "6", direction: "-y" }, { point: "11", direction: "-y" }] }
+        ]
     },
     f7: {
         id: 8,
         name: "triangle1",
-        points: [points.a4, points.i0, points.i8]
+        points: [points.a4, points.i0, points.i8],
+        point_transform: [
+            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] }
+        ]
     },
     f8: {
         id: 9,
         name: "triangle2",
-        points: [points.a8, points.i0, points.i8]
+        points: [points.a8, points.i0, points.i8],
+        point_transform: [
+            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] }
+        ]
     }
 }

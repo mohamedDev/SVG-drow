@@ -142,8 +142,6 @@ $(document).ready(function () {
             }
             if (simulations[formid].point_transform[idCurrentPoint].direction === "x") {
                 simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
-                simulations[formid].point_transform[0].position.x += offsetX/2;
-                simulations[formid].point_transform[2].position.x += offsetX/2;
             }
             if (simulations[formid].point_transform[idCurrentPoint].direction === "y") {
                 simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
