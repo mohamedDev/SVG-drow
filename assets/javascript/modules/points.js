@@ -96,13 +96,21 @@ var forms = {
         name: "rectangle",
         points: [points.a0, points.a8, points.i8, points.i0],
         point_transform: [
-            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] },
-            { position: "e8", direction: "x", for: [{ point: "1", direction: "x" }, { point: "2", direction: "x" }] },
-            { position: "i4", direction: "y", for: [{ point: "2", direction: "y" }, { point: "3", direction: "y" }] },
-            { position: "e0", direction: "x", for: [{ point: "3", direction: "x" }, { point: "0", direction: "x" }] }
+            {
+                id: 0, position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }],
+                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                limitX: ["0", "1"]
+            },
+            {
+                id: 3, position: "e0", direction: "x",
+                for: [{ point: "3", direction: "x" }, { point: "0", direction: "x" }],
+                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                limitY: ["0", "3"]
+            }
         ]
     },
-    f2: {
+    /*f2: {
         id: 2,
         name: "triangle",
         points: [points.a0, points.a8, points.i0],
@@ -119,18 +127,38 @@ var forms = {
         point_transform: [
             { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] }
         ]
-    },
+    },*/
     f4: {
         id: 4,
         name: "quoitrfall",
         points: [points.c0, points.a2, points.a6, points.c8, points.g8, points.i6, points.i2, points.g0],
         point_transform: [
-            { position: "a2", direction: "x", for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }, { point: "5", direction: "-x" }, { point: "6", direction: "x" }] },
-            { position: "c0", direction: "y", for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "-y" }, { point: "7", direction: "-y" }] },
-            { position: "e0", direction: "x", for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "6", direction: "x" }, { point: "7", direction: "x" },] },
-            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }] }
+            {
+                id: 0,
+                position: "a2", direction: "x",
+                for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }, { point: "5", direction: "-x" }, { point: "6", direction: "x" }],
+                for_pt: []
+            },
+            {
+                id: 1,
+                position: "c0", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "-y" }, { point: "7", direction: "-y" }],
+                for_pt: []
+            },
+            {
+                id: 2,
+                position: "e0", direction: "x",
+                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "6", direction: "x" }, { point: "7", direction: "x" }],
+                for_pt: [{ point: "1", direction: "x", deplacement: 1 }, { point: "0", direction: "x", deplacement: 1 }, { point: "3", direction: "x", deplacement: 0.5 }]
+            },
+            {
+                id: 3,
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
+                for_pt: [{ point: "1", direction: "y", deplacement: 1 }, { point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }]
+            }
         ]
-    },
+    },/*
     f5: {
         id: 5,
         name: "porte1",
@@ -163,5 +191,5 @@ var forms = {
         point_transform: [
             { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] }
         ]
-    }
+    }*/
 }

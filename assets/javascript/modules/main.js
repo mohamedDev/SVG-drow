@@ -80,7 +80,7 @@ $(document).ready(function () {
         currenty = evt.pageY;
     });
 
-    $("body").on("mousemove", ".form", function (evt) {
+    $("body").on("mousemove", "#draggable-element", function (evt) {
         evt = evt || window.event;
 
         if (form_id !== -1) {
@@ -95,7 +95,7 @@ $(document).ready(function () {
                 simulations[form_id].point_transform[i].position.x += offsetX;
                 simulations[form_id].point_transform[i].position.y += offsetY;
             }
-                
+
             currentx = evt.pageX;
             currenty = evt.pageY;
         }
@@ -149,6 +149,16 @@ $(document).ready(function () {
             if (simulations[formid].point_transform[idCurrentPoint].direction === "xy") {
                 simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
                 simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
+            }
+
+
+            for (let i = 0; i < simulations[formid].point_transform[idCurrentPoint].for_pt.length; i++) {
+                if (simulations[formid].point_transform[idCurrentPoint].for_pt[i].direction === "x") {
+                    simulations[formid].point_transform[simulations[formid].point_transform[idCurrentPoint].for_pt[i].point].position.x += offsetX * simulations[formid].point_transform[idCurrentPoint].for_pt[i].deplacement;
+                }
+                if (simulations[formid].point_transform[idCurrentPoint].for_pt[i].direction === "y") {
+                    simulations[formid].point_transform[simulations[formid].point_transform[idCurrentPoint].for_pt[i].point].position.y += offsetY * simulations[formid].point_transform[idCurrentPoint].for_pt[i].deplacement;
+                }
             }
             updateForm(simulations[formid]);
             currentx = evt.pageX;
