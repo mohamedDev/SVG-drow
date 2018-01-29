@@ -103,7 +103,7 @@ var forms = {
                 limitX: ["0", "1"]
             },
             {
-                id: 3, position: "e0", direction: "x",
+                id: 1, position: "e0", direction: "x",
                 for: [{ point: "3", direction: "x" }, { point: "0", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
                 limitY: ["0", "3"]

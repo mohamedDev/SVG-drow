@@ -208,13 +208,14 @@ var newDrowTransformPoint = function (simuation) {
 
     for (let i = 0; i < simuation.point_transform.length; i++) {
         let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect.setAttributeNS(null, "x", simuation.point_transform[i].position.x - 5);
-        rect.setAttributeNS(null, "y", simuation.point_transform[i].position.y - 5);
-        rect.setAttributeNS(null, "width", 10);
-        rect.setAttributeNS(null, "height", 10);
-        rect.setAttributeNS(null, "stroke-width", 0);
+        rect.setAttributeNS(null, "x", simuation.point_transform[i].position.x - 15);
+        rect.setAttributeNS(null, "y", simuation.point_transform[i].position.y - 15);
+        rect.setAttributeNS(null, "width", 30);
+        rect.setAttributeNS(null, "height", 30);
+        rect.setAttributeNS(null, "stroke-width", 1);
+        rect.setAttributeNS(null, "stroke", "blue");
     
-        rect.setAttributeNS(null, "fill", "green");
+        rect.setAttributeNS(null, "fill", "transparent");
         rect.setAttributeNS(null, "id", "point-controle-" + i);
         rect.setAttributeNS(null, "data-id", i);
         rect.setAttributeNS(null, "data-form-id", simuation.order);
