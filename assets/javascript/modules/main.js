@@ -125,7 +125,7 @@ $(document).ready(function () {
             console.log(offsetX);
 
             if (simulations[formid].point_transform[idCurrentPoint].direction === "x") {
-                if (simulations[formid].point_transform[idCurrentPoint].position.x + offsetX < 300) {
+                if (simulations[formid].point_transform[idCurrentPoint].position.x + offsetX < simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].limitX[0]].x) {
                     simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
                 }
             }
@@ -139,7 +139,7 @@ $(document).ready(function () {
 
             for (let i = 0; i < simulations[formid].point_transform[idCurrentPoint].for.length; i++) {
                 if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "x") {
-                    if (simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] + offsetX < 300) {
+                    if (simulations[formid].point_transform[idCurrentPoint].position.x + offsetX < simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].limitX[0]].x) {
                         simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX;
                     }
                 }
@@ -160,7 +160,9 @@ $(document).ready(function () {
 
             for (let i = 0; i < simulations[formid].point_transform[idCurrentPoint].for_pt.length; i++) {
                 if (simulations[formid].point_transform[idCurrentPoint].for_pt[i].direction === "x") {
-                    simulations[formid].point_transform[simulations[formid].point_transform[idCurrentPoint].for_pt[i].point].position.x += offsetX * simulations[formid].point_transform[idCurrentPoint].for_pt[i].deplacement;
+                    if (simulations[formid].point_transform[idCurrentPoint].position.x + offsetX < simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].limitX[0]].x) {
+                        simulations[formid].point_transform[simulations[formid].point_transform[idCurrentPoint].for_pt[i].point].position.x += offsetX * simulations[formid].point_transform[idCurrentPoint].for_pt[i].deplacement;
+                    }
                 }
                 if (simulations[formid].point_transform[idCurrentPoint].for_pt[i].direction === "y") {
                     simulations[formid].point_transform[simulations[formid].point_transform[idCurrentPoint].for_pt[i].point].position.y += offsetY * simulations[formid].point_transform[idCurrentPoint].for_pt[i].deplacement;

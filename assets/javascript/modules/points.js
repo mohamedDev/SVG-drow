@@ -97,15 +97,17 @@ var forms = {
         points: [points.a0, points.a8, points.i8, points.i0],
         point_transform: [
             {
-                id: 0, position: "a4", direction: "y",
+                position: "a4", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }],
                 for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
-                limitX: ["0", "1"]
+                limitX: ["0", "1"],
+                limitY: ["3"]
             },
             {
-                id: 1, position: "e0", direction: "x",
+                position: "e0", direction: "x",
                 for: [{ point: "3", direction: "x" }, { point: "0", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                limitX: ["1"],
                 limitY: ["0", "3"]
             }
         ]
@@ -149,13 +151,21 @@ var forms = {
                 id: 2,
                 position: "e0", direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "6", direction: "x" }, { point: "7", direction: "x" }],
-                for_pt: [{ point: "1", direction: "x", deplacement: 1 }, { point: "0", direction: "x", deplacement: 1 }, { point: "3", direction: "x", deplacement: 0.5 }]
+                for_pt: [
+                    { point: "1", direction: "x", deplacement: 1 },
+                    { point: "0", direction: "x", deplacement: 1 },
+                    { point: "3", direction: "x", deplacement: 0.5 }
+                ]
             },
             {
                 id: 3,
                 position: "a4", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
-                for_pt: [{ point: "1", direction: "y", deplacement: 1 }, { point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }]
+                for_pt: [
+                    { point: "1", direction: "y", deplacement: 1 },
+                    { point: "0", direction: "y", deplacement: 1 },
+                    { point: "2", direction: "y", deplacement: 0.5 }
+                ]
             }
         ]
     },/*
