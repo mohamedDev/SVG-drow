@@ -112,16 +112,27 @@ var forms = {
             }
         ]
     },
-    /*f2: {
+    f2: {
         id: 2,
         name: "triangle",
         points: [points.a0, points.a8, points.i0],
         point_transform: [
-            { position: "a4", direction: "y", for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }] },
-            { position: "e4", direction: "xy", for: [{ point: "1", direction: "x" }, { point: "2", direction: "y" }] },
-            { position: "e0", direction: "x", for: [{ point: "2", direction: "x" }, { point: "0", direction: "x" }] }
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }],
+                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                limitX: ["0", "1"],
+                limitY: ["2"]
+            },
+            {
+                position: "e0", direction: "x",
+                for: [{ point: "2", direction: "x" }, { point: "0", direction: "x" }],
+                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                limitX: ["1"],
+                limitY: ["0", "2"]
+            }
         ]
-    },
+    },/*
     f3: {
         id: 3,
         name: "Octogone",

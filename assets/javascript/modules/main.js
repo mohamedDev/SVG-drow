@@ -122,21 +122,20 @@ $(document).ready(function () {
             let offsetX = (evt.pageX - currentx),
                 offsetY = (evt.pageY - currenty);
 
-            console.log(offsetX);
-
             if (simulations[formid].point_transform[idCurrentPoint].direction === "x") {
                 if (simulations[formid].point_transform[idCurrentPoint].position.x + offsetX < simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].limitX[0]].x) {
                     simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
                 }
             }
             if (simulations[formid].point_transform[idCurrentPoint].direction === "y") {
-                simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
+                if (simulations[formid].point_transform[idCurrentPoint].position.y + offsetY < simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].limitY[0]].x) {
+                    simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
+                }
             }
             if (simulations[formid].point_transform[idCurrentPoint].direction === "xy") {
                 simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
                 simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
             }
-
             for (let i = 0; i < simulations[formid].point_transform[idCurrentPoint].for.length; i++) {
                 if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "x") {
                     if (simulations[formid].point_transform[idCurrentPoint].position.x + offsetX < simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].limitX[0]].x) {
