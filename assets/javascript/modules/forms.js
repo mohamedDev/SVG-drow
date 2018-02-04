@@ -46,32 +46,24 @@ var forms = {
                 position: "a2", direction: "x",
                 for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }],
                 for_pt: [],
-                limit: ["x", "2"]
+                limit: ["x", "2", "0"]
             },
             {
                 position: "c0", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }],
                 for_pt: [{ point: "3", direction: "y", deplacement: 0.5 }],
-                limit: ["y", "4"]
+                limit: ["y", "4", "1"]
             },
             {
                 position: "a4", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
-                for_pt: [
-                    { point: "0", direction: "y", deplacement: 1 },
-                    { point: "1", direction: "y", deplacement: 1 },
-                    { point: "3", direction: "y", deplacement: 0.5 }
-                ],
+                for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "1", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 0.5 }],
                 limit: ["y", "4"]
             },
             {
                 position: "f0", direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "5", direction: "x" }],
-                for_pt: [
-                    { point: "0", direction: "x", deplacement: 1 },
-                    { point: "1", direction: "x", deplacement: 1 },
-                    { point: "2", direction: "x", deplacement: 0.5 }
-                ],
+                for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "2", direction: "x", deplacement: 0.5 }],
                 limit: ["x", "3"]
             },
         ]

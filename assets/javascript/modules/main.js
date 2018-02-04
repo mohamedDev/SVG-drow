@@ -128,17 +128,13 @@ $(document).ready(function () {
                 offset = offsetY;
             }
 
-            if (simulations[formid].point_transform[idCurrentPoint].position[simulations[formid].point_transform[idCurrentPoint].limit[0]] + offset + 20
+            if (simulations[formid].point_transform[idCurrentPoint].position[simulations[formid].point_transform[idCurrentPoint].limit[0]] + offset + 50
                 < simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].limit[1]][simulations[formid].point_transform[idCurrentPoint].limit[0]]) {
 
                 if (simulations[formid].point_transform[idCurrentPoint].direction === "x") {
                     simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
                 }
                 if (simulations[formid].point_transform[idCurrentPoint].direction === "y") {
-                    simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
-                }
-                if (simulations[formid].point_transform[idCurrentPoint].direction === "xy") {
-                    simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
                     simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
                 }
 
@@ -149,27 +145,11 @@ $(document).ready(function () {
                     if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-x") {
                         simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] -= offsetX;
                     }
-                    if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "x/2") {
-                        simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX / 2;
-                    }
-                    if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-x/2") {
-                        simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] -= offsetX / 2;
-                    }
                     if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "y") {
                         simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY;
                     }
                     if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-y") {
                         simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] -= offsetY;
-                    }
-                    if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "y/2") {
-                        simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY / 2;
-                    }
-                    if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-y/2") {
-                        simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] -= offsetY / 2;
-                    }
-                    if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "xy") {
-                        simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX;
-                        simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY;
                     }
                 }
 
