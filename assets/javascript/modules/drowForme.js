@@ -162,8 +162,7 @@ var drowForm = function (form, container) {
             "direction": form.point_transform[a].direction,
             "for": form.point_transform[a].for,
             "for_pt": form.point_transform[a].for_pt,
-            "limitX": form.point_transform[a].limitX,
-            "limitY": form.point_transform[a].limitY,
+            "limit": form.point_transform[a].limit,
         };
     }
 

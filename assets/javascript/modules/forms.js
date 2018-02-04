@@ -1,0 +1,234 @@
+var forms = {
+    f1: {
+        id: 1,
+        name: "rectangle",
+        points: [points.a0, points.a8, points.i8, points.i0],
+        point_transform: [
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }],
+                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                limit: ["y", "2"]
+            },
+            {
+                position: "e0", direction: "x",
+                for: [{ point: "3", direction: "x" }, { point: "0", direction: "x" }],
+                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                limit: ["x", "1"],
+            }
+        ]
+    },
+    f2: {
+        id: 2,
+        name: "triangle",
+        points: [points.a0, points.a8, points.i0],
+        point_transform: [
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }],
+                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                limit: ["y", "2"]
+            },
+            {
+                position: "e0", direction: "x",
+                for: [{ point: "2", direction: "x" }, { point: "0", direction: "x" }],
+                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                limit: ["x", "1"]
+            }
+        ]
+    },
+    f3: {
+        id: 3,
+        name: "Octogone",
+        points: [points.c0, points.a2, points.a6, points.c8, points.i8, points.i0],
+        point_transform: [
+            {
+                position: "a2", direction: "x",
+                for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }],
+                for_pt: [],
+                limit: ["x", "2"]
+            },
+            {
+                position: "c0", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }],
+                for_pt: [{ point: "3", direction: "y", deplacement: 0.5 }],
+                limit: ["y", "4"]
+            },
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
+                for_pt: [
+                    { point: "0", direction: "y", deplacement: 1 },
+                    { point: "1", direction: "y", deplacement: 1 },
+                    { point: "3", direction: "y", deplacement: 0.5 }
+                ],
+                limit: ["y", "4"]
+            },
+            {
+                position: "f0", direction: "x",
+                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "5", direction: "x" }],
+                for_pt: [
+                    { point: "0", direction: "x", deplacement: 1 },
+                    { point: "1", direction: "x", deplacement: 1 },
+                    { point: "2", direction: "x", deplacement: 0.5 }
+                ],
+                limit: ["x", "3"]
+            },
+        ]
+    },
+    /*f4: {
+        id: 4,
+        name: "quoitrfall",
+        points: [points.c0, points.a2, points.a6, points.c8, points.g8, points.i6, points.i2, points.g0],
+        point_transform: [
+            {
+                position: "a2", direction: "x",
+                for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }, { point: "5", direction: "-x" }, { point: "6", direction: "x" }],
+                for_pt: []
+            },
+            {
+                position: "c0", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "-y" }, { point: "7", direction: "-y" }],
+                for_pt: []
+            },
+            {
+                position: "e0", direction: "x",
+                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "6", direction: "x" }, { point: "7", direction: "x" }],
+                for_pt: [
+                    { point: "0", direction: "x", deplacement: 1 },
+                    { point: "1", direction: "x", deplacement: 1 },
+                    { point: "3", direction: "x", deplacement: 0.5 }
+                ]
+            },
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
+                for_pt: [
+                    { point: "1", direction: "y", deplacement: 1 },
+                    { point: "0", direction: "y", deplacement: 1 },
+                    { point: "2", direction: "y", deplacement: 0.5 }
+                ]
+            }
+        ]
+    },
+    f5: {
+        id: 5,
+        name: "porte1",
+        points: [points.b0, points.a1, points.a7, points.b8, points.i8, points.i7, points.c7, points.b6, points.b2, points.c1, points.i1, points.i0],
+        point_transform: [
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
+                for_pt: [
+                    { point: "1", direction: "y", deplacement: 1 },
+                    { point: "2", direction: "y", deplacement: 1 }
+                ]
+            },
+            {
+                position: "a1", direction: "x",
+                for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }],
+                for_pt: []
+            },
+            {
+                position: "b0", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }],
+                for_pt: []
+            },
+            {
+                position: "e1", direction: "x",
+                for: [{ point: "5", direction: "-x" }, { point: "6", direction: "-x" }, { point: "7", direction: "-x" }, { point: "8", direction: "x" }, { point: "9", direction: "x" }, { point: "10", direction: "x" }],
+                for_pt: []
+            },
+        ]
+    },
+    f6: {
+        id: 7,
+        name: "fenetre1",
+        points: [points.b0, points.b1, points.a1, points.a7, points.b7, points.b8, points.h8, points.h7, points.i7, points.i1, points.h1, points.h0],
+        point_transform: [
+            {
+                position: "a1", direction: "x",
+                for: [{ point: "2", direction: "x" }, { point: "3", direction: "-x" }, { point: "8", direction: "-x" }, { point: "9", direction: "x" }],
+                for_pt: []
+            },
+            {
+                position: "b0", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "5", direction: "y" }, { point: "6", direction: "-y" }, { point: "11", direction: "-y" }],
+                for_pt: []
+            }
+        ]
+    },
+    f7: {
+        id: 8,
+        name: "triangle1",
+        points: [points.a4, points.i8, points.i0],
+        point_transform: [
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }],
+                for_pt: []
+            },
+            {
+                position: "i0", direction: "x",
+                for: [{ point: "1", direction: "-x" }, { point: "2", direction: "x" }],
+                for_pt: []
+            }
+        ]
+    },
+    f8: {
+        id: 9,
+        name: "triangle2",
+        points: [points.a8, points.i0, points.i8],
+        point_transform: [
+            {
+                position: "a8", direction: "y",
+                for: [{ point: "0", direction: "y" }],
+                for_pt: []
+            },
+            {
+                position: "i0", direction: "x",
+                for: [{ point: "1", direction: "x" }],
+                for_pt: []
+            }
+        ]
+    },
+    f9: {
+        id: 10,
+        name: "ttttt",
+        points: [points.a0, points.a2, points.c2, points.c3, points.a3, points.a5, points.c5, points.c6, points.a6, points.a8, points.i8, points.i0],
+        point_transform: [
+            {
+                position: "e0", direction: "x",
+                for: [{ point: "0", direction: "x" }, { point: "11", direction: "x" }],
+                for_pt: [
+                    { point: "1", direction: "x", deplacement: 0.5 }
+                ]
+            },
+            {
+                position: "a1", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "4", direction: "y" }, { point: "5", direction: "y" }],
+                for_pt: [
+                    { point: "0", direction: "y", deplacement: 0.5 },
+                    { point: "2", direction: "y", deplacement: 0.5 }
+                ]
+            },
+            {
+                position: "b2", direction: "x",
+                for: [
+                    { point: "1", direction: "x" },
+                    { point: "2", direction: "x" },
+                    { point: "3", direction: "-x/2" },
+                    { point: "4", direction: "-x/2" },
+                    { point: "5", direction: "x/2" },
+                    { point: "6", direction: "x/2" },
+                    { point: "7", direction: "-x" },
+                    { point: "8", direction: "-x" },
+                ]
+                ,
+                for_pt: [
+                    { point: "1", direction: "x", deplacement: 0.5 }
+                ]
+            }
+        ]
+    }*/
+}
