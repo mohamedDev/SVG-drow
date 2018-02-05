@@ -162,7 +162,7 @@ var drowForm = function (form, container) {
             "direction": form.point_transform[a].direction,
             "for": form.point_transform[a].for,
             "for_pt": form.point_transform[a].for_pt,
-            "limit": form.point_transform[a].limit,
+            "limit": form.point_transform[a].limit
         };
     }
 
@@ -215,7 +215,7 @@ var newDrowTransformPoint = function (simuation) {
         rect.setAttributeNS(null, "height", 20);
         rect.setAttributeNS(null, "stroke-width", 2);
         rect.setAttributeNS(null, "stroke", "blue");
-    
+
         rect.setAttributeNS(null, "fill", "transparent");
         rect.setAttributeNS(null, "id", "point-controle-" + i);
         rect.setAttributeNS(null, "data-id", i);

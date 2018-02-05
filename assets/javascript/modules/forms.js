@@ -8,13 +8,14 @@ var forms = {
                 position: "a4", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }],
                 for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
-                limit: ["y", "2"]
+                //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
+                limit: ["0", "y", "2"]
             },
             {
                 position: "e0", direction: "x",
                 for: [{ point: "3", direction: "x" }, { point: "0", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
-                limit: ["x", "1"],
+                limit: ["1", "x", "1"]
             }
         ]
     },
@@ -27,13 +28,13 @@ var forms = {
                 position: "a4", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }],
                 for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
-                limit: ["y", "2"]
+                limit: ["0", "y", "2"]
             },
             {
                 position: "e0", direction: "x",
                 for: [{ point: "2", direction: "x" }, { point: "0", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
-                limit: ["x", "1"]
+                limit: ["1", "x", "1"]
             }
         ]
     },
@@ -46,29 +47,29 @@ var forms = {
                 position: "a2", direction: "x",
                 for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }],
                 for_pt: [],
-                limit: ["x", "2", "0"]
+                limit: ["0", "x", "2", "0"]
             },
             {
                 position: "c0", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }],
                 for_pt: [{ point: "3", direction: "y", deplacement: 0.5 }],
-                limit: ["y", "4", "1"]
+                limit: ["1", "y", "5", "1"]
             },
             {
                 position: "a4", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
                 for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "1", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 0.5 }],
-                limit: ["y", "4"]
+                limit: ["1", "y", "5"]
             },
             {
                 position: "f0", direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "5", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "2", direction: "x", deplacement: 0.5 }],
-                limit: ["x", "3"]
+                limit: ["0", "x", "2"]
             },
         ]
     },
-    /*f4: {
+    f4: {
         id: 4,
         name: "quoitrfall",
         points: [points.c0, points.a2, points.a6, points.c8, points.g8, points.i6, points.i2, points.g0],
@@ -76,34 +77,30 @@ var forms = {
             {
                 position: "a2", direction: "x",
                 for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }, { point: "5", direction: "-x" }, { point: "6", direction: "x" }],
-                for_pt: []
+                for_pt: [],
+                limit: ["0", "x", "2", "0"]
             },
             {
                 position: "c0", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "-y" }, { point: "7", direction: "-y" }],
-                for_pt: []
+                for_pt: [],
+                limit: ["1", "y", "7", "1"]
             },
             {
                 position: "e0", direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "6", direction: "x" }, { point: "7", direction: "x" }],
-                for_pt: [
-                    { point: "0", direction: "x", deplacement: 1 },
-                    { point: "1", direction: "x", deplacement: 1 },
-                    { point: "3", direction: "x", deplacement: 0.5 }
-                ]
+                for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "3", direction: "x", deplacement: 0.5 }],
+                limit: ["0", "x", "2"]
             },
             {
                 position: "a4", direction: "y",
                 for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
-                for_pt: [
-                    { point: "1", direction: "y", deplacement: 1 },
-                    { point: "0", direction: "y", deplacement: 1 },
-                    { point: "2", direction: "y", deplacement: 0.5 }
-                ]
+                for_pt: [{ point: "1", direction: "y", deplacement: 1 }, { point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }],
+                limit: ["1", "y", "7"]
             }
         ]
     },
-    f5: {
+    /*f5: {
         id: 5,
         name: "porte1",
         points: [points.b0, points.a1, points.a7, points.b8, points.i8, points.i7, points.c7, points.b6, points.b2, points.c1, points.i1, points.i0],
@@ -132,7 +129,7 @@ var forms = {
                 for_pt: []
             },
         ]
-    },
+    },*/
     f6: {
         id: 7,
         name: "fenetre1",
@@ -140,17 +137,31 @@ var forms = {
         point_transform: [
             {
                 position: "a1", direction: "x",
-                for: [{ point: "2", direction: "x" }, { point: "3", direction: "-x" }, { point: "8", direction: "-x" }, { point: "9", direction: "x" }],
-                for_pt: []
+                for: [{ point: "1", direction: "x" }, { point: "2", direction: "x" }, { point: "3", direction: "-x" }, { point: "4", direction: "-x" }, { point: "7", direction: "-x" }, { point: "8", direction: "-x" }, { point: "9", direction: "x" }, { point: "10", direction: "x" }],
+                for_pt: [],
+                limit: ["0", "x", "3", "0"]
             },
             {
                 position: "b0", direction: "y",
-                for: [{ point: "0", direction: "y" }, { point: "5", direction: "y" }, { point: "6", direction: "-y" }, { point: "11", direction: "-y" }],
-                for_pt: []
-            }
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "4", direction: "y" }, { point: "5", direction: "y" }, { point: "6", direction: "-y" }, { point: "7", direction: "-y" }, { point: "10", direction: "-y" }, { point: "11", direction: "-y" }],
+                for_pt: [],
+                limit: ["1", "y", "11", "2"]
+            },
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "y" }, { point: "5", direction: "y" }],
+                for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "1", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 0.5 }],
+                limit: ["1", "y", "11"]
+            },
+            {
+                position: "e0", direction: "x",
+                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "2", direction: "x" }, { point: "9", direction: "x" }, { point: "10", direction: "x" }, { point: "11", direction: "x" }],
+                for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "2", direction: "x", deplacement: 0.5 }],
+                limit: ["0", "x", "3"]
+            },
         ]
     },
-    f7: {
+    /*f7: {
         id: 8,
         name: "triangle1",
         points: [points.a4, points.i8, points.i0],
