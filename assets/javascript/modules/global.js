@@ -7,8 +7,8 @@ var dragelemY = 0;
 var nombre_simulation = -1;
 var simulations = [];
 var type_transform = "";
-var stroke_with = 10;
-var clippath_bgImage = "./assets/images/bg.jpg";
+var stroke_with = 7;
+var clippath_bgImage = "./assets/images/bg1.jpg";
 
 var container_path = "form-path_";
 var container_transform_path = "form-path_";

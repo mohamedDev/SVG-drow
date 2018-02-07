@@ -4,14 +4,32 @@ $(document).ready(function () {
         currenty,
         formid = -1;
 
-        generateMenu(Porte);
+    generateMenu(Porte);
 
     $(document).on("click", "#menu svg", function () {
         let form_key = $(this).attr("data-key");
-        let form = Porte[form_key];
+
+        let type = $(".switcherforms select").val();
+        let form;
+        if (type === "porte") {
+            form = Porte[form_key];
+        } else {
+            form = Fenetre[form_key];
+        }
 
         selectedform = form;
         drowForm(form, "drowforme");
+    });
+
+    $(".switcherforms select").change(function () {
+        $("#menu").html("");
+        let type = $(this).val();
+
+        if (type === "porte") {
+            generateMenu(Porte);
+        } else {
+            generateMenu(Fenetre);
+        }
     });
 
     $("body").on("mousedown", ".form", function (evt) {
