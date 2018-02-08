@@ -45,40 +45,51 @@ var drowSimulationContainer = function (simulation, container) {
     document.getElementById("clippath_" + simulation.order).appendChild(pathelem);
 }
 
+var calculChenfrain = function (form, j) {
+    let points = [];
+
+    if (form.type === "porte") {
+        if (j === 0 && form.points[j].y > form.points[j + 1].y || j === (form.points.length - 1) && form.points[form.points.length - 1].y < form.points[form.points.length - 2].y) {
+            let p1 = { "x": form.points[j].x - stroke_with, "y": form.points[j].y }
+            let p2 = { "x": form.points[j].x + stroke_with, "y": form.points[j].y }
+            points.push({ p1, p2 });
+        } else if (j === 0 && form.points[j].y < form.points[j + 1].y || j === (form.points.length - 1) && form.points[form.points.length - 1].y > form.points[form.points.length - 2].y) {
+            let p1 = { "x": form.points[j].x + stroke_with, "y": form.points[j].y }
+            let p2 = { "x": form.points[j].x - stroke_with, "y": form.points[j].y }
+            points.push({ p1, p2 });
+        } else {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], stroke_with));
+        }
+    } else {
+        if (j === 0) {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1], stroke_with));
+        } else if (j === (form.points.length - 1)) {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[0], form.points[j - 1], stroke_with));
+        } else {
+            points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], stroke_with));
+        }
+    }
+
+    return points;
+}
 var drowchenfrain = function (form) {
     let chenfrein = [];
 
     for (let j = 0; j < form.points.length; j++) {
         let points = [];
-        if (form.type === "porte") {
-            if (j === 0 && form.points[j].y > form.points[j + 1].y || j === (form.points.length - 1) && form.points[form.points.length - 1].y < form.points[form.points.length - 2].y) {
-                let p1 = { "x": form.points[j].x - stroke_with, "y": form.points[j].y }
-                let p2 = { "x": form.points[j].x + stroke_with, "y": form.points[j].y }
-                points.push({ p1, p2 });
-            } else if (j === 0 && form.points[j].y < form.points[j + 1].y || j === (form.points.length - 1) && form.points[form.points.length - 1].y > form.points[form.points.length - 2].y) {
-                let p1 = { "x": form.points[j].x + stroke_with, "y": form.points[j].y }
-                let p2 = { "x": form.points[j].x - stroke_with, "y": form.points[j].y }
-                points.push({ p1, p2 });
-            } else {
-                points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], stroke_with));
-            }
-        } else {
-            if (j === 0) {
-                points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[form.points.length - 1], stroke_with));
-            } else if (j === (form.points.length - 1)) {
-                points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[0], form.points[j - 1], stroke_with));
-            } else {
-                points.push(getchenfrainOfcurrentPoints(form, form.points[j], form.points[j + 1], form.points[j - 1], stroke_with));
-            }
-        }
+        points = calculChenfrain(form, j);
+
         chenfrein.push(points[0].p1);
         chenfrein.push(points[0].p2);
-        let line = drowline(form, points[0].p1, points[0].p2, "translate", 0.5, 1, "black");
+        let line = drowline(form, points[0].p1, points[0].p2, "translate", 0.5, 1);
         document.getElementById(container_chanfrein + nombre_simulation).appendChild(line);
     }
 
     return chenfrein;
 }
+
+
+
 
 var drowElement = function (simulation, container) {
     var path = "";
@@ -143,49 +154,28 @@ var drowForm = function (form, container) {
     drowElement(simulation, container_path + simulation.order);
 }
 
-var updateForm = function (simulation) {
-    let path = calculPath(simulation);
-    simulation.chenfrein = []
-    document.getElementById(container_chanfrein + simulation.order).innerHTML = "";
 
-    for (let j = 0; j < simulation.points.length; j++) {
+var updateForm = function (form) {
+    document.getElementById(container_chanfrein + form.order).innerHTML = "";
+    let path = calculPath(form);
 
+    form.chenfrein = []
+
+    for (let j = 0; j < form.points.length; j++) {
         let points = [];
-        if (simulation.type === "porte") {
-            if (j === 0 && simulation.points[j].y > simulation.points[j + 1].y || j === (simulation.points.length - 1) && simulation.points[simulation.points.length - 1].y < simulation.points[simulation.points.length - 2].y) {
-                let p1 = { "x": simulation.points[j].x - stroke_with, "y": simulation.points[j].y }
-                let p2 = { "x": simulation.points[j].x + stroke_with, "y": simulation.points[j].y }
-                points.push({ p1, p2 });
-            } else if (j === 0 && simulation.points[j].y < simulation.points[j + 1].y || j === (simulation.points.length - 1) && simulation.points[simulation.points.length - 1].y > simulation.points[simulation.points.length - 2].y) {
-                let p1 = { "x": simulation.points[j].x + stroke_with, "y": simulation.points[j].y }
-                let p2 = { "x": simulation.points[j].x - stroke_with, "y": simulation.points[j].y }
-                points.push({ p1, p2 });
-            } else {
-                points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[j + 1], simulation.points[j - 1], stroke_with));
-            }
-        } else {
-            if (j === 0) {
-                points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[j + 1], simulation.points[simulation.points.length - 1], stroke_with));
-            } else if (j === (simulation.points.length - 1)) {
-                points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[0], simulation.points[j - 1], stroke_with));
-            } else {
-                points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[j + 1], simulation.points[j - 1], stroke_with));
-            }
-        }
+        points = calculChenfrain(form, j);
 
-
-
-        simulation.chenfrein.push(points[0].p1);
-        simulation.chenfrein.push(points[0].p2);
-        let line = drowline(simulation, points[0].p1, points[0].p2, "translate", 0.5, 1);
-        document.getElementById(container_chanfrein + simulation.order).appendChild(line);
+        form.chenfrein.push(points[0].p1);
+        form.chenfrein.push(points[0].p2);
+        let line = drowline(form, points[0].p1, points[0].p2, "translate", 0.5, 1);
+        document.getElementById(container_chanfrein + form.order).appendChild(line);
     }
 
-    document.getElementById("path-" + simulation.order).setAttribute("d", path);
-    document.getElementById(container_path + simulation.order).innerHTML = "";
-    document.getElementById(container_transform_point + simulation.order).innerHTML = "";
-    DrowTransformPoint(simulation);
-    drowElement(simulation, container_path + simulation.order);
+    document.getElementById("path-" + form.order).setAttribute("d", path);
+    document.getElementById(container_path + form.order).innerHTML = "";
+    document.getElementById(container_transform_point + form.order).innerHTML = "";
+    DrowTransformPoint(form);
+    drowElement(form, container_path + form.order);
 }
 
 var DrowTransformPoint = function (simuation) {
