@@ -21,11 +21,11 @@ var drowMenuForm = function (form, container, ordre) {
     for (let j = 0; j < form.points.length; j++) {
         let points = [];
         if (form.type === "porte") {
-            if (j === 0) {
+            if (j === 0 && form.points[j].y > form.points[j + 1].y || j === (form.points.length - 1) && form.points[form.points.length - 1].y < form.points[form.points.length - 2].y) {
                 let p1 = { "x": form.points[j].x - stroke_with, "y": form.points[j].y }
                 let p2 = { "x": form.points[j].x + stroke_with, "y": form.points[j].y }
                 points.push({ p1, p2 });
-            } else if (j === (form.points.length - 1)) {
+            } else if (j === 0 && form.points[j].y < form.points[j + 1].y || j === (form.points.length - 1) && form.points[form.points.length - 1].y > form.points[form.points.length - 2].y) {
                 let p1 = { "x": form.points[j].x + stroke_with, "y": form.points[j].y }
                 let p2 = { "x": form.points[j].x - stroke_with, "y": form.points[j].y }
                 points.push({ p1, p2 });

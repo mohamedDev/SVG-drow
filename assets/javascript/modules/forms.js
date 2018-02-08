@@ -4,7 +4,6 @@ var Porte = {
         name: "rectangle",
         type: "porte",
         points: [points.i2, points.a2, points.a6, points.i6],
-        imposte : "",
         point_transform: [
             {
                 position: "a4", direction: "y",
@@ -170,35 +169,57 @@ var Porte = {
     f7: {
         id: 7,
         name: "Octogone",
-        type: "porte",        
+        type: "porte",
         points: [points.i2, points.c2, points.b3, points.b5, points.c6, points.i6],
         point_transform: [
             {
-                position: "a2", direction: "x",
-                for: [{ point: "1", direction: "x" }, { point: "2", direction: "-x" }],
+                position: "b3", direction: "x",
+                for: [{ point: "2", direction: "x" }, { point: "3", direction: "-x" }],
                 for_pt: [],
-                limit: ["0", "x", "2", "0"]
+                limit: ["0", "x", "3", "0"]
             },
             {
-                position: "c0", direction: "y",
-                for: [{ point: "0", direction: "y" }, { point: "3", direction: "y" }],
+                position: "c2", direction: "y",
+                for: [{ point: "1", direction: "y" }, { point: "4", direction: "y" }],
                 for_pt: [{ point: "3", direction: "y", deplacement: 0.5 }],
-                limit: ["1", "y", "5", "1"]
+                limit: ["1", "y", "0", "2"]
             },
             {
-                position: "a4", direction: "y",
-                for: [{ point: "0", direction: "y" }, { point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
+                position: "b4", direction: "y",
+                for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "y" }],
                 for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "1", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 0.5 }],
                 limit: ["1", "y", "5"]
             },
             {
-                position: "f0", direction: "x",
-                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "5", direction: "x" }],
+                position: "f2", direction: "x",
+                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "2", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "2", direction: "x", deplacement: 0.5 }],
-                limit: ["0", "x", "2"]
+                limit: ["0", "x", "3"]
             },
         ]
     },
+    f8: {
+        id: 1,
+        name: "rectangle123",
+        type: "porte",
+        points: [points.i6, points.a6, points.a2, points.i2],
+        imposte: "",
+        point_transform: [
+            {
+                position: "a4", direction: "y",
+                for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
+                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
+                limit: ["0", "y", "0"]
+            },
+            {
+                position: "e2", direction: "x",
+                for: [{ point: "2", direction: "x" }, { point: "3", direction: "x" }],
+                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                limit: ["1", "x", "1"]
+            }
+        ]
+    }
 }
 
 

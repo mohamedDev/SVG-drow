@@ -20,3 +20,13 @@ if (simulation.type === "porte") {
         points.push(getchenfrainOfcurrentPoints(simulation, simulation.points[j], simulation.points[j + 1], simulation.points[j - 1], stroke_with));
     }
 }
+
+
+imposte: [
+    { "t": [{ p1: points.b2, p2: points.b6 }] },
+    { "l": [{ p1: points.b2, p2: points.b6 }] },
+    { "r": [{ p1: points.b2, p2: points.b6 }] },
+    { "tl": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }] },
+    { "tr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i5, p2: points.b5 }] },
+    { "tlr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }, { p1: points.i5, p2: points.b5 }] }
+],

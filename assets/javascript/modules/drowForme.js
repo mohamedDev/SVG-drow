@@ -51,11 +51,11 @@ var drowchenfrain = function (form) {
     for (let j = 0; j < form.points.length; j++) {
         let points = [];
         if (form.type === "porte") {
-            if (j === 0) {
+            if (j === 0 && form.points[j].y > form.points[j + 1].y || j === (form.points.length - 1) && form.points[form.points.length - 1].y < form.points[form.points.length - 2].y) {
                 let p1 = { "x": form.points[j].x - stroke_with, "y": form.points[j].y }
                 let p2 = { "x": form.points[j].x + stroke_with, "y": form.points[j].y }
                 points.push({ p1, p2 });
-            } else if (j === (form.points.length - 1)) {
+            } else if (j === 0 && form.points[j].y < form.points[j + 1].y || j === (form.points.length - 1) && form.points[form.points.length - 1].y > form.points[form.points.length - 2].y) {
                 let p1 = { "x": form.points[j].x + stroke_with, "y": form.points[j].y }
                 let p2 = { "x": form.points[j].x - stroke_with, "y": form.points[j].y }
                 points.push({ p1, p2 });
@@ -149,14 +149,14 @@ var updateForm = function (simulation) {
     document.getElementById(container_chanfrein + simulation.order).innerHTML = "";
 
     for (let j = 0; j < simulation.points.length; j++) {
-        
+
         let points = [];
         if (simulation.type === "porte") {
-            if (j === 0) {
+            if (j === 0 && simulation.points[j].y > simulation.points[j + 1].y || j === (simulation.points.length - 1) && simulation.points[simulation.points.length - 1].y < simulation.points[simulation.points.length - 2].y) {
                 let p1 = { "x": simulation.points[j].x - stroke_with, "y": simulation.points[j].y }
                 let p2 = { "x": simulation.points[j].x + stroke_with, "y": simulation.points[j].y }
                 points.push({ p1, p2 });
-            } else if (j === (simulation.points.length - 1)) {
+            } else if (j === 0 && simulation.points[j].y < simulation.points[j + 1].y || j === (simulation.points.length - 1) && simulation.points[simulation.points.length - 1].y > simulation.points[simulation.points.length - 2].y) {
                 let p1 = { "x": simulation.points[j].x + stroke_with, "y": simulation.points[j].y }
                 let p2 = { "x": simulation.points[j].x - stroke_with, "y": simulation.points[j].y }
                 points.push({ p1, p2 });
