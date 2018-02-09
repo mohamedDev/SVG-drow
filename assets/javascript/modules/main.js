@@ -44,15 +44,26 @@ $(document).ready(function () {
         if (form_id !== -1) {
             let offsetX = (evt.pageX - currentx),
                 offsetY = (evt.pageY - currenty);
+
             for (let i = 0; i < simulations[form_id].points.length; i++) {
                 simulations[form_id].points[i].x += offsetX;
                 simulations[form_id].points[i].y += offsetY;
-                updateForm(simulations[form_id]);
             }
+
             for (let i = 0; i < simulations[form_id].point_transform.length; i++) {
                 simulations[form_id].point_transform[i].position.x += offsetX;
                 simulations[form_id].point_transform[i].position.y += offsetY;
             }
+
+            for (let i = 0; i < simulations[form_id].imposte[4].tr.length; i++) {
+                simulations[form_id].imposte[4].tr[i].p1.x += offsetX;
+                simulations[form_id].imposte[4].tr[i].p1.y += offsetY;
+                simulations[form_id].imposte[4].tr[i].p2.x += offsetX;
+                simulations[form_id].imposte[4].tr[i].p2.y += offsetY;
+            }
+
+            updateForm(simulations[form_id]);
+
 
             currentx = evt.pageX;
             currenty = evt.pageY;

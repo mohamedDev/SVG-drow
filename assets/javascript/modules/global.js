@@ -16,5 +16,6 @@ var container_transform_line = "form-transform-line_";
 var container_transform_point = "form-transform-point_";
 var container_chanfrein = "form-chanfrein_";
 var container_clippath = "form-clippath_";
+var container_imposte = "form-imposte_";
 
 var form_id = -1;

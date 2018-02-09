@@ -6,19 +6,27 @@ var Porte = {
         points: [points.i2, points.a2, points.a6, points.i6],
         point_transform: [
             {
-                position: "a4", direction: "y",
+                position: points.a4, direction: "y",
                 for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
                 for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
                 //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
                 limit: ["0", "y", "0"]
             },
             {
-                position: "e2", direction: "x",
+                position: points.e2, direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
                 limit: ["1", "x", "2"]
             }
-        ]
+        ],
+        imposte: [
+            { "t": [{ p1: points.b0, p2: points.b8 }] },
+            { "l": [{ p1: points.b2, p2: points.b6 }] },
+            { "r": [{ p1: points.b2, p2: points.b6 }] },
+            { "tl": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }] },
+            { "tr": [{ p1: points.b5, p2: points.i5 }, { p1: points.b2, p2: points.b6 }] },
+            { "tlr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }, { p1: points.i5, p2: points.b5 }] }
+        ],
     },
 
     f2: {
@@ -28,198 +36,206 @@ var Porte = {
         points: [points.i2, points.c2, points.a4, points.c6, points.i6],
         point_transform: [
             {
-                position: "c2", direction: "y",
+                position: points.c2, direction: "y",
                 for: [{ point: "1", direction: "y" }, { point: "3", direction: "y" }],
                 for_pt: [{ point: "2", direction: "y", deplacement: 0.5 }],
                 limit: ["0", "y", "0", "2"]
             },
             {
-                position: "a4", direction: "y",
+                position: points.a4, direction: "y",
                 for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
                 for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }],
                 limit: ["0", "y", "0"]
             },
             {
-                position: "f2", direction: "x",
+                position: points.f2, direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "3", direction: "-x" }, { point: "4", direction: "-x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 1 }],
                 limit: ["2", "x", "3"]
             }
-        ]
+        ],
+        imposte: [
+            { "t": [{ p1: points.b0, p2: points.b8 }] },
+            { "l": [{ p1: points.b2, p2: points.b6 }] },
+            { "r": [{ p1: points.b2, p2: points.b6 }] },
+            { "tl": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }] },
+            { "tr": [{ p1: points.i5, p2: points.b5 }, { p1: points.b2, p2: points.b6 }] },
+            { "tlr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }, { p1: points.i5, p2: points.b5 }] }
+        ],
     },
-
-    f3: {
-        id: 3,
-        name: "porte-deg",
-        type: "porte",
-        points: [points.i2, points.c2, points.a6, points.i6],
-        point_transform: [
-            {
-                position: "c2", direction: "y",
-                for: [{ point: "1", direction: "y" }],
-                for_pt: [{ point: "2", direction: "y", deplacement: 0.5 }],
-                limit: ["0", "y", "0", "2"]
-            },
-            {
-                position: "a4", direction: "y",
-                for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
-                for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }],
-                limit: ["0", "y", "0"]
-            },
-            {
-                position: "f2", direction: "x",
-                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
-                for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 0.5 }],
-                limit: ["2", "x", "2"]
-            }
-        ]
-    },
-
-    f4: {
-        id: 4,
-        name: "porte-deg-inv",
-        type: "porte",
-        points: [points.i2, points.a2, points.c6, points.i6],
-        point_transform: [
-            {
-                position: "c6", direction: "y",
-                for: [{ point: "2", direction: "y" }],
-                for_pt: [],
-                limit: ["0", "y", "0", "1"]
-            },
-            {
-                position: "a4", direction: "y",
-                for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
-                for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }],
-                limit: ["0", "y", "0"]
-            },
-            {
-                position: "e2", direction: "x",
-                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
-                for_pt: [{ point: "1", direction: "x", deplacement: 0.5 }],
-                limit: ["2", "x", "2"]
-            }
-        ]
-    },
-
-    f5: {
-        id: 5,
-        name: "ChanfreinG",
-        type: "porte",
-        points: [points.i2, points.c2, points.a4, points.a6, points.i6],
-        point_transform: [
-            {
-                position: "a5", direction: "y",
-                for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
-                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }, { point: "2", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 1 }],
-                limit: ["3", "y", "0"]
-            },
-            {
-                position: "f2", direction: "x",
-                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "2", direction: "x" }],
-                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }, { point: "2", direction: "x", deplacement: 1 }, { point: "3", direction: "x", deplacement: 1 }],
-                limit: ["2", "x", "3"]
-            },
-            {
-                position: "a4", direction: "x",
-                for: [{ point: "2", direction: "x" }],
-                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
-                limit: ["2", "x", "3", "1"]
-            },
-            {
-                position: "c2", direction: "y",
-                for: [{ point: "1", direction: "y" }],
-                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
-                limit: ["3", "y", "0", "2"]
-            }
-        ]
-    },
-    f6: {
-        id: 6,
-        name: "ChanfreinD",
-        type: "porte",
-        points: [points.i2, points.a2, points.a4, points.c6, points.i6],
-        point_transform: [
-            {
-                position: "a3", direction: "y",
-                for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
-                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }, { point: "2", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 1 }],
-                limit: ["3", "y", "0"]
-            },
-            {
-                position: "e2", direction: "x",
-                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
-                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
-                limit: ["1", "x", "2"]
-            },
-            {
-                position: "a4", direction: "x",
-                for: [{ point: "2", direction: "x" }],
-                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
-                limit: ["2", "x", "3", "1"]
-            },
-            {
-                position: "c6", direction: "y",
-                for: [{ point: "3", direction: "y" }],
-                for_pt: [],
-                limit: ["3", "y", "0", "1"]
-            }
-        ]
-    },
-    f7: {
-        id: 7,
-        name: "Octogone",
-        type: "porte",
-        points: [points.i2, points.c2, points.b3, points.b5, points.c6, points.i6],
-        point_transform: [
-            {
-                position: "b3", direction: "x",
-                for: [{ point: "2", direction: "x" }, { point: "3", direction: "-x" }],
-                for_pt: [],
-                limit: ["0", "x", "3", "0"]
-            },
-            {
-                position: "c2", direction: "y",
-                for: [{ point: "1", direction: "y" }, { point: "4", direction: "y" }],
-                for_pt: [{ point: "3", direction: "y", deplacement: 0.5 }],
-                limit: ["1", "y", "0", "2"]
-            },
-            {
-                position: "b4", direction: "y",
-                for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "y" }],
-                for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "1", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 0.5 }],
-                limit: ["1", "y", "5"]
-            },
-            {
-                position: "f2", direction: "x",
-                for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "2", direction: "x" }],
-                for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "2", direction: "x", deplacement: 0.5 }],
-                limit: ["0", "x", "3"]
-            },
-        ]
-    },
-    f8: {
-        id: 1,
-        name: "rectangle123",
-        type: "porte",
-        points: [points.i6, points.a6, points.a2, points.i2],
-        imposte: "",
-        point_transform: [
-            {
-                position: "a4", direction: "y",
-                for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
-                for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
-                //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
-                limit: ["0", "y", "0"]
-            },
-            {
-                position: "e2", direction: "x",
-                for: [{ point: "2", direction: "x" }, { point: "3", direction: "x" }],
-                for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
-                limit: ["1", "x", "1"]
-            }
-        ]
-    }
+    /*
+        f3: {
+            id: 3,
+            name: "porte-deg",
+            type: "porte",
+            points: [points.i2, points.c2, points.a6, points.i6],
+            point_transform: [
+                {
+                    position: "c2", direction: "y",
+                    for: [{ point: "1", direction: "y" }],
+                    for_pt: [{ point: "2", direction: "y", deplacement: 0.5 }],
+                    limit: ["0", "y", "0", "2"]
+                },
+                {
+                    position: "a4", direction: "y",
+                    for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
+                    for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }],
+                    limit: ["0", "y", "0"]
+                },
+                {
+                    position: "f2", direction: "x",
+                    for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
+                    for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 0.5 }],
+                    limit: ["2", "x", "2"]
+                }
+            ]
+        },
+    
+        f4: {
+            id: 4,
+            name: "porte-deg-inv",
+            type: "porte",
+            points: [points.i2, points.a2, points.c6, points.i6],
+            point_transform: [
+                {
+                    position: "c6", direction: "y",
+                    for: [{ point: "2", direction: "y" }],
+                    for_pt: [],
+                    limit: ["0", "y", "0", "1"]
+                },
+                {
+                    position: "a4", direction: "y",
+                    for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
+                    for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }],
+                    limit: ["0", "y", "0"]
+                },
+                {
+                    position: "e2", direction: "x",
+                    for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
+                    for_pt: [{ point: "1", direction: "x", deplacement: 0.5 }],
+                    limit: ["2", "x", "2"]
+                }
+            ]
+        },
+    
+        f5: {
+            id: 5,
+            name: "ChanfreinG",
+            type: "porte",
+            points: [points.i2, points.c2, points.a4, points.a6, points.i6],
+            point_transform: [
+                {
+                    position: "a5", direction: "y",
+                    for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
+                    for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }, { point: "2", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 1 }],
+                    limit: ["3", "y", "0"]
+                },
+                {
+                    position: "f2", direction: "x",
+                    for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "2", direction: "x" }],
+                    for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }, { point: "2", direction: "x", deplacement: 1 }, { point: "3", direction: "x", deplacement: 1 }],
+                    limit: ["2", "x", "3"]
+                },
+                {
+                    position: "a4", direction: "x",
+                    for: [{ point: "2", direction: "x" }],
+                    for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                    limit: ["2", "x", "3", "1"]
+                },
+                {
+                    position: "c2", direction: "y",
+                    for: [{ point: "1", direction: "y" }],
+                    for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                    limit: ["3", "y", "0", "2"]
+                }
+            ]
+        },
+        f6: {
+            id: 6,
+            name: "ChanfreinD",
+            type: "porte",
+            points: [points.i2, points.a2, points.a4, points.c6, points.i6],
+            point_transform: [
+                {
+                    position: "a3", direction: "y",
+                    for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
+                    for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }, { point: "2", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 1 }],
+                    limit: ["3", "y", "0"]
+                },
+                {
+                    position: "e2", direction: "x",
+                    for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
+                    for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                    limit: ["1", "x", "2"]
+                },
+                {
+                    position: "a4", direction: "x",
+                    for: [{ point: "2", direction: "x" }],
+                    for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                    limit: ["2", "x", "3", "1"]
+                },
+                {
+                    position: "c6", direction: "y",
+                    for: [{ point: "3", direction: "y" }],
+                    for_pt: [],
+                    limit: ["3", "y", "0", "1"]
+                }
+            ]
+        },
+        f7: {
+            id: 7,
+            name: "Octogone",
+            type: "porte",
+            points: [points.i2, points.c2, points.b3, points.b5, points.c6, points.i6],
+            point_transform: [
+                {
+                    position: "b3", direction: "x",
+                    for: [{ point: "2", direction: "x" }, { point: "3", direction: "-x" }],
+                    for_pt: [],
+                    limit: ["0", "x", "3", "0"]
+                },
+                {
+                    position: "c2", direction: "y",
+                    for: [{ point: "1", direction: "y" }, { point: "4", direction: "y" }],
+                    for_pt: [{ point: "3", direction: "y", deplacement: 0.5 }],
+                    limit: ["1", "y", "0", "2"]
+                },
+                {
+                    position: "b4", direction: "y",
+                    for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }, { point: "4", direction: "y" }],
+                    for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "1", direction: "y", deplacement: 1 }, { point: "3", direction: "y", deplacement: 0.5 }],
+                    limit: ["1", "y", "5"]
+                },
+                {
+                    position: "f2", direction: "x",
+                    for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "2", direction: "x" }],
+                    for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "2", direction: "x", deplacement: 0.5 }],
+                    limit: ["0", "x", "3"]
+                },
+            ]
+        },
+        f8: {
+            id: 1,
+            name: "rectangle123",
+            type: "porte",
+            points: [points.i6, points.a6, points.a2, points.i2],
+            imposte: "",
+            point_transform: [
+                {
+                    position: "a4", direction: "y",
+                    for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
+                    for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                    //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
+                    limit: ["0", "y", "0"]
+                },
+                {
+                    position: "e2", direction: "x",
+                    for: [{ point: "2", direction: "x" }, { point: "3", direction: "x" }],
+                    for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                    limit: ["1", "x", "1"]
+                }
+            ]
+        }*/
 }
 
 
@@ -234,19 +250,27 @@ var Fenetre = {
         points: [points.i0, points.a0, points.a8, points.i8],
         point_transform: [
             {
-                position: "a4", direction: "y",
+                position: points.a4, direction: "y",
                 for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
                 for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
                 //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
                 limit: ["0", "y", "0"]
             },
             {
-                position: "e0", direction: "x",
+                position: points.e0, direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
                 limit: ["1", "x", "2"]
             }
-        ]
+        ],
+        imposte: [
+            { "t": [{ p1: points.b2, p2: points.b6 }] },
+            { "l": [{ p1: points.b2, p2: points.b6 }] },
+            { "r": [{ p1: points.b2, p2: points.b6 }] },
+            { "tl": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }] },
+            { "tr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i5, p2: points.b5 }] },
+            { "tlr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }, { p1: points.i5, p2: points.b5 }] }
+        ],
     },
     f2: {
         id: 2,
@@ -255,13 +279,21 @@ var Fenetre = {
         points: [points.i0, points.a0, points.c8, points.i8],
         point_transform: [
             {
-                position: "c8", direction: "y",
+                position: points.c8, direction: "y",
                 for: [{ point: "2", direction: "y" }],
                 for_pt: [],
                 limit: ["0", "y", "0", "1"]
             }
-        ]
-    },
+        ],
+        imposte: [
+            { "t": [{ p1: points.b2, p2: points.b6 }] },
+            { "l": [{ p1: points.b2, p2: points.b6 }] },
+            { "r": [{ p1: points.b2, p2: points.b6 }] },
+            { "tl": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }] },
+            { "tr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i5, p2: points.b5 }] },
+            { "tlr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }, { p1: points.i5, p2: points.b5 }] }
+        ],
+    },/*
     f3: {
         id: 3,
         name: "fenetre-ch",
@@ -441,5 +473,5 @@ var Fenetre = {
                 limit: ["0", "x", "2"]
             },
         ]
-    },
+    },*/
 }

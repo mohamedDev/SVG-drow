@@ -8,27 +8,21 @@ var drowForm = function (form, container) {
         order: nombre_simulation,
         chenfrein: [],
         points: [],
-        point_transform: []
+        point_transform: [],
+        imposte : []
     };
 
     drowSimulationContainer(simulation, container);
     simulation.chenfrein = drowchenfrain(form);
 
     for (let a = 0; a < form.points.length; a++) {
-        simulation.points[a] = { x: form.points[a].x, y: form.points[a].y };
+        simulation.points[a] = JSON.parse(JSON.stringify(form.points[a]));
     }
-
-    for (let a = 0; a < form.point_transform.length; a++) {
-        simulation.point_transform[a] = {
-            "position": { x: points[form.point_transform[a].position].x, y: points[form.point_transform[a].position].y },
-            "direction": form.point_transform[a].direction,
-            "for": form.point_transform[a].for,
-            "for_pt": form.point_transform[a].for_pt,
-            "limit": form.point_transform[a].limit
-        };
-    }
+    simulation.point_transform = JSON.parse(JSON.stringify(form.point_transform))
+    simulation.imposte = JSON.parse(JSON.stringify(form.imposte))
 
     simulations.push(simulation);
     DrowTransformPoint(simulation);
     drowPathFromchenfrein(simulation, container_path + simulation.order);
+    drowImposte(simulation);
 }

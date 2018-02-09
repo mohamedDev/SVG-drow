@@ -17,6 +17,9 @@ var updateForm = function (form) {
     document.getElementById("path-" + form.order).setAttribute("d", path);
     document.getElementById(container_path + form.order).innerHTML = "";
     document.getElementById(container_transform_point + form.order).innerHTML = "";
+    document.getElementById(container_imposte + form.order).innerHTML = "";
     DrowTransformPoint(form);
     drowPathFromchenfrein(form, container_path + form.order);
+    drowImposte(form);
+    
 }
