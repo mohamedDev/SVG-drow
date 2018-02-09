@@ -16,8 +16,6 @@ $(document).ready(function () {
         } else {
             form = Fenetre[form_key];
         }
-
-        selectedform = form;
         drowForm(form, "drowforme");
     });
 

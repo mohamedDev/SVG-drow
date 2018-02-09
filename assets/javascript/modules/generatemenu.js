@@ -28,8 +28,7 @@ var drowMenuForm = function (form, container, ordre) {
         document.getElementById("nav-form-chanfrein_" + ordre).appendChild(line);
     }
 
-    var t = "nav-form-path_" + ordre;
-    drowElement(simulation, t);
+    drowPathFromchenfrein(simulation, "nav-form-path_" + ordre);
 }
 
 var generateMenu = function (forms) {
