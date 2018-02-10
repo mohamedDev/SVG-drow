@@ -55,11 +55,11 @@ $(document).ready(function () {
                 simulations[form_id].point_transform[i].position.y += offsetY;
             }
 
-            for (let i = 0; i < simulations[form_id].imposte[4].tr.length; i++) {
-                simulations[form_id].imposte[4].tr[i].p1.x += offsetX;
-                simulations[form_id].imposte[4].tr[i].p1.y += offsetY;
-                simulations[form_id].imposte[4].tr[i].p2.x += offsetX;
-                simulations[form_id].imposte[4].tr[i].p2.y += offsetY;
+            for (let i = 0; i < simulations[form_id].imposte.tlr2.length; i++) {
+                simulations[form_id].imposte.tlr2[i].p1.x += offsetX;
+                simulations[form_id].imposte.tlr2[i].p1.y += offsetY;
+                simulations[form_id].imposte.tlr2[i].p2.x += offsetX;
+                simulations[form_id].imposte.tlr2[i].p2.y += offsetY;
             }
 
             updateForm(simulations[form_id]);

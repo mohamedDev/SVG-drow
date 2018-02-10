@@ -2,22 +2,22 @@ var drowImposte = function (form) {
 
 
 
-    for (let i = 0; i < form.imposte[4].tr.length; i++) {
+    for (let i = 0; i < form.imposte.tlr2.length; i++) {
 
 
         let path = "";
 
-        if (form.imposte[4].tr[i].p1.y === form.imposte[4].tr[i].p2.y) {
+        if (form.imposte.tlr2[i].p1.y === form.imposte.tlr2[i].p2.y) {
 
-            var p1 = { x: form.imposte[4].tr[i].p1.x, y: form.imposte[4].tr[i].p1.y - stroke_with }
-            var p2 = { x: form.imposte[4].tr[i].p1.x, y: form.imposte[4].tr[i].p1.y + stroke_with }
-            var p3 = { x: form.imposte[4].tr[i].p2.x, y: form.imposte[4].tr[i].p2.y + stroke_with }
-            var p4 = { x: form.imposte[4].tr[i].p2.x, y: form.imposte[4].tr[i].p2.y - stroke_with }
+            var p1 = { x: form.imposte.tlr2[i].p1.x, y: form.imposte.tlr2[i].p1.y - stroke_with }
+            var p2 = { x: form.imposte.tlr2[i].p1.x, y: form.imposte.tlr2[i].p1.y + stroke_with }
+            var p3 = { x: form.imposte.tlr2[i].p2.x, y: form.imposte.tlr2[i].p2.y + stroke_with }
+            var p4 = { x: form.imposte.tlr2[i].p2.x, y: form.imposte.tlr2[i].p2.y - stroke_with }
         } else {
-            var p1 = { x: form.imposte[4].tr[i].p1.x - stroke_with, y: form.imposte[4].tr[i].p1.y }
-            var p2 = { x: form.imposte[4].tr[i].p1.x + stroke_with, y: form.imposte[4].tr[i].p1.y }
-            var p3 = { x: form.imposte[4].tr[i].p2.x + stroke_with, y: form.imposte[4].tr[i].p2.y }
-            var p4 = { x: form.imposte[4].tr[i].p2.x - stroke_with, y: form.imposte[4].tr[i].p2.y }
+            var p1 = { x: form.imposte.tlr2[i].p1.x - stroke_with, y: form.imposte.tlr2[i].p1.y }
+            var p2 = { x: form.imposte.tlr2[i].p1.x + stroke_with, y: form.imposte.tlr2[i].p1.y }
+            var p3 = { x: form.imposte.tlr2[i].p2.x + stroke_with, y: form.imposte.tlr2[i].p2.y }
+            var p4 = { x: form.imposte.tlr2[i].p2.x - stroke_with, y: form.imposte.tlr2[i].p2.y }
         }
 
         path = "M" + p1.x + "," + p1.y;

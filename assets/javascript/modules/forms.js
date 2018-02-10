@@ -1,3 +1,15 @@
+var imposteporte = {
+    "t": [{ p1: points.b0, p2: points.b8 }],
+    "l": [{ p1: points.a3, p2: points.i3 }],
+    "r": [{ p1: points.a5, p2: points.i5 }],
+    "tl1": [{ p1: points.b0, p2: points.b8 }, { p1: points.b3, p2: points.i3 }],
+    "tl2": [{ p1: points.b3, p2: points.b6 }, { p1: points.a3, p2: points.i3 }],
+    "tr1": [{ p1: points.b5, p2: points.i5 }, { p1: points.b2, p2: points.b6 }],
+    "tr2": [{ p1: points.b2, p2: points.b5 }, { p1: points.a5, p2: points.i5 }],
+    "tlr1": [{ p1: points.b3, p2: points.i3 }, { p1: points.b5, p2: points.i5 }, { p1: points.b2, p2: points.b6 }],
+    "tlr2": [{ p1: points.b3, p2: points.b5 }, { p1: points.a3, p2: points.i3 }, { p1: points.a5, p2: points.i5 }]
+};
+
 var Porte = {
     f1: {
         id: 1,
@@ -19,14 +31,7 @@ var Porte = {
                 limit: ["1", "x", "2"]
             }
         ],
-        imposte: [
-            { "t": [{ p1: points.b0, p2: points.b8 }] },
-            { "l": [{ p1: points.b2, p2: points.b6 }] },
-            { "r": [{ p1: points.b2, p2: points.b6 }] },
-            { "tl": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }] },
-            { "tr": [{ p1: points.b5, p2: points.i5 }, { p1: points.b2, p2: points.b6 }] },
-            { "tlr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }, { p1: points.i5, p2: points.b5 }] }
-        ],
+        imposte: imposteporte
     },
 
     f2: {
@@ -54,14 +59,7 @@ var Porte = {
                 limit: ["2", "x", "3"]
             }
         ],
-        imposte: [
-            { "t": [{ p1: points.b0, p2: points.b8 }] },
-            { "l": [{ p1: points.b2, p2: points.b6 }] },
-            { "r": [{ p1: points.b2, p2: points.b6 }] },
-            { "tl": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }] },
-            { "tr": [{ p1: points.i5, p2: points.b5 }, { p1: points.b2, p2: points.b6 }] },
-            { "tlr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }, { p1: points.i5, p2: points.b5 }] }
-        ],
+        imposte: imposteporte
     },
     /*
         f3: {
@@ -268,7 +266,7 @@ var Fenetre = {
             { "l": [{ p1: points.b2, p2: points.b6 }] },
             { "r": [{ p1: points.b2, p2: points.b6 }] },
             { "tl": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }] },
-            { "tr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i5, p2: points.b5 }] },
+            { "tr": [{ p1: points.b7, p2: points.h7 }, { p1: points.b1, p2: points.h1 }, { p1: points.b0, p2: points.b8 }, { p1: points.h0, p2: points.h8 }] },
             { "tlr": [{ p1: points.b2, p2: points.b6 }, { p1: points.i3, p2: points.b3 }, { p1: points.i5, p2: points.b5 }] }
         ],
     },
@@ -475,3 +473,7 @@ var Fenetre = {
         ]
     },*/
 }
+
+
+
+
