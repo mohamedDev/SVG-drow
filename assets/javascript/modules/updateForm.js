@@ -20,6 +20,5 @@ var updateForm = function (form) {
     document.getElementById(container_imposte + form.order).innerHTML = "";
     DrowTransformPoint(form);
     drowPathFromchenfrein(form, container_path + form.order);
-    drowImposte(form);
-    
+    drowImposte(form);    
 }

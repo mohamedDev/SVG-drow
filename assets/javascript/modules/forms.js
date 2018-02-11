@@ -21,6 +21,7 @@ var Porte = {
                 position: points.a4, direction: "y",
                 for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
                 for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                for_imposte: [{ imposte: "tlr2", direction: "x", line: ["0", "1"] }],
                 //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
                 limit: ["0", "y", "0"]
             },
@@ -28,6 +29,10 @@ var Porte = {
                 position: points.e2, direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                for_imposte: {
+                    imposte: "tlr2", direction: "x",
+                    line: [{ rang: "0", point: "p1" }, { rang: "1", point: "p1" }, { rang: "1", point: "p2" }]
+                },
                 limit: ["1", "x", "2"]
             }
         ],
@@ -56,6 +61,10 @@ var Porte = {
                 position: points.f2, direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "3", direction: "-x" }, { point: "4", direction: "-x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 1 }],
+                for_imposte: {
+                    imposte: "tlr2", direction: "x",
+                    line: [{ rang: "0", point: "p1" }, { rang: "1", point: "p1" }, { rang: "1", point: "p2" }]
+                },
                 limit: ["2", "x", "3"]
             }
         ],

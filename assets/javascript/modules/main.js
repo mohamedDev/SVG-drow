@@ -164,6 +164,15 @@ $(document).ready(function () {
                             simulations[formid].point_transform[transform_Point.for_pt[i].point].position.x += offsetX * transform_Point.for_pt[i].deplacement;
                         }
                     }
+
+                    for (let i = 0; i < transform_Point.for_imposte.line.length; i++) {
+                        if (transform_Point.for_imposte.direction === "x") {
+
+                            console.log(transform_Point.for_imposte.imposte);
+                            console.log(simulations[formid].imposte[transform_Point.for_imposte.imposte][transform_Point.for_imposte.line[i].rang][transform_Point.for_imposte.line[i].point]);
+                            simulations[formid].imposte[transform_Point.for_imposte.imposte][transform_Point.for_imposte.line[i].rang][transform_Point.for_imposte.line[i].point].x += offsetX;
+                        }
+                    }
                 }
 
                 if (transform_Point.limit.length > 0 && transform_Point.limit[1] === "y"
