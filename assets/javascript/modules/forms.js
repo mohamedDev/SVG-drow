@@ -1,14 +1,43 @@
 var imposteporte = {
-    "t": [{ p1: points.b0, p2: points.b8 }],
+    "t": [{ p1: points.b2, p2: points.b6 }],
     "l": [{ p1: points.a3, p2: points.i3 }],
     "r": [{ p1: points.a5, p2: points.i5 }],
-    "tl1": [{ p1: points.b0, p2: points.b8 }, { p1: points.b3, p2: points.i3 }],
+    "tl1": [{ p1: points.b3, p2: points.i3 }, { p1: points.b2, p2: points.b6 }],
     "tl2": [{ p1: points.b3, p2: points.b6 }, { p1: points.a3, p2: points.i3 }],
     "tr1": [{ p1: points.b5, p2: points.i5 }, { p1: points.b2, p2: points.b6 }],
     "tr2": [{ p1: points.b2, p2: points.b5 }, { p1: points.a5, p2: points.i5 }],
     "tlr1": [{ p1: points.b3, p2: points.i3 }, { p1: points.b5, p2: points.i5 }, { p1: points.b2, p2: points.b6 }],
     "tlr2": [{ p1: points.b3, p2: points.b5 }, { p1: points.a3, p2: points.i3 }, { p1: points.a5, p2: points.i5 }]
 };
+var for_imposte_porte = {
+    left1: {
+        "t": [["0", "p1", "x"]],
+        "l": [["0", "p1", "x"], ["0", "p2", "x"]],
+        "tl1": [["0", "p1", "x"], ["0", "p2", "x"], ["1", "p1", "x"]],
+        "tl2": [["0", "p1"], ["1", "p1", "x"], ["1", "p2", "x"]],
+        "tr1": [["1", "p1", "x"]],
+        "tr2": [["0", "p1", "x"]],
+        "tlr1": [["0", "p1", "x"], ["0", "p2", "x"], ["2", "p1", "x"]],
+        "tlr2": [["0", "p1", "x"], ["1", "p1", "x"], ["1", "p2", "x"]],
+    },
+    left2: {
+        "t": [["0", "p1", "x"]],
+        "l": [["0", "p1", "x"], ["0", "p2", "x"]],
+        "tl1": [["0", "p1", "x"], ["0", "p2", "x"], ["1", "p1", "x"], ["1", "p2", "-x"]],
+        "tl2": [["0", "p1"], ["1", "p1", "x"], ["1", "p2", "x"]],
+        "tr1": [["1", "p1", "x"]],
+        "tr2": [["0", "p1", "x"]],
+        "tlr1": [["0", "p1", "x"], ["0", "p2", "x"], ["2", "p1", "x"]],
+        "tlr2": [["0", "p1", "x"], ["1", "p1", "x"], ["1", "p2", "x"]],
+    },
+    top : 
+    {
+        "t": [["0", "p1", "y"], ["0", "p2", "y"]],
+        "l": [["0", "p1", "y"]],
+        "r": [["0", "p1", "y"]],
+        "tl1": [["0", "p1", "y"], ["1", "p1", "y"], ["1", "p2", "y"]]
+    }
+}
 
 var Porte = {
     f1: {
@@ -21,7 +50,7 @@ var Porte = {
                 position: points.a4, direction: "y",
                 for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
                 for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
-                for_imposte: [{ imposte: "tlr2", direction: "x", line: ["0", "1"] }],
+                for_imposte: for_imposte_porte.top,
                 //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
                 limit: ["0", "y", "0"]
             },
@@ -29,10 +58,7 @@ var Porte = {
                 position: points.e2, direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
-                for_imposte: {
-                    imposte: "tlr2", direction: "x",
-                    line: [{ rang: "0", point: "p1" }, { rang: "1", point: "p1" }, { rang: "1", point: "p2" }]
-                },
+                for_imposte: for_imposte_porte.left1,
                 limit: ["1", "x", "2"]
             }
         ],
@@ -55,16 +81,14 @@ var Porte = {
                 position: points.a4, direction: "y",
                 for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }, { point: "3", direction: "y" }],
                 for_pt: [{ point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }],
+                for_imposte: for_imposte_porte.top,                
                 limit: ["0", "y", "0"]
             },
             {
                 position: points.f2, direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }, { point: "3", direction: "-x" }, { point: "4", direction: "-x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 1 }],
-                for_imposte: {
-                    imposte: "tlr2", direction: "x",
-                    line: [{ rang: "0", point: "p1" }, { rang: "1", point: "p1" }, { rang: "1", point: "p2" }]
-                },
+                for_imposte: for_imposte_porte.left2,
                 limit: ["2", "x", "3"]
             }
         ],

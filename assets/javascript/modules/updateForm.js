@@ -1,4 +1,5 @@
-var updateForm = function (form) {
+var updateForm = function (form, type) {
+    console.log(type)
     document.getElementById(container_chanfrein + form.order).innerHTML = "";
     let path = calculPath(form);
 
@@ -20,5 +21,8 @@ var updateForm = function (form) {
     document.getElementById(container_imposte + form.order).innerHTML = "";
     DrowTransformPoint(form);
     drowPathFromchenfrein(form, container_path + form.order);
-    drowImposte(form);    
+
+    if (type !== "") {
+        drowImposte(form, type);
+    }
 }

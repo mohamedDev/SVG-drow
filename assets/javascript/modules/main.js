@@ -2,7 +2,8 @@ $(document).ready(function () {
 
     var currentx,
         currenty,
-        formid = -1;
+        formid = -1,
+        gtype = "tl1"
 
     generateMenu(Porte);
 
@@ -16,7 +17,7 @@ $(document).ready(function () {
         } else {
             form = Fenetre[form_key];
         }
-        drowForm(form, "drowforme");
+        drowForm(form, "drowforme", gtype);
     });
 
     $(".switcherforms select").change(function () {
@@ -28,6 +29,12 @@ $(document).ready(function () {
         } else {
             generateMenu(Fenetre);
         }
+    });
+
+    $(".switchertype select").change(function () {
+        gtype = $(this).val();
+
+
     });
 
     $("body").on("mousedown", ".form", function (evt) {
@@ -55,14 +62,16 @@ $(document).ready(function () {
                 simulations[form_id].point_transform[i].position.y += offsetY;
             }
 
-            for (let i = 0; i < simulations[form_id].imposte.tlr2.length; i++) {
-                simulations[form_id].imposte.tlr2[i].p1.x += offsetX;
-                simulations[form_id].imposte.tlr2[i].p1.y += offsetY;
-                simulations[form_id].imposte.tlr2[i].p2.x += offsetX;
-                simulations[form_id].imposte.tlr2[i].p2.y += offsetY;
+            for (let j in simulations[form_id].imposte) {
+                for (let i = 0; i < simulations[form_id].imposte[j].length; i++) {
+                    simulations[form_id].imposte[j][i].p1.x += offsetX;
+                    simulations[form_id].imposte[j][i].p1.y += offsetY;
+                    simulations[form_id].imposte[j][i].p2.x += offsetX;
+                    simulations[form_id].imposte[j][i].p2.y += offsetY;
+                }
             }
 
-            updateForm(simulations[form_id]);
+            updateForm(simulations[form_id], gtype);
 
 
             currentx = evt.pageX;
@@ -165,12 +174,12 @@ $(document).ready(function () {
                         }
                     }
 
-                    for (let i = 0; i < transform_Point.for_imposte.line.length; i++) {
-                        if (transform_Point.for_imposte.direction === "x") {
-
-                            console.log(transform_Point.for_imposte.imposte);
-                            console.log(simulations[formid].imposte[transform_Point.for_imposte.imposte][transform_Point.for_imposte.line[i].rang][transform_Point.for_imposte.line[i].point]);
-                            simulations[formid].imposte[transform_Point.for_imposte.imposte][transform_Point.for_imposte.line[i].rang][transform_Point.for_imposte.line[i].point].x += offsetX;
+                    for (let i = 0; i < transform_Point.for_imposte[gtype].length; i++) {
+                        if (transform_Point.for_imposte[gtype][i][2] === "x") {
+                            simulations[formid].imposte[gtype][transform_Point.for_imposte[gtype][i][0]][transform_Point.for_imposte[gtype][i][1]].x += offsetX;
+                        }
+                        if (transform_Point.for_imposte[gtype][i][2] === "-x") {
+                            simulations[formid].imposte[gtype][transform_Point.for_imposte[gtype][i][0]][transform_Point.for_imposte[gtype][i][1]].x -= offsetX;
                         }
                     }
                 }
@@ -197,10 +206,20 @@ $(document).ready(function () {
                             simulations[formid].point_transform[transform_Point.for_pt[i].point].position.y += offsetY * transform_Point.for_pt[i].deplacement;
                         }
                     }
+
+                    for (let i = 0; i < transform_Point.for_imposte[gtype].length; i++) {
+
+                        if (transform_Point.for_imposte[gtype][i][2] === "y") {
+                            simulations[formid].imposte[gtype][transform_Point.for_imposte[gtype][i][0]][transform_Point.for_imposte[gtype][i][1]].y += offsetY;
+                        }
+                        if (transform_Point.for_imposte[gtype][i][2] === "-y") {
+                            simulations[formid].imposte[gtype][transform_Point.for_imposte[gtype][i][0]][transform_Point.for_imposte[gtype][i][1]].y -= offsetY;
+                        }
+                    }
                 }
             }
 
-            updateForm(simulations[formid]);
+            updateForm(simulations[formid], gtype);
             currentx = evt.pageX;
             currenty = evt.pageY;
         }

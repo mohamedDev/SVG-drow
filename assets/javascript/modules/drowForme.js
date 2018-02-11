@@ -1,4 +1,4 @@
-var drowForm = function (form, container) {
+var drowForm = function (form, container, type) {
     nombre_simulation++;
     let simulation = {
         id: form.name + "_" + nombre_simulation,
@@ -9,7 +9,7 @@ var drowForm = function (form, container) {
         chenfrein: [],
         points: [],
         point_transform: [],
-        imposte : []
+        imposte: []
     };
 
     drowSimulationContainer(simulation, container);
@@ -24,5 +24,8 @@ var drowForm = function (form, container) {
     simulations.push(simulation);
     DrowTransformPoint(simulation);
     drowPathFromchenfrein(simulation, container_path + simulation.order);
-    drowImposte(simulation);
+    
+    if (type !== "") {
+        drowImposte(simulation, type);
+    }
 }
