@@ -3,7 +3,7 @@ $(document).ready(function () {
     var currentx,
         currenty,
         formid = -1,
-        gtype = "tl1"
+        gtype = "t"
 
     generateMenu(Porte);
 
@@ -32,8 +32,13 @@ $(document).ready(function () {
     });
 
     $(".switchertype select").change(function () {
-        gtype = $(this).val();
+        let type = $(this).val();
+        gtype = type;
+        let iter = simulations.length;
 
+        for (let i = 0; i < iter; i++) {
+            updateForm(simulations[i], type);
+        }
 
     });
 
@@ -72,7 +77,6 @@ $(document).ready(function () {
             }
 
             updateForm(simulations[form_id], gtype);
-
 
             currentx = evt.pageX;
             currenty = evt.pageY;
@@ -182,11 +186,23 @@ $(document).ready(function () {
                             simulations[formid].imposte[gtype][transform_Point.for_imposte[gtype][i][0]][transform_Point.for_imposte[gtype][i][1]].x -= offsetX;
                         }
                     }
+                    for (let j in transform_Point.for_imposte) {
+                        if (j !== gtype) {
+                            for (let i = 0; i < transform_Point.for_imposte[j].length; i++) {
+                                if (transform_Point.for_imposte[j][i][2] === "x") {
+                                    simulations[formid].imposte[j][transform_Point.for_imposte[j][i][0]][transform_Point.for_imposte[j][i][1]].x += offsetX;
+                                }
+                                if (transform_Point.for_imposte[j][i][2] === "-x") {
+                                    j
+                                    simulations[formid].imposte[j][transform_Point.for_imposte[j][i][0]][transform_Point.for_imposte[j][i][1]].x -= offsetX;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if (transform_Point.limit.length > 0 && transform_Point.limit[1] === "y"
                     && simulations[formid].point_transform[transform_Point.limit[0]].position.y + offsetY + 40 < simulations[formid].points[transform_Point.limit[2]]["y"]) {
-
 
                     if (transform_Point.direction === "y") {
                         transform_Point.position.y += offsetY;
@@ -208,12 +224,24 @@ $(document).ready(function () {
                     }
 
                     for (let i = 0; i < transform_Point.for_imposte[gtype].length; i++) {
-
                         if (transform_Point.for_imposte[gtype][i][2] === "y") {
                             simulations[formid].imposte[gtype][transform_Point.for_imposte[gtype][i][0]][transform_Point.for_imposte[gtype][i][1]].y += offsetY;
                         }
                         if (transform_Point.for_imposte[gtype][i][2] === "-y") {
                             simulations[formid].imposte[gtype][transform_Point.for_imposte[gtype][i][0]][transform_Point.for_imposte[gtype][i][1]].y -= offsetY;
+                        }
+                    }
+
+                    for (let j in transform_Point.for_imposte) {
+                        if (j !== gtype) {
+                            for (let i = 0; i < transform_Point.for_imposte[j].length; i++) {
+                                if (transform_Point.for_imposte[j][i][2] === "y") {
+                                    simulations[formid].imposte[j][transform_Point.for_imposte[j][i][0]][transform_Point.for_imposte[j][i][1]].y += offsetY;
+                                }
+                                if (transform_Point.for_imposte[j][i][2] === "-y") {
+                                    simulations[formid].imposte[j][transform_Point.for_imposte[j][i][0]][transform_Point.for_imposte[j][i][1]].y -= offsetY;
+                                }
+                            }
                         }
                     }
                 }

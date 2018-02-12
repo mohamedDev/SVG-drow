@@ -1,5 +1,4 @@
 var updateForm = function (form, type) {
-    console.log(type)
     document.getElementById(container_chanfrein + form.order).innerHTML = "";
     let path = calculPath(form);
 
