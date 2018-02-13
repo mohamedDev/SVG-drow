@@ -320,26 +320,22 @@ $(document).ready(function () {
                 transform_Point_imposte.p2.y += offsetY;
             }
 
-            
-            for (let i = 0; i < simulations[formid].imposte[imposte].length; i++) {
 
-                if (i !== idCurrentPoint && simulations[formid].imposte[imposte][i].change !== undefined) {
+            for (let i = 0; i < transform_Point_imposte.change.length; i++) {
 
-                    console.log(simulations[formid].imposte[imposte][i].change[2])
-                    
-                    if (simulations[formid].imposte[imposte][i].change[2] === "x") {
-                        simulations[formid].imposte[imposte]
-                        [simulations[formid].imposte[imposte][i].change[0]]
-                        [simulations[formid].imposte[imposte][i].change[1]]
-                        [simulations[formid].imposte[imposte][i].change[2]] += offsetX;
-                    }
-                    if (simulations[formid].imposte[imposte][i].change[2] === "y") {
-                        simulations[formid].imposte[imposte]
-                        [simulations[formid].imposte[imposte][i].change[0]]
-                        [simulations[formid].imposte[imposte][i].change[1]]
-                        [simulations[formid].imposte[imposte][i].change[2]] += offsetY;
-                    }
+                if (transform_Point_imposte.change[i][2] === "x") {
+                    simulations[formid].imposte[imposte]
+                    [transform_Point_imposte.change[i][0]]
+                    [transform_Point_imposte.change[i][1]]
+                    [transform_Point_imposte.change[i][2]] += offsetX;
                 }
+                if (transform_Point_imposte.change[i][2] === "y") {
+                    simulations[formid].imposte[imposte]
+                    [transform_Point_imposte.change[i][0]]
+                    [transform_Point_imposte.change[i][1]]
+                    [transform_Point_imposte.change[i][2]] += offsetY;
+                }
+
             }
 
             /*  for (let j in transform_Point.for_imposte) {
