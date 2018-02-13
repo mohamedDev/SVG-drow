@@ -1,14 +1,14 @@
 var imposteporte = {
-    "t": [{ p1: points.b2, p2: points.b6 }],
-    "l": [{ p1: points.a3, p2: points.i3 }],
-    "r": [{ p1: points.a5, p2: points.i5 }],
-    "lr": [{ p1: points.a3, p2: points.i3 }, { p1: points.a5, p2: points.i5 }],
-    "tl1": [{ p1: points.b3, p2: points.i3 }, { p1: points.b2, p2: points.b6 }],
-    "tl2": [{ p1: points.b3, p2: points.b6 }, { p1: points.a3, p2: points.i3 }],
-    "tr1": [{ p1: points.b5, p2: points.i5 }, { p1: points.b2, p2: points.b6 }],
-    "tr2": [{ p1: points.b2, p2: points.b5 }, { p1: points.a5, p2: points.i5 }],
-    "tlr1": [{ p1: points.b3, p2: points.i3 }, { p1: points.b5, p2: points.i5 }, { p1: points.b2, p2: points.b6 }],
-    "tlr2": [{ p1: points.b3, p2: points.b5 }, { p1: points.a3, p2: points.i3 }, { p1: points.a5, p2: points.i5 }],
+    "t": [{ p1: points.b2, p2: points.b6, direction: "y" }],
+    "l": [{ p1: points.a3, p2: points.i3, direction: "x" }],
+    "r": [{ p1: points.a5, p2: points.i5, direction: "x" }],
+    "lr": [{ p1: points.a3, p2: points.i3, direction: "x" }, { p1: points.a5, p2: points.i5, direction: "x" }],
+    "tl1": [{ p1: points.b3, p2: points.i3, direction: "x" }, { p1: points.b2, p2: points.b6, direction: "y", change: ["0", "p1", "y"] }],
+    "tl2": [{ p1: points.b3, p2: points.b6, direction: "y" }, { p1: points.a3, p2: points.i3, direction: "x" }],
+    "tr1": [{ p1: points.b5, p2: points.i5, direction: "x" }, { p1: points.b2, p2: points.b6, direction: "y" }],
+    "tr2": [{ p1: points.b2, p2: points.b5, direction: "y" }, { p1: points.a5, p2: points.i5, direction: "x" }],
+    "tlr1": [{ p1: points.b3, p2: points.i3, direction: "x" }, { p1: points.b5, p2: points.i5, direction: "x" }, { p1: points.b2, p2: points.b6, direction: "y" }],
+    "tlr2": [{ p1: points.b3, p2: points.b5, direction: "y" }, { p1: points.a3, p2: points.i3, direction: "x" }, { p1: points.a5, p2: points.i5, direction: "x" }],
 };
 
 var for_imposte_porte = {
@@ -28,7 +28,7 @@ var for_imposte_porte = {
         "t": [["0", "p1", "x"], ["0", "p2", "-x"]],
         "l": [["0", "p1", "x"], ["0", "p2", "x"]],
         "r": [["0", "p1", "-x"], ["0", "p2", "-x"]],
-        "lr": [["0", "p1", "x"], ["0", "p2", "x"],["1", "p1", "-x"], ["1", "p2", "-x"]],        
+        "lr": [["0", "p1", "x"], ["0", "p2", "x"], ["1", "p1", "-x"], ["1", "p2", "-x"]],
         "tl1": [["0", "p1", "x"], ["0", "p2", "x"], ["1", "p1", "x"], ["1", "p2", "-x"]],
         "tl2": [["0", "p1", "x"], ["0", "p2", "-x"], ["1", "p1", "x"], ["1", "p2", "x"]],
         "tr1": [["0", "p1", "-x"], ["0", "p2", "-x"], ["1", "p1", "x"], ["1", "p2", "-x"]],
@@ -40,7 +40,7 @@ var for_imposte_porte = {
         "t": [["0", "p1", "y"], ["0", "p2", "y"]],
         "l": [["0", "p1", "y"]],
         "r": [["0", "p1", "y"]],
-        "lr": [["0", "p1", "y"], ["1", "p1", "y"]],        
+        "lr": [["0", "p1", "y"], ["1", "p1", "y"]],
         "tl1": [["0", "p1", "y"], ["1", "p1", "y"], ["1", "p2", "y"]],
         "tl2": [["0", "p1", "y"], ["0", "p2", "y"], ["1", "p1", "y"]],
         "tr1": [["0", "p1", "y"], ["1", "p1", "y"], ["1", "p2", "y"]],
@@ -73,7 +73,7 @@ var Porte = {
                 limit: ["1", "x", "2"]
             }
         ],
-        imposte: imposteporte
+        imposte: imposteporte,
     },
 
     f2: {

@@ -100,7 +100,7 @@ $(document).ready(function () {
     $("body").on("mousemove", "#draggable-element", function (evt) {
         evt = evt || window.event;
 
-        if (formid !== -1) {
+        if (formid !== -1 && imposte === "") {
 
             let offsetX = (evt.pageX - currentx),
                 offsetY = (evt.pageY - currenty),
@@ -275,5 +275,96 @@ $(document).ready(function () {
             u++;
         }
     }*/
+
+
+
+
+
+
+
+    $("body").on("mousedown", ".form-transform-imposte-point circle", function (evt) {
+        evt = evt || window.event;
+        evt.stopPropagation()
+
+        formid = $(this).attr("data-form-id");
+        idCurrentPoint = $(this).attr("data-id");
+        imposte = $(this).attr("data-imposte");
+
+        console.log(formid);
+        console.log(imposte);
+        console.log(idCurrentPoint);
+        console.log("-------------");
+
+
+        currentx = evt.pageX;
+        currenty = evt.pageY;
+    });
+
+    $("body").on("mousemove", "#draggable-element", function (evt) {
+        evt = evt || window.event;
+
+        if (formid !== -1 && imposte !== "") {
+
+            let offsetX = (evt.pageX - currentx),
+                offsetY = (evt.pageY - currenty),
+                transform_Point_imposte = simulations[formid].imposte[imposte][idCurrentPoint];
+
+
+            if (transform_Point_imposte.direction === "x") {
+                transform_Point_imposte.p1.x += offsetX;
+                transform_Point_imposte.p2.x += offsetX;
+            }
+
+            if (transform_Point_imposte.direction === "y") {
+                transform_Point_imposte.p1.y += offsetY;
+                transform_Point_imposte.p2.y += offsetY;
+            }
+
+            
+            for (let i = 0; i < simulations[formid].imposte[imposte].length; i++) {
+
+                if (i !== idCurrentPoint && simulations[formid].imposte[imposte][i].change !== undefined) {
+
+                    console.log(simulations[formid].imposte[imposte][i].change[2])
+                    
+                    if (simulations[formid].imposte[imposte][i].change[2] === "x") {
+                        simulations[formid].imposte[imposte]
+                        [simulations[formid].imposte[imposte][i].change[0]]
+                        [simulations[formid].imposte[imposte][i].change[1]]
+                        [simulations[formid].imposte[imposte][i].change[2]] += offsetX;
+                    }
+                    if (simulations[formid].imposte[imposte][i].change[2] === "y") {
+                        simulations[formid].imposte[imposte]
+                        [simulations[formid].imposte[imposte][i].change[0]]
+                        [simulations[formid].imposte[imposte][i].change[1]]
+                        [simulations[formid].imposte[imposte][i].change[2]] += offsetY;
+                    }
+                }
+            }
+
+            /*  for (let j in transform_Point.for_imposte) {
+                 if (j !== imposte) {
+                     for (let i = 0; i < transform_Point.for_imposte[j].length; i++) {
+                         if (transform_Point.for_imposte[j][i][2] === "y") {
+                             simulations[formid].imposte[j][transform_Point.for_imposte[j][i][0]][transform_Point.for_imposte[j][i][1]].y += offsetY;
+                         }
+                         if (transform_Point.for_imposte[j][i][2] === "-y") {
+                             simulations[formid].imposte[j][transform_Point.for_imposte[j][i][0]][transform_Point.for_imposte[j][i][1]].y -= offsetY;
+                         }
+                     }
+                 }
+             } */
+
+            updateForm(simulations[formid], imposte);
+
+            currentx = evt.pageX;
+            currenty = evt.pageY;
+        }
+    });
+
+    $("body").on("mouseup", ".form", function () {
+        formid = -1;
+        imposte = ""
+    });
 
 });

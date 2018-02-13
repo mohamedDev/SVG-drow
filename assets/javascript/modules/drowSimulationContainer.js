@@ -12,6 +12,10 @@ var drowSimulationContainer = function (simulation, container) {
         let form_group_transform_point = document.createElementNS("http://www.w3.org/2000/svg", "g");
         form_group_transform_point.setAttributeNS(null, "id", container_transform_point + simulation.order);
         form_group_transform_point.setAttributeNS(null, "class", "form-transform-point");
+
+        let form_group_transform_imposte_point = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        form_group_transform_imposte_point.setAttributeNS(null, "id", container_transform_imposte_point + simulation.order);
+        form_group_transform_imposte_point.setAttributeNS(null, "class", "form-transform-imposte-point");
     
         let form_group_chanfrein = document.createElementNS("http://www.w3.org/2000/svg", "g");
         form_group_chanfrein.setAttributeNS(null, "id", container_chanfrein + simulation.order);
@@ -46,6 +50,7 @@ var drowSimulationContainer = function (simulation, container) {
         document.getElementById(simulation.id).appendChild(form_group_path);
         document.getElementById(simulation.id).appendChild(form_group_chanfrein);
         document.getElementById(simulation.id).appendChild(form_group_transform_point);
+        document.getElementById(simulation.id).appendChild(form_group_transform_imposte_point);
         document.getElementById("form-clippath_" + simulation.order).appendChild(clipPath);
         document.getElementById("form-clippath_" + simulation.order).appendChild(image);
         document.getElementById("clippath_" + simulation.order).appendChild(pathelem);

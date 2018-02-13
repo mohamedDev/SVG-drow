@@ -128,12 +128,13 @@ input[type="range"]:after {
     cursor: move;
 }
 
-.form rect {
+.form rect,.form circle {
     opacity: 0;
     cursor: pointer;
 }
 
-.form:hover rect {
+.form:hover rect,
+.form:hover circle {
     opacity: 1
 }
 
