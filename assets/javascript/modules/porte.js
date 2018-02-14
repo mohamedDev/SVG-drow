@@ -9,8 +9,8 @@ var imposteporte = {
         { p1: points.a5, p2: points.i5, direction: "x", change: [] }
     ],
     "lr": [
-        { p1: points.a3, p2: points.i3, direction: "x", change: [] },
-        { p1: points.a5, p2: points.i5, direction: "x" }
+        { p1: points.a3, p2: points.i3, direction: "x", change: [["1", "p1", "-x"], ["1", "p2", "-x"]] },
+        { p1: points.a5, p2: points.i5, direction: "x", change: [["0", "p1", "-x"], ["0", "p2", "-x"]] }
     ],
     "tl1": [
         { p1: points.b3, p2: points.i3, direction: "x", change: [] },
@@ -29,14 +29,14 @@ var imposteporte = {
         { p1: points.a5, p2: points.i5, direction: "x", change: [["0", "p2", "x"]] }
     ],
     "tlr1": [
-        { p1: points.b3, p2: points.i3, direction: "x" },
-        { p1: points.b5, p2: points.i5, direction: "x" },
-        { p1: points.b2, p2: points.b6, direction: "y" }
+        { p1: points.b3, p2: points.i3, direction: "x", change: [["1", "p1", "-x"], ["1", "p2", "-x"]] },
+        { p1: points.b5, p2: points.i5, direction: "x", change: [["0", "p1", "-x"], ["0", "p2", "-x"]] },
+        { p1: points.b2, p2: points.b6, direction: "y", change: [["0", "p1", "y"], ["1", "p1", "y"]] }
     ],
     "tlr2": [
-        { p1: points.b3, p2: points.b5, direction: "y" },
-        { p1: points.a3, p2: points.i3, direction: "x" },
-        { p1: points.a5, p2: points.i5, direction: "x" }
+        { p1: points.b3, p2: points.b5, direction: "y", change: [] },
+        { p1: points.a3, p2: points.i3, direction: "x", change: [["0", "p1", "x"], ["0", "p2", "-x"], ["2", "p1", "-x"], ["2", "p2", "-x"]] },
+        { p1: points.a5, p2: points.i5, direction: "x", change: [["0", "p1", "-x"], ["0", "p2", "x"], ["1", "p1", "-x"], ["1", "p2", "-x"]] }
     ],
 };
 

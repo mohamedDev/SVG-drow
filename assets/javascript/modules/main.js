@@ -309,50 +309,42 @@ $(document).ready(function () {
                 offsetY = (evt.pageY - currenty),
                 transform_Point_imposte = simulations[formid].imposte[imposte][idCurrentPoint];
 
-
             if (transform_Point_imposte.direction === "x") {
                 transform_Point_imposte.p1.x += offsetX;
                 transform_Point_imposte.p2.x += offsetX;
             }
-
             if (transform_Point_imposte.direction === "y") {
                 transform_Point_imposte.p1.y += offsetY;
                 transform_Point_imposte.p2.y += offsetY;
             }
-
-
             for (let i = 0; i < transform_Point_imposte.change.length; i++) {
-
                 if (transform_Point_imposte.change[i][2] === "x") {
                     simulations[formid].imposte[imposte]
                     [transform_Point_imposte.change[i][0]]
                     [transform_Point_imposte.change[i][1]]
-                    [transform_Point_imposte.change[i][2]] += offsetX;
+                    ["x"] += offsetX;
+                }
+                if (transform_Point_imposte.change[i][2] === "-x") {
+                    simulations[formid].imposte[imposte]
+                    [transform_Point_imposte.change[i][0]]
+                    [transform_Point_imposte.change[i][1]]
+                    ["x"] -= offsetX;
                 }
                 if (transform_Point_imposte.change[i][2] === "y") {
                     simulations[formid].imposte[imposte]
                     [transform_Point_imposte.change[i][0]]
                     [transform_Point_imposte.change[i][1]]
-                    [transform_Point_imposte.change[i][2]] += offsetY;
+                    ["y"] += offsetY;
                 }
-
+                if (transform_Point_imposte.change[i][2] === "-y") {
+                    simulations[formid].imposte[imposte]
+                    [transform_Point_imposte.change[i][0]]
+                    [transform_Point_imposte.change[i][1]]
+                    ["y"] -= offsetY;
+                }
             }
 
-            /*  for (let j in transform_Point.for_imposte) {
-                 if (j !== imposte) {
-                     for (let i = 0; i < transform_Point.for_imposte[j].length; i++) {
-                         if (transform_Point.for_imposte[j][i][2] === "y") {
-                             simulations[formid].imposte[j][transform_Point.for_imposte[j][i][0]][transform_Point.for_imposte[j][i][1]].y += offsetY;
-                         }
-                         if (transform_Point.for_imposte[j][i][2] === "-y") {
-                             simulations[formid].imposte[j][transform_Point.for_imposte[j][i][0]][transform_Point.for_imposte[j][i][1]].y -= offsetY;
-                         }
-                     }
-                 }
-             } */
-
             updateForm(simulations[formid], imposte);
-
             currentx = evt.pageX;
             currenty = evt.pageY;
         }

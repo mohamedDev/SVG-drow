@@ -1,3 +1,86 @@
+var impostefenetre = {
+    "t": [
+        { p1: points.c0, p2: points.c8, direction: "y", change: [] }
+    ],
+    "l": [
+        { p1: points.a2, p2: points.i2, direction: "x", change: [] }
+    ],
+    "r": [
+        { p1: points.a6, p2: points.i6, direction: "x", change: [] }
+    ],
+    "lr": [
+        { p1: points.a2, p2: points.i2, direction: "x", change: [["1", "p1", "-x"], ["1", "p2", "-x"]] },
+        { p1: points.a6, p2: points.i6, direction: "x", change: [["0", "p1", "-x"], ["0", "p2", "-x"]] }
+    ],
+    "tl1": [
+        { p1: points.c2, p2: points.i2, direction: "x", change: [] },
+        { p1: points.c0, p2: points.c8, direction: "y", change: [["0", "p1", "y"]] }
+    ],
+    "tl2": [
+        { p1: points.c2, p2: points.c8, direction: "y", change: [] },
+        { p1: points.a2, p2: points.i2, direction: "x", change: [["0", "p1", "x"]] }
+    ],
+    "tr1": [
+        { p1: points.c6, p2: points.i6, direction: "x", change: [] },
+        { p1: points.c0, p2: points.c8, direction: "y", change: [["0", "p1", "y"]] }
+    ],
+    "tr2": [
+        { p1: points.c0 , p2: points.c6, direction: "y", change: [] },
+        { p1: points.a6, p2: points.i6, direction: "x", change: [["0", "p2", "x"]] }
+    ],
+    "tlr1": [
+        { p1: points.c2, p2: points.i2, direction: "x", change: [["1", "p1", "-x"], ["1", "p2", "-x"]] },
+        { p1: points.c6, p2: points.i6, direction: "x", change: [["0", "p1", "-x"], ["0", "p2", "-x"]] },
+        { p1: points.c0, p2: points.c8, direction: "y", change: [["0", "p1", "y"], ["1", "p1", "y"]] },       
+        
+    ],
+    "tlr2": [
+        { p1: points.c2, p2: points.c6, direction: "y", change: [] },
+        { p1: points.a2, p2: points.i2, direction: "x", change: [["0", "p1", "x"], ["0", "p2", "-x"], ["2", "p1", "-x"], ["2", "p2", "-x"]] },
+        { p1: points.a6, p2: points.i6, direction: "x", change: [["0", "p1", "-x"], ["0", "p2", "x"], ["1", "p1", "-x"], ["1", "p2", "-x"]] }
+    ],
+};
+
+
+var for_imposte_fenetre = {
+    left1: {
+        "t": [["0", "p1", "x"]],
+        "l": [["0", "p1", "x"], ["0", "p2", "x"]],
+        "r": [],
+        "lr": [["0", "p1", "x"], ["0", "p2", "x"]],
+        "tl1": [["0", "p1", "x"], ["0", "p2", "x"], ["1", "p1", "x"]],
+        "tl2": [["0", "p1", "x"], ["1", "p1", "x"], ["1", "p2", "x"]],
+        "tr1": [["1", "p1", "x"]],
+        "tr2": [["0", "p1", "x"]],
+        "tlr1": [["0", "p1", "x"], ["0", "p2", "x"], ["2", "p1", "x"]],
+        "tlr2": [["0", "p1", "x"], ["1", "p1", "x"], ["1", "p2", "x"]]
+    },
+    left2: {
+        "t": [["0", "p1", "x"], ["0", "p2", "-x"]],
+        "l": [["0", "p1", "x"], ["0", "p2", "x"]],
+        "r": [["0", "p1", "-x"], ["0", "p2", "-x"]],
+        "lr": [["0", "p1", "x"], ["0", "p2", "x"], ["1", "p1", "-x"], ["1", "p2", "-x"]],
+        "tl1": [["0", "p1", "x"], ["0", "p2", "x"], ["1", "p1", "x"], ["1", "p2", "-x"]],
+        "tl2": [["0", "p1", "x"], ["0", "p2", "-x"], ["1", "p1", "x"], ["1", "p2", "x"]],
+        "tr1": [["0", "p1", "-x"], ["0", "p2", "-x"], ["1", "p1", "x"], ["1", "p2", "-x"]],
+        "tr2": [["0", "p1", "x"], ["0", "p2", "-x"], ["1", "p1", "-x"], ["1", "p2", "-x"]],
+        "tlr1": [["0", "p1", "x"], ["0", "p2", "x"], ["1", "p1", "-x"], ["1", "p2", "-x"], ["2", "p1", "x"], ["2", "p2", "-x"]],
+        "tlr2": [["0", "p1", "x"], ["0", "p2", "-x"], ["1", "p1", "x"], ["1", "p2", "x"], ["2", "p1", "-x"], ["2", "p2", "-x"]]
+    },
+    top: {
+        "t": [["0", "p1", "y"], ["0", "p2", "y"]],
+        "l": [["0", "p1", "y"]],
+        "r": [["0", "p1", "y"]],
+        "lr": [["0", "p1", "y"], ["1", "p1", "y"]],
+        "tl1": [["0", "p1", "y"], ["1", "p1", "y"], ["1", "p2", "y"]],
+        "tl2": [["0", "p1", "y"], ["0", "p2", "y"], ["1", "p1", "y"]],
+        "tr1": [["0", "p1", "y"], ["1", "p1", "y"], ["1", "p2", "y"]],
+        "tr2": [["0", "p1", "y"], ["0", "p2", "y"], ["1", "p1", "y"]],
+        "tlr1": [["0", "p1", "y"], ["1", "p1", "y"], ["2", "p1", "y"], ["2", "p2", "y"]],
+        "tlr2": [["0", "p1", "y"], ["0", "p2", "y"], ["1", "p1", "y"], ["2", "p1", "y"]]
+    }
+}
+
 var Fenetre = {
     f1: {
         id: 1,
@@ -9,6 +92,7 @@ var Fenetre = {
                 position: points.a4, direction: "y",
                 for: [{ point: "1", direction: "y" }, { point: "2", direction: "y" }],
                 for_pt: [{ point: "1", direction: "y", deplacement: 0.5 }],
+                for_imposte: for_imposte_fenetre.top,                
                 //limit: ["point_transform", "direction x || y", "points_sup", "point_inf"]
                 limit: ["0", "y", "0"]
             },
@@ -16,10 +100,11 @@ var Fenetre = {
                 position: points.e0, direction: "x",
                 for: [{ point: "0", direction: "x" }, { point: "1", direction: "x" }],
                 for_pt: [{ point: "0", direction: "x", deplacement: 0.5 }],
+                for_imposte: for_imposte_fenetre.left1,                
                 limit: ["1", "x", "2"]
             }
         ],
-
+        imposte: impostefenetre  
     },
     f2: {
         id: 2,
@@ -34,6 +119,7 @@ var Fenetre = {
                 limit: ["0", "y", "0", "1"]
             }
         ],
+        imposte: impostefenetre          
     },
     f3: {
         id: 3,
@@ -47,7 +133,8 @@ var Fenetre = {
                 for_pt: [],
                 limit: ["0", "y", "0", "2"]
             }
-        ]
+        ],
+        imposte: impostefenetre                  
     },
     f4: {
         id: 4,
@@ -78,7 +165,8 @@ var Fenetre = {
                 for_pt: [{ point: "1", direction: "y", deplacement: 1 }, { point: "0", direction: "y", deplacement: 1 }, { point: "2", direction: "y", deplacement: 0.5 }],
                 limit: ["1", "y", "7"]
             }
-        ]
+        ],
+        imposte: impostefenetre                  
     },
     f6: {
         id: 7,
@@ -109,7 +197,8 @@ var Fenetre = {
                 for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "2", direction: "x", deplacement: 0.5 }],
                 limit: ["0", "x", "3"]
             },
-        ]
+        ],
+        imposte: impostefenetre                  
     },
     f7: {
         id: 8,
@@ -126,7 +215,8 @@ var Fenetre = {
                 for: [{ point: "1", direction: "-x" }, { point: "2", direction: "x" }],
                 for_pt: []
             }
-        ]
+        ],
+        imposte: impostefenetre                  
     },
     f8: {
         id: 9,
@@ -143,7 +233,8 @@ var Fenetre = {
                 for: [{ point: "1", direction: "x" }],
                 for_pt: []
             }
-        ]
+        ],
+        imposte: impostefenetre                  
     },
     f9: {
         id: 10,
@@ -182,7 +273,8 @@ var Fenetre = {
                     { point: "1", direction: "x", deplacement: 0.5 }
                 ]
             }
-        ]
+        ],
+        imposte: impostefenetre                  
     },
     f10: {
         id: 10,
@@ -213,7 +305,8 @@ var Fenetre = {
                 for_pt: [{ point: "0", direction: "x", deplacement: 1 }, { point: "1", direction: "x", deplacement: 1 }, { point: "2", direction: "x", deplacement: 0.5 }],
                 limit: ["0", "x", "2"]
             },
-        ]
+        ],
+        imposte: impostefenetre                  
     },
 }
 
