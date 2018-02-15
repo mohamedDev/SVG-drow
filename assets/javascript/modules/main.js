@@ -3,7 +3,7 @@ $(document).ready(function () {
     var currentx,
         currenty,
         formid = -1,
-        gtype = "t"
+        gtype = "top"
 
     generateMenu(Porte);
 
@@ -277,11 +277,6 @@ $(document).ready(function () {
     }*/
 
 
-
-
-
-
-
     $("body").on("mousedown", ".form-transform-imposte-point circle", function (evt) {
         evt = evt || window.event;
         evt.stopPropagation()
@@ -289,12 +284,6 @@ $(document).ready(function () {
         formid = $(this).attr("data-form-id");
         idCurrentPoint = $(this).attr("data-id");
         imposte = $(this).attr("data-imposte");
-
-        console.log(formid);
-        console.log(imposte);
-        console.log(idCurrentPoint);
-        console.log("-------------");
-
 
         currentx = evt.pageX;
         currenty = evt.pageY;
