@@ -44,18 +44,18 @@ var Porte = {
         ],
         imposte: {
             "top": [
-                { p1: points.b2, p2: points.b6, direction: "y", change: [], limit_interne: [], limit_extrene: ["y", "0", "1"] }
+                { p1: points.b2, p2: points.b6, direction: "y", change: [], limit_interne: [], limit_extrene: ["0", "1"] }
             ],
             "left": [
-                { p1: points.a3, p2: points.i3, direction: "x", change: [] }
+                { p1: points.a3, p2: points.i3, direction: "x", change: [], limit_interne: [], limit_extrene: ["2", "1"] }
             ],
             "right": [
-                { p1: points.a5, p2: points.i5, direction: "x", change: [] }
+                { p1: points.a5, p2: points.i5, direction: "x", change: [], limit_interne: [], limit_extrene: ["2", "1"] }
             ],
             "left_right": [
-                { p1: points.i2, p2: points.i3, direction: "y", change: [["1", "p1", "y"], ["1", "p2", "y"]] },
+                { p1: points.i2, p2: points.i3, direction: "y", change: [["1", "p1", "y"], ["1", "p2", "y"]], limit_interne: [], limit_extrene: ["0", "1"] },
                 { p1: points.i5, p2: points.i6, direction: "y", change: [["0", "p1", "y"], ["0", "p2", "y"]] },
-                { p1: points.a3, p2: points.i3, direction: "x", change: [["3", "p1", "-x"], ["3", "p2", "-x"], ["0", "p2", "x"], ["1", "p1", "-x"]] },
+                { p1: points.a3, p2: points.i3, direction: "x", change: [["3", "p1", "-x"], ["3", "p2", "-x"], ["0", "p2", "x"], ["1", "p1", "-x"]], limit_interne: [], limit_extrene: ["2", "1"] },
                 { p1: points.a5, p2: points.i5, direction: "x", change: [["2", "p1", "-x"], ["2", "p2", "-x"], ["0", "p2", "-x"], ["1", "p1", "x"]] }
             ],
             "left_top": [
