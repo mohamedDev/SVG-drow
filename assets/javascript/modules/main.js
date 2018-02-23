@@ -300,58 +300,112 @@ $(document).ready(function () {
 
 
             console.log("------------------------------");
-            console.log("sup :" + simulations[formid].points[transform_Point_imposte.limit_extrene[0]][transform_Point_imposte.direction]);
-            console.log(transform_Point_imposte.p1[transform_Point_imposte.direction]);
-            console.log("inf :" + simulations[formid].points[transform_Point_imposte.limit_extrene[1]][transform_Point_imposte.direction]);
+            console.log(transform_Point_imposte.p1["x"]);
+            console.log(simulations[formid].imposte[imposte][transform_Point_imposte.limit_interne[1]]["p1"]["x"]);
             console.log("------------------------------");
 
 
-            if (transform_Point_imposte.direction === "y"
-                && transform_Point_imposte.p1["y"] + offsetY <= simulations[formid].points[transform_Point_imposte.limit_extrene[0]]["y"]
-                && transform_Point_imposte.p1["y"] + offsetY >= simulations[formid].points[transform_Point_imposte.limit_extrene[1]]["y"]) {
+            if (transform_Point_imposte.limit_interne[0] === "inf" && transform_Point_imposte.limit_interne[0]) {
 
-                transform_Point_imposte.p1.y += offsetY;
-                transform_Point_imposte.p2.y += offsetY;
+                if (transform_Point_imposte.direction === "y"
+                    && transform_Point_imposte.p1["y"] + offsetY <= simulations[formid].points[transform_Point_imposte.limit_extrene[0]]["y"]
+                    && transform_Point_imposte.p1["y"] + offsetY >= simulations[formid].points[transform_Point_imposte.limit_extrene[1]]["y"]
+                    && transform_Point_imposte.p1["y"] + offsetY <= simulations[formid].imposte[imposte][transform_Point_imposte.limit_interne[1]]["p1"]["y"]) {
 
-                for (let i = 0; i < transform_Point_imposte.change.length; i++) {
-                    if (transform_Point_imposte.change[i][2] === "y") {
-                        simulations[formid].imposte[imposte]
-                        [transform_Point_imposte.change[i][0]]
-                        [transform_Point_imposte.change[i][1]]
-                        ["y"] += offsetY;
+                    transform_Point_imposte.p1.y += offsetY;
+                    transform_Point_imposte.p2.y += offsetY;
+
+                    for (let i = 0; i < transform_Point_imposte.change.length; i++) {
+                        if (transform_Point_imposte.change[i][2] === "y") {
+                            simulations[formid].imposte[imposte]
+                            [transform_Point_imposte.change[i][0]]
+                            [transform_Point_imposte.change[i][1]]
+                            ["y"] += offsetY;
+                        }
+                        if (transform_Point_imposte.change[i][2] === "-y") {
+                            simulations[formid].imposte[imposte]
+                            [transform_Point_imposte.change[i][0]]
+                            [transform_Point_imposte.change[i][1]]
+                            ["y"] -= offsetY;
+                        }
                     }
-                    if (transform_Point_imposte.change[i][2] === "-y") {
-                        simulations[formid].imposte[imposte]
-                        [transform_Point_imposte.change[i][0]]
-                        [transform_Point_imposte.change[i][1]]
-                        ["y"] -= offsetY;
+                }
+
+                if (transform_Point_imposte.direction === "x"
+                    && transform_Point_imposte.p1["x"] + offsetX <= simulations[formid].points[transform_Point_imposte.limit_extrene[0]]["x"]
+                    && transform_Point_imposte.p1["x"] + offsetX >= simulations[formid].points[transform_Point_imposte.limit_extrene[1]]["x"]
+                    && transform_Point_imposte.p1["x"] + offsetX <= simulations[formid].imposte[imposte][transform_Point_imposte.limit_interne[1]]["p1"]["x"]) {
+
+
+                    transform_Point_imposte.p1.x += offsetX;
+                    transform_Point_imposte.p2.x += offsetX;
+
+                    for (let i = 0; i < transform_Point_imposte.change.length; i++) {
+                        if (transform_Point_imposte.change[i][2] === "x") {
+                            simulations[formid].imposte[imposte]
+                            [transform_Point_imposte.change[i][0]]
+                            [transform_Point_imposte.change[i][1]]
+                            ["x"] += offsetX;
+                        }
+                        if (transform_Point_imposte.change[i][2] === "-x") {
+                            simulations[formid].imposte[imposte]
+                            [transform_Point_imposte.change[i][0]]
+                            [transform_Point_imposte.change[i][1]]
+                            ["x"] -= offsetX;
+                        }
+                    }
+                }
+
+            } else {
+                if (transform_Point_imposte.direction === "y"
+                    && transform_Point_imposte.p1["y"] + offsetY <= simulations[formid].points[transform_Point_imposte.limit_extrene[0]]["y"]
+                    && transform_Point_imposte.p1["y"] + offsetY >= simulations[formid].points[transform_Point_imposte.limit_extrene[1]]["y"]
+                    && transform_Point_imposte.p1["y"] + offsetY >= simulations[formid].imposte[imposte][transform_Point_imposte.limit_interne[1]]["p1"]["y"]) {
+
+                    transform_Point_imposte.p1.y += offsetY;
+                    transform_Point_imposte.p2.y += offsetY;
+
+                    for (let i = 0; i < transform_Point_imposte.change.length; i++) {
+                        if (transform_Point_imposte.change[i][2] === "y") {
+                            simulations[formid].imposte[imposte]
+                            [transform_Point_imposte.change[i][0]]
+                            [transform_Point_imposte.change[i][1]]
+                            ["y"] += offsetY;
+                        }
+                        if (transform_Point_imposte.change[i][2] === "-y") {
+                            simulations[formid].imposte[imposte]
+                            [transform_Point_imposte.change[i][0]]
+                            [transform_Point_imposte.change[i][1]]
+                            ["y"] -= offsetY;
+                        }
+                    }
+                }
+
+                if (transform_Point_imposte.direction === "x"
+                    && transform_Point_imposte.p1["x"] + offsetX <= simulations[formid].points[transform_Point_imposte.limit_extrene[0]]["x"]
+                    && transform_Point_imposte.p1["x"] + offsetX >= simulations[formid].points[transform_Point_imposte.limit_extrene[1]]["x"]
+                    && transform_Point_imposte.p1["x"] + offsetX >= simulations[formid].imposte[imposte][transform_Point_imposte.limit_interne[1]]["p1"]["x"]) {
+
+
+                    transform_Point_imposte.p1.x += offsetX;
+                    transform_Point_imposte.p2.x += offsetX;
+
+                    for (let i = 0; i < transform_Point_imposte.change.length; i++) {
+                        if (transform_Point_imposte.change[i][2] === "x") {
+                            simulations[formid].imposte[imposte]
+                            [transform_Point_imposte.change[i][0]]
+                            [transform_Point_imposte.change[i][1]]
+                            ["x"] += offsetX;
+                        }
+                        if (transform_Point_imposte.change[i][2] === "-x") {
+                            simulations[formid].imposte[imposte]
+                            [transform_Point_imposte.change[i][0]]
+                            [transform_Point_imposte.change[i][1]]
+                            ["x"] -= offsetX;
+                        }
                     }
                 }
             }
-
-            if (transform_Point_imposte.direction === "x"
-                && transform_Point_imposte.p1["x"] + offsetX <= simulations[formid].points[transform_Point_imposte.limit_extrene[0]]["x"]
-                && transform_Point_imposte.p1["x"] + offsetX >= simulations[formid].points[transform_Point_imposte.limit_extrene[1]]["x"]) {
-
-                transform_Point_imposte.p1.x += offsetX;
-                transform_Point_imposte.p2.x += offsetX;
-
-                for (let i = 0; i < transform_Point_imposte.change.length; i++) {
-                    if (transform_Point_imposte.change[i][2] === "x") {
-                        simulations[formid].imposte[imposte]
-                        [transform_Point_imposte.change[i][0]]
-                        [transform_Point_imposte.change[i][1]]
-                        ["x"] += offsetX;
-                    }
-                    if (transform_Point_imposte.change[i][2] === "-x") {
-                        simulations[formid].imposte[imposte]
-                        [transform_Point_imposte.change[i][0]]
-                        [transform_Point_imposte.change[i][1]]
-                        ["x"] -= offsetX;
-                    }
-                }
-            }
-
             updateForm(simulations[formid], imposte);
             currentx = evt.pageX;
             currenty = evt.pageY;
