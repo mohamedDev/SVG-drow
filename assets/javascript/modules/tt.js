@@ -8,7 +8,7 @@ var points = {
     a6: { x: 300, y: 0 },
     a7: { x: 350, y: 0 },
     a8: { x: 400, y: 0 },
-
+    
     b0: { x: 0, y: 50 },
     b1: { x: 50, y: 50 },
     b2: { x: 100, y: 50 },
@@ -88,5 +88,30 @@ var points = {
     i6: { x: 300, y: 400 },
     i7: { x: 350, y: 400 },
     i8: { x: 400, y: 400 },
-
+    
 };
+if (simulations[formid].point_transform[idCurrentPoint].direction === "xy") {
+    simulations[formid].point_transform[idCurrentPoint].position.x += offsetX;
+    simulations[formid].point_transform[idCurrentPoint].position.y += offsetY;
+}
+
+
+if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "xy") {
+    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX;
+    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY;
+}
+
+
+if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "x/2") {
+    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] += offsetX / 2;
+}
+if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-x/2") {
+    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["x"] -= offsetX / 2;
+}
+
+if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "y/2") {
+    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] += offsetY / 2;
+}
+if (simulations[formid].point_transform[idCurrentPoint].for[i].direction === "-y/2") {
+    simulations[formid].points[simulations[formid].point_transform[idCurrentPoint].for[i].point]["y"] -= offsetY / 2;
+}

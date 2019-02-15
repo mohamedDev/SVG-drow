@@ -1,197 +1,254 @@
 $(document).ready(function () {
 
+    var currentx,
+        currenty,
+        formid = -1;
 
-    $( "#content" ).load( "http://www.cosmetic-valley.com/annuaire/entreprises/matieres-premieres/" );
+    generateMenu(forms);
 
-    var optionstypes = "";
+    $(document).on("click", "#menu svg", function () {
+        let form_key = $(this).attr("data-key");
+        let form = forms[form_key];
 
-    for (item in forms.type2) {
-        optionstypes += "<option value=\"" + item + "\">" + item + "</option>";
-    }
-
-    var listType = $("<select class=\"list-types\"></select>")
-    $(".aside-menu").prepend(listType);
-    $('.list-types').append(optionstypes);
-
-    $('.list-types').change(function () {
-        var objectTxt = $(this).val(),
-            object = window.forms.type2[objectTxt];
-
-        listforms.push(Object.create(window.myForms));
-        listforms[window.order].init(object, objectTxt)
-        listforms[window.order].drow();
-        window.order++;
+        selectedform = form;
+        drowForm(form, "drowforme");
     });
 
 
-    var optionsgeos = "";
-    for (item in forms.geometrique) {
-        optionsgeos += "<option value=\"" + item + "\">" + item + "</option>";
-    }
-
-    var listGeos = $("<select class=\"list-geos\"></select>")
-    $(".aside-menu").prepend(listGeos)
-    $('.list-geos').append(optionsgeos);
-
-    listforms = [];
-    $('.list-geos').change(function () {
-        var objectTxt = $(this).val(),
-		object = [];
-			for(var i = 0; i < window.forms.geometrique[objectTxt].length; i++ ) {
-				if(window.forms.geometrique[objectTxt][i] === "arcD" || window.forms.geometrique[objectTxt][i] === "arcG") {
-					object[i] =  window.forms.geometrique[objectTxt][i];
-				} else {
-					object[i] =  { x : window.forms.geometrique[objectTxt][i].x , y : window.forms.geometrique[objectTxt][i].y};
-				}
-			}
-			
-			console.log(window.forms.geometrique);
-			
-			console.log(object)
-
-        listforms[window.order] = Object.create(window.myForms);
-        listforms[window.order].init(object, objectTxt)
-        listforms[window.order].drow();
-        window.order++;
-    });
-
-
-    /*$("body").on('click', '.menu a', function (e) {
-     e.preventDefault();
-
-     var url = $(this).attr('href');
-     var width = $(this).children('img').width();
-     var height = $(this).children('img').height();
-
-     var patternsource = document.getElementById('pattern1');
-
-     patternsource.attributes["width"].value = width;
-     patternsource.attributes["height"].value = height;
-
-     var imagespattern = patternsource.children[0].attributes;
-     imagespattern["width"].value = width;
-     imagespattern["height"].value = height;
-     imagespattern["xlink:href"].value = url;
-
-     $('.form1').attr('stroke', 'url(#pattern1)');
-     $('.form2').attr('stroke', 'url(#pattern1)');
-
-     });
-
-
-     $('.text-pattern').on('change', function () {
-
-     var url = $(this).val();
-     var p = $("<a href=\"" + url + "\"><img src=\"" + url + "\"></a>");
-
-     $('.menu').append(p);
-     var url = $(this).val("");
-     });*/
-
-
-    $('.arcdeg').on('input', function () {
-
-        for (let i = 0; i < listforms.length; i++) {
-            listforms[i].update();
-        }
-    });
-
-    var currentelem = -1,
-        idCurrentPoint = -1,
-        dragelemX = 0,
-        dragelemY = 0,
-        moveElem = "";
-
-    $("body").on("mousedown", "#draggable-element", function (evt) {
+    /*$("body").on("mousedown", "#draggable-element .form-transform-line rect", function (evt) {
         evt = evt || window.event;
+        evt.stopPropagation();
 
         dragelemX = $(this).offset().left;
         dragelemY = $(this).offset().top;
+        currentelem = evt.target.dataset.formId;
+        idCurrentPoint = evt.target.dataset.id;
+        idPrevPoint = evt.target.dataset.prev;
+        idNextPoint = evt.target.dataset.next;
+        type_transform = "line";
+        form_id = -1;
+    });
 
-        if (evt.target.nodeName === "rect") {
-            currentelem = evt.target.parentElement.parentElement.attributes["data-order"].value;
-            idCurrentPoint = evt.target.attributes["data-id"].value;
+    $("body").on("mousedown", "#draggable-element .form-transform-point rect", function (evt) {
+        evt = evt || window.event;
+        evt.stopPropagation()
 
-            moveElem = "#" + currentelem + "-" + listforms[currentelem].name;
-            $(moveElem).find('path').css("opacity", "0.8");
-        }
+        currentelem = evt.target.dataset.formId;
+        idCurrentPoint = evt.target.dataset.id;
+        type_transform = "point";
+        form_id = -1;
     });
 
     $("body").on("mousemove", "#draggable-element", function (evt) {
         evt = evt || window.event;
 
         if (idCurrentPoint !== -1) {
-            var offsetX = (evt.pageX - dragelemX),
-                offsetY = (evt.pageY - dragelemY);
+            let offsetX = (evt.pageX - $(this).find("#form-transform-" + type_transform + "_" + currentelem + " rect[data-id=" + idCurrentPoint + "]").offset().left),
+                offsetY = (evt.pageY - $(this).find("#form-transform-" + type_transform + "_" + currentelem + " rect[data-id=" + idCurrentPoint + "]").offset().top);
 
-            listforms[currentelem].points[idCurrentPoint].x = (offsetX - 25);
-            listforms[currentelem].points[idCurrentPoint].y = (offsetY - 25);
-
-            listforms[currentelem].update();
-            listforms[currentelem].updatePoint(idCurrentPoint);
+            if (type_transform === "point") {
+                simulations[currentelem].points[idCurrentPoint].x += (offsetX - 15);
+                simulations[currentelem].points[idCurrentPoint].y += (offsetY - 15);
+            }
+            if (type_transform === "line") {
+                simulations[currentelem].points[idPrevPoint].x += (offsetX - 5);
+                simulations[currentelem].points[idPrevPoint].y += (offsetY - 5);
+                simulations[currentelem].points[idNextPoint].x += (offsetX - 5);
+                simulations[currentelem].points[idNextPoint].y += (offsetY - 5);
+            }
+            updateForm(simulations[currentelem]);
         }
     });
 
     $("body").on("mouseup", "#draggable-element", function () {
-        $(moveElem).find('path').css("opacity", "1");
         currentelem = -1;
         idCurrentPoint = -1;
-        moveElem = "";
         dragelemX = 0;
         dragelemY = 0;
+        idPrevPoint = -1;
+        idNextPoint = -1;
+        type_transform = "";
+        form_id = -1;
+    });*/
+
+
+    $("body").on("mousedown", ".form", function (evt) {
+        evt = evt || window.event;
+
+        form_id = $(this).attr("data-id");
+        currentx = evt.pageX;
+        currenty = evt.pageY;
+    });
+
+    $("body").on("mousemove", "#draggable-element", function (evt) {
+        evt = evt || window.event;
+
+        if (form_id !== -1) {
+            let offsetX = (evt.pageX - currentx),
+                offsetY = (evt.pageY - currenty);
+            for (let i = 0; i < simulations[form_id].points.length; i++) {
+                simulations[form_id].points[i].x += offsetX;
+                simulations[form_id].points[i].y += offsetY;
+                updateForm(simulations[form_id]);
+            }
+            for (let i = 0; i < simulations[form_id].point_transform.length; i++) {
+                simulations[form_id].point_transform[i].position.x += offsetX;
+                simulations[form_id].point_transform[i].position.y += offsetY;
+            }
+
+            currentx = evt.pageX;
+            currenty = evt.pageY;
+        }
+    });
+
+    $("body").on("mouseup", ".form", function () {
+        form_id = -1;
+    });
+
+    $("body").on("mousedown", ".form-transform-point rect", function (evt) {
+        evt = evt || window.event;
+        evt.stopPropagation()
+
+        formid = $(this).attr("data-form-id");
+        idCurrentPoint = $(this).attr("data-id");
+        currentx = evt.pageX;
+        currenty = evt.pageY;
+    });
+
+    $("body").on("mousemove", "#draggable-element", function (evt) {
+        evt = evt || window.event;
+
+        if (formid !== -1) {
+
+            let offsetX = (evt.pageX - currentx),
+                offsetY = (evt.pageY - currenty),
+                transform_Point = simulations[formid].point_transform[idCurrentPoint];
+
+            if (transform_Point.limit[3] !== undefined) {
+                if (transform_Point.limit.length > 0 && transform_Point.limit[1] === "x"
+                    && simulations[formid].point_transform[transform_Point.limit[0]].position.x + offsetX + 40 < simulations[formid].points[transform_Point.limit[2]]["x"]
+                    && simulations[formid].point_transform[transform_Point.limit[0]].position.x + offsetX - 40 > simulations[formid].points[transform_Point.limit[3]]["x"]) {
+
+                    if (transform_Point.direction === "x") {
+                        transform_Point.position.x += offsetX;
+                    }
+
+                    for (let i = 0; i < transform_Point.for.length; i++) {
+                        if (transform_Point.for[i].direction === "x") {
+                            simulations[formid].points[transform_Point.for[i].point]["x"] += offsetX;
+                        }
+                        if (transform_Point.for[i].direction === "-x") {
+                            simulations[formid].points[transform_Point.for[i].point]["x"] -= offsetX;
+                        }
+                    }
+
+                    for (let i = 0; i < transform_Point.for_pt.length; i++) {
+                        if (transform_Point.for_pt[i].direction === "x") {
+                            simulations[formid].point_transform[transform_Point.for_pt[i].point].position.x += offsetX * transform_Point.for_pt[i].deplacement;
+                        }
+                    }
+                }
+
+                if (transform_Point.limit.length > 0 && transform_Point.limit[1] === "y"
+                    && simulations[formid].point_transform[transform_Point.limit[0]].position.y + offsetY + 40 < simulations[formid].points[transform_Point.limit[2]]["y"]
+                    && simulations[formid].point_transform[transform_Point.limit[0]].position.y + offsetY - 40 > simulations[formid].points[transform_Point.limit[3]]["y"]) {
+
+
+                    if (transform_Point.direction === "y") {
+                        transform_Point.position.y += offsetY;
+                    }
+
+                    for (let i = 0; i < transform_Point.for.length; i++) {
+                        if (transform_Point.for[i].direction === "y") {
+                            simulations[formid].points[transform_Point.for[i].point]["y"] += offsetY;
+                        }
+                        if (transform_Point.for[i].direction === "-y") {
+                            simulations[formid].points[transform_Point.for[i].point]["y"] -= offsetY;
+                        }
+                    }
+
+                    for (let i = 0; i < transform_Point.for_pt.length; i++) {
+                        if (transform_Point.for_pt[i].direction === "y") {
+                            simulations[formid].point_transform[transform_Point.for_pt[i].point].position.y += offsetY * transform_Point.for_pt[i].deplacement;
+                        }
+                    }
+                }
+            } else {
+                if (transform_Point.limit.length > 0 && transform_Point.limit[1] === "x"
+                    && simulations[formid].point_transform[transform_Point.limit[0]].position.x + offsetX + 40 < simulations[formid].points[transform_Point.limit[2]]["x"]) {
+
+                    if (transform_Point.direction === "x") {
+                        transform_Point.position.x += offsetX;
+                    }
+
+                    for (let i = 0; i < transform_Point.for.length; i++) {
+                        if (transform_Point.for[i].direction === "x") {
+                            simulations[formid].points[transform_Point.for[i].point]["x"] += offsetX;
+                        }
+                        if (transform_Point.for[i].direction === "-x") {
+                            simulations[formid].points[transform_Point.for[i].point]["x"] -= offsetX;
+                        }
+                    }
+
+                    for (let i = 0; i < transform_Point.for_pt.length; i++) {
+                        if (transform_Point.for_pt[i].direction === "x") {
+                            simulations[formid].point_transform[transform_Point.for_pt[i].point].position.x += offsetX * transform_Point.for_pt[i].deplacement;
+                        }
+                    }
+                }
+
+                if (transform_Point.limit.length > 0 && transform_Point.limit[1] === "y"
+                    && simulations[formid].point_transform[transform_Point.limit[0]].position.y + offsetY + 40 < simulations[formid].points[transform_Point.limit[2]]["y"]) {
+
+
+                    if (transform_Point.direction === "y") {
+                        transform_Point.position.y += offsetY;
+                    }
+
+                    for (let i = 0; i < transform_Point.for.length; i++) {
+                        if (transform_Point.for[i].direction === "y") {
+                            simulations[formid].points[transform_Point.for[i].point]["y"] += offsetY;
+                        }
+                        if (transform_Point.for[i].direction === "-y") {
+                            simulations[formid].points[transform_Point.for[i].point]["y"] -= offsetY;
+                        }
+                    }
+
+                    for (let i = 0; i < transform_Point.for_pt.length; i++) {
+                        if (transform_Point.for_pt[i].direction === "y") {
+                            simulations[formid].point_transform[transform_Point.for_pt[i].point].position.y += offsetY * transform_Point.for_pt[i].deplacement;
+                        }
+                    }
+                }
+            }
+
+            updateForm(simulations[formid]);
+            currentx = evt.pageX;
+            currenty = evt.pageY;
+        }
 
     });
 
+    $("body").on("mouseup", "#draggable-element", function () {
+        formid = -1;
+    });
+
+    /*var y = 0;
+    var u = 0;
+    for (var key in points) {
+        if (points[key].x !== 0) {
+            points[key].x -= 30 * y;
+        }
+
+
+        if (points[key].y !== 0) {
+            points[key].y -= 30 * u;
+        }
+        y++;
+        if (y === 9) {
+            y = 0
+            u++;
+        }
+    }*/
+
 });
-
-
-/*
- window.addEventListener('load', function(){ // on page load
-
- var idCurrentPoint = -1;
-
- document.getElementById("draggable-element").addEventListener('touchstart', function(evt){
-
- evt = evt || window.event;
-
- console.log(evt);
-
- dragelemX = $(this).offset().left;
- dragelemY = $(this).offset().top;
-
- console.log(dragelemX + "//" + dragelemY);
-
- if (evt.target.nodeName === "rect") {
- idCurrentPoint = evt.target.attributes["data-id"].value;
- }
-
- }, false)
-
-
- document.getElementById("draggable-element").addEventListener('touchmove', function(evt){
-
- evt = evt || window.event;
-
- if (idCurrentPoint !== -1) {
-
- var offsetX = (evt.changedTouches[0].pageX - dragelemX),
- offsetY = (evt.changedTouches[0].pageY - dragelemY),
- t = $('.list-geos').val();
-
-
- window.forms.geometrique[t][idCurrentPoint].x = (offsetX - 25);
- window.forms.geometrique[t][idCurrentPoint].y = (offsetY - 25);
-
- drowForms(window.forms.geometrique[t]);
- $('.form1').attr('d', path);
- }
-
- }, false)
-
-
- document.getElementById("draggable-element").addEventListener('touchend', function(){
- idCurrentPoint = -1;
- var t = $('.list-geos').val();
- }, false)
-
- }, false)*/
